@@ -81,6 +81,26 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        <!-- Menu Workers -->
+        <li class="bold @if($active == 'allWorkers' || $active == 'addWorker')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Radnici')}}">{{__('Radnici')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allCouncils' || $active == 'addCouncil')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allWorkers')class="active" @endif>
+                        <a @if($active == 'allWorkers')class="active" @endif href="{{ url('admin/workers') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi radnici')}}">{{__('Svi radnici')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addWorker')class="active" @endif>
+                        <a @if($active == 'addWorker')class="active" @endif href="{{ url('admin/workers/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Radnika')}}">{{__('Dodaj Radnika')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
     </ul>
     <div class="navigation-background"></div>
     <a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out">

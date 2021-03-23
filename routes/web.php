@@ -39,4 +39,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/{id}/edit', 'Admin\CouncilsController@edit');
     Route::post('/councils/update', 'Admin\CouncilsController@update');
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
+    Route::get('/workers', 'Admin\WorkersController@index');
+    Route::get('/workers/create', 'Admin\WorkersController@create');
+    Route::post('/workers/store', 'Admin\WorkersController@store');
+    Route::get('/workers/{id}/edit', 'Admin\WorkersController@edit');
+    Route::post('/workers/update', 'Admin\WorkersController@update');
+
 });
