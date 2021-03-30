@@ -41,7 +41,7 @@ class PartnersController extends Controller
     public function store(Request $request) 
     {
         $validator = Validator::make($request->all(),[
-            'partner_id' => 'max:50',
+            'partner_code' => 'max:50',
             'name' => 'required|max:50',
             'email' => 'required|unique:partners|email',
             'phone' => 'max:50',
@@ -101,7 +101,7 @@ class PartnersController extends Controller
     public function update(Request $request) 
     {   
         $validator = Validator::make($request->all(),[
-            'partner_id' => 'max:50',
+            'partner_code' => 'max:50',
             'name' => 'required|max:50',
             'email' => 'required|email|unique:partners,email,' . $request->partner_id,
             'phone' => 'max:50',

@@ -74,7 +74,7 @@
                                                 @foreach($partners as $num => $partner)
                                                    <tr id="{{ $partner->id }}" class="gradeX">
                                                     <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                    <td>{{ $partner->partner_id }}</td>
+                                                    <td>{{ $partner->partner_code }}</td>
                                                     <td>{{ $partner->name }}</td>
                                                     <td>{{ $partner->address }}</td>
                                                     <td>{{ $partner->city }}</td>

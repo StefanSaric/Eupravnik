@@ -2,12 +2,12 @@
 @if(isset($partner))
 <input type="hidden" id="partner_id" name="partner_id" value="{{$partner->id}}">
 @endif
-<div class="row"><!--Start 'partner_id' form field-->
+<div class="row"><!--Start 'partner_code' form field-->
     <div class="input-field col s12 m6">
         <i class='material-icons prefix'>subtitles</i>
-        <input type="text" name="partner_id" id="partner_id" class="validate @error('partner_id') invalid @enderror"  
-               value="@if(isset($partner)){{ $partner->partner_id }}@else{{ old('partner_id') }}@endif" @if(isset($partner) || old('partner_id') != null) placeholder="" @endif ></input>
-        <label for="partner_id" class="">{{__('Šifra')}}</label>
+        <input type="text" name="partner_code" id="partner_id" class="validate @error('partner_code') invalid @enderror"  
+               value="@if(isset($partner)){{ $partner->partner_code }}@else{{ old('partner_code') }}@endif" @if(isset($partner) || old('partner_code') != null) placeholder="" @endif ></input>
+        <label for="partner_code" class="">{{__('Šifra')}}</label>
     </div>
 </div>
 <div class="row"><!--Start 'name' form field-->
