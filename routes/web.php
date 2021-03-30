@@ -44,7 +44,5 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/workers/store', 'Admin\WorkersController@store');
     Route::get('/workers/{id}/edit', 'Admin\WorkersController@edit');
     Route::post('/workers/update', 'Admin\WorkersController@update');
-    Route::get('/maintenance', 'Admin\MaintenancesController@index');
-    Route::get('/maintenance/create', 'Admin\MaintenancesController@create');
-    Route::post('/maintenance/store', 'Admin\MaintenancesController@store');
+
 });
