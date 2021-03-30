@@ -15,6 +15,7 @@ class MaintenancesController extends Controller
     public function index () {
 
         $maintenances = Maintenance::join('councils', 'councils.id', '=', 'maintenances.council_id')
+            ->where('maintenances.user_id', '=' ,  Auth::user()->id)
             ->select('maintenances.id as id','maintenances.date as date','councils.name as council')
             ->get();
         //dd($maintenances);
