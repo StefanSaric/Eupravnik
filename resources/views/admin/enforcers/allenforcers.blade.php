@@ -77,7 +77,7 @@
                                                     <td>{{ $enforcer->address }}</td>
                                                     <td>{{ $enforcer->city }}</td>
                                                     <td>
-                                                        <a href="{{url('/admin/councils/'.$enforcer->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi izvršitelja')}}">
+                                                        <a href="{{url('/admin/enforcers/'.$enforcer->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi izvršitelja')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr> 

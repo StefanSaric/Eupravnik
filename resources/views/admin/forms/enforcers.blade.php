@@ -1,6 +1,6 @@
 @csrf
 @if(isset($enforcer))
-<input type="hidden" id="enforcer_id" name="council_id" value="{{$enforcer->id}}">
+<input type="hidden" id="enforcer_id" name="enforcer_id" value="{{$enforcer->id}}">
 @endif
 <div class="row"><!--Start 'name' form field-->
     <div class="input-field col s12 m6">
@@ -87,8 +87,8 @@
         <i class='material-icons prefix'>verified_user</i>
         <select id="status" name="status">
             <option value="" disabled selected>{{__('Izaberite')}}</option>
-            <option value="active" @if((isset($enforcer) && $enforcer->sex == 'active') || old('sex') == 'active') selected="selected" @endif>{{__('Aktivan')}}</option>
-            <option value="inactive" @if((isset($enforcer) && $enforcer->sex == 'inactive') || old('sex') == 'inactive') selected="selected" @endif>{{__('Neaktivan')}}</option>
+            <option value="active" @if((isset($enforcer) && $enforcer->status == 'active') || old('status') == 'active') selected="selected" @endif>{{__('Aktivan')}}</option>
+            <option value="inactive" @if((isset($enforcer) && $enforcer->status == 'inactive') || old('status') == 'inactive') selected="selected" @endif>{{__('Neaktivan')}}</option>
         </select>
         <label>{{__('Status')}}</label>
     </div>

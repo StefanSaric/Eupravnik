@@ -80,26 +80,58 @@ class EnforcersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Shows form for editing enforcer.
      *
-     * @param  \App\Enforcer  $enforcer
-     * @return \Illuminate\Http\Response
+     * @param int $enforcer_id
+     * @return view(admin/enforcers/edit) w form(admin/forms/enforcers)
      */
-    public function edit(Enforcer $enforcer)
+    public function edit($id)
     {
-        //
-    }
+        $enforcer = Enforcer::find($id);
 
+        return view ('admin.enforcers.edit', ['active' => 'addEnforcer', 'enforcer' => $enforcer]);
+    }
+    
     /**
-     * Update the specified resource in storage.
+     * Stores data from enforcers form
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Enforcer  $enforcer
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return redirect(admin/enforcers)
      */
-    public function update(Request $request, Enforcer $enforcer)
-    {
-        //
+    public function update(Request $request) 
+    {   
+        //dd($request);
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|max:50',
+            'email' => 'required|email|unique:enforcers,email,' . $request->enforcer_id,
+            'phone' => 'max:50',
+            'address' => 'max:255',
+            'city' => 'required|max:50',
+            'postcode' => 'max:50',
+            'account' => 'max:50',
+            'pib' => 'max:50',
+            'maticni' => 'max:50',
+            'br_resenja' => 'required|max:50',
+            'status' => ''
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput($request->input());
+        }
+        
+        //dd($request);
+        $id = $request->enforcer_id;
+        //dd($id);
+        $enforcer = Enforcer::find($id);
+        //dd($enforcer);
+        $enforcer->update($request->all());
+        
+        Session::flash('message', 'success_'.__('Izvršitelj je uređen!'));
+
+        return redirect('admin/enforcers');
+        
     }
 
     /**

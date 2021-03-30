@@ -80,26 +80,54 @@ class PartnersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Shows form for editing enforcer.
      *
-     * @param  \App\Partner  $partner
-     * @return \Illuminate\Http\Response
+     * @param int $partner_id
+     * @return view(admin/partners/edit) w form(admin/forms/partners)
      */
-    public function edit(Partner $partner)
+    public function edit($id)
     {
-        //
-    }
+        $partner = Partner::find($id);
 
+        return view ('admin.partners.edit', ['active' => 'addPartner', 'partner' => $partner]);
+    }
+    
     /**
-     * Update the specified resource in storage.
+     * Stores data from partners form
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Partner  $partner
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return redirect(admin/partners)
      */
-    public function update(Request $request, Partner $partner)
-    {
-        //
+    public function update(Request $request) 
+    {   
+        $validator = Validator::make($request->all(),[
+            'partner_id' => 'max:50',
+            'name' => 'required|max:50',
+            'email' => 'required|email|unique:partners,email,' . $request->partner_id,
+            'phone' => 'max:50',
+            'address' => 'max:255',
+            'city' => 'required|max:50',
+            'postcode' => 'max:50',
+            'account' => 'max:50',
+            'pib' => 'max:50',
+            'maticni' => 'max:50',
+            'status' => ''
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput($request->input());
+        }
+        
+        $id = $request->partner_id;
+        $partner = Partner::find($id);
+        $partner->update($request->all());
+        
+        Session::flash('message', 'success_'.__('Partner je uređen!'));
+
+        return redirect('admin/partners');
+        
     }
 
     /**
