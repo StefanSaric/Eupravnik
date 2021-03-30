@@ -135,14 +135,19 @@ class EnforcersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes enforcer
      *
-     * @param  \App\Enforcer  $enforcer
-     * @return \Illuminate\Http\Response
+     * @param int $enforcer_id
+     * @return redirect(admin/enforcers)
      */
-    public function destroy(Enforcer $enforcer)
+    public function delete($id)
     {
-        //
+        $enforcer = Enforcer::find($id);
+        $enforcer->delete();
+        
+        Session::flash('message', 'info_'.__('Izvršitelj je obrisan!'));
+        
+        return redirect('admin/enforcers');
     }
 }
 

@@ -50,13 +50,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/enforcers/store', 'Admin\EnforcersController@store');
     Route::get('/enforcers/{id}/edit', 'Admin\EnforcersController@edit');
     Route::post('/enforcers/update', 'Admin\EnforcersController@update');
-    Route::get('/enforcers/delete/{id}', 'Admin\EnforcersController@delete');
+    Route::get('/enforcers/{id}/delete', 'Admin\EnforcersController@delete');
     
     Route::get('/partners', 'Admin\PartnersController@index');
     Route::get('/partners/create', 'Admin\PartnersController@create');
     Route::post('/partners/store', 'Admin\PartnersController@store');
     Route::get('/partners/{id}/edit', 'Admin\PartnersController@edit');
     Route::post('/partners/update', 'Admin\PartnersController@update');
-    Route::get('/partners/delete/{id}', 'Admin\CouncilsController@delete');
+    Route::get('/partners/{id}/delete', 'Admin\PartnersController@delete');
 
 });

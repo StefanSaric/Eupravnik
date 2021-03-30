@@ -131,13 +131,18 @@ class PartnersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes partner
      *
-     * @param  \App\Partner  $partner
-     * @return \Illuminate\Http\Response
+     * @param int $partner_id
+     * @return redirect(admin/partners)
      */
-    public function destroy(Partner $partner)
+    public function delete($id)
     {
-        //
+        $partner = Partner::find($id);
+        $partner->delete();
+        
+        Session::flash('message', 'info_'.__('Partner je obrisan!'));
+        
+        return redirect('admin/partners');
     }
 }

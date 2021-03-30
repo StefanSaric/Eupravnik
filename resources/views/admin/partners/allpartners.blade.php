@@ -79,8 +79,10 @@
                                                     <td>{{ $partner->address }}</td>
                                                     <td>{{ $partner->city }}</td>
                                                     <td>
-                                                        <a href="{{url('/admin/partners/'.$partner->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi partnera')}}">
+                                                        <a href="{{url('/admin/partners/'.$partner->id.'/edit')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi partnera')}}">
                                                             <i class="material-icons">create</i></a>
+                                                        <a href="{{url('/admin/partners/'.$partner->id.'/delete')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši partnera')}}">
+                                                            <i class="material-icons">delete</i></a>
                                                     </td>
                                                 </tr> 
                                                 @endforeach
