@@ -34,17 +34,32 @@ class MaintenancesController extends Controller
     public function store (Request $request) {
 
         $user = Auth::user();
-        //dd($request->all());
-
-        foreach($request->get('maintenance') as $one_maintenance)
-            $maintenance = Maintenance::create([
-                'council_id' => $request->council_id,
-                'user_id' => $user->id,
-                'date' => $request->date,
-                'name' => $one_maintenance['name'],
-                'condition' => $one_maintenance['condition'],
-                'team' => $one_maintenance['team'],
-                'priority' => $one_maintenance['priority']]);
+        //dd($request);
+        
+        $maintenances = $request->get('maintenance');
+        //dd($maintenances);
+        if($maintenances != null){
+            foreach ($maintenances as $maintenance){
+                $newMaintenance = Maintenance::create([
+                        'council_id' => $request->council_id,
+                        'user_id' => $user->id,
+                        'date' => $request->date,
+                        'name' => $maintenance['name'],
+                        'reported_condition' => $maintenance['reported_condition'],
+                        'contractor' => $maintenance['contractor'],
+                        'priority' => $maintenance['priority']
+                ]);
+            $newMaintenance->save();
+            }
+            
+        } else {
+            $newMaintenance = Maintenance::create([
+                        'council_id' => $request->council_id,
+                        'user_id' => $user->id,
+                        'date' => $request->date
+                ]);
+            $newMaintenance->save();
+        }
 
         return redirect('admin/maintenance');
     }

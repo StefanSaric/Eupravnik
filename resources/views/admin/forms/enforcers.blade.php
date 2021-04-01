@@ -4,7 +4,7 @@
 @endif
 <div class="row"><!--Start 'name' form field-->
     <div class="input-field col s12 m6">
-        <i class='material-icons prefix'>domain</i>
+        <i class='material-icons prefix'>portrait</i>
         <input type="text" name="name" id="name" class="validate @error('name') invalid @enderror"  
                value="@if(isset($enforcer)){{ $enforcer->name }}@else{{ old('name') }}@endif" @if(isset($enforcer) || old('name') != null) placeholder="" @endif ></input>
         <label for="name" class="">{{__('Naziv')}}</label>

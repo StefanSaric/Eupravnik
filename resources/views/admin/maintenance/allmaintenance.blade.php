@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Provere Stanja')}}</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Analize Stanja')}}</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
@@ -28,7 +28,7 @@
                                 <a href="{{ url('admin/') }}">Dash</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ url('admin/maintenance') }}">{{__('Provere Stanja')}}</a>
+                                <a href="{{ url('admin/maintenance') }}">{{__('Analize Stanja')}}</a>
                             </li>
                         </ol>
                     </div>
@@ -58,14 +58,14 @@
                                         {!! Form::close() !!}
                                         <div class="row">
                                             <div class="col s12">
-                                                <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovog radnika?')}}'/>
+                                                <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovu analizu?')}}'/>
                                                 <table id="datatable" class="display table-responsive">
                                                     <thead>
                                                     <tr>
                                                         <th>&nbsp;&nbsp;&nbsp;#</th>
                                                         <th>{{__('Naziv Skupštine')}}</th>
                                                         <th>{{__('Upravnik')}}</th>
-                                                        <th>{{__('Datum provere')}}</th>
+                                                        <th>{{__('Datum analize')}}</th>
                                                         <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                     </tr>
                                                     </thead>

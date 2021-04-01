@@ -44,7 +44,7 @@
         <!-- Menu Roles -->
         <li class="bold @if($active == 'allRoles' || $active == 'addRole')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Role')}}">{{__('Role')}}</span>
+                <i class="material-icons">supervisor_account</i><span class="menu-title" data-i18n="{{__('Role')}}">{{__('Role')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allRoles' || $active == 'addRole')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -64,7 +64,7 @@
         <!-- Menu Councils -->
         <li class="bold @if($active == 'allCouncils' || $active == 'addCouncil')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Skupštine stanara')}}">{{__('Skupštine stanara')}}</span>
+                <i class="material-icons">business</i><span class="menu-title" data-i18n="{{__('Skupštine stanara')}}">{{__('Skupštine stanara')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allCouncils' || $active == 'addCouncil')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -145,6 +145,26 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Temporary maitenance item -->
+        <li class="bold @if($active == 'allMaintenances' || $active == 'addMaintenance')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="{{__('Analiza Stanja')}}">{{__('Analiza Stanja')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allMaintenances' || $active == 'addMaintenance')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allMaintenances')class="active" @endif>
+                        <a @if($active == 'allMaintenances')class="active" @endif href="{{ url('admin/maintenance') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve Analize ')}}">{{__('Sve Analize ')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addMaintenance')class="active" @endif>
+                        <a @if($active == 'addMaintenance')class="active" @endif href="{{ url('admin/maintenance/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Analizu ')}}">{{__('Dodaj Analizu ')}}</span></a>
+                        </a>
                     </li>
                 </ul>
             </div>

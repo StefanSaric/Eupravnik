@@ -62,5 +62,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/maintenance', 'Admin\MaintenancesController@index');
     Route::get('/maintenance/create', 'Admin\MaintenancesController@create');
     Route::post('/maintenance/store', 'Admin\MaintenancesController@store');
+    Route::get('/maintenance/{id}/edit', 'Admin\MaintenancesController@edit');
+    Route::post('/maintenance/update', 'Admin\MaintenancesController@update');
+    Route::get('/maintenance/{id}/delete', 'Admin\MaintenancesController@delete');
 
 });
