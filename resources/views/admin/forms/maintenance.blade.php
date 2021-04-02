@@ -1,6 +1,6 @@
 @csrf
-@if(isset($maintenance))
-    <input type="hidden" id="maintenance_id" name="maintenance_id" value="{{$maintenance->id}}">
+@if(isset($one_maintenance))
+    <input type="hidden" id="maintenance_id" name="maintenance_id" value="{{$one_maintenance->id}}">
 @endif
 <div class="row"><!--Start 'Skupstina' form field-->
     <div class="input-field col s12">
@@ -17,15 +17,17 @@
     <div class="input-field col s12">
         <i class='material-icons prefix'>person</i>
         <input type="text" name="user_id" id="user_id" class="validate @error('user_id') invalid @enderror"
-               value="{{$user->name}}"></input>
+               value="@if(isset($one_maintenance)){{ $user_name }}@else{{ $user->name }}@endif" @if(isset($user) || old('name') != null) placeholder="" @endif></input>
         <label for="user_id" class="">{{__('Upravnik')}}</label>
     </div>
 </div>
 <div class="row"><!--Start 'Date' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>date_range</i>
-        <input type="date" name="date" id="date" class="validate @error('date') invalid @enderror"
-               value="{{date("Y-m-d")}}" required></input>
+        <input type="text" name="date" id="date" class="datepicker validate @error('date') invalid @enderror"
+               value="@if(isset($one_maintenance)){{ $one_maintenance->date }}@else{{ old('date') }}@endif" 
+               @if(isset($one_maintenance) || old('date') != null) placeholder="" @endif
+               required></input>
         <label for="date" class="">{{__('Datum')}}</label>
     </div>
 </div>

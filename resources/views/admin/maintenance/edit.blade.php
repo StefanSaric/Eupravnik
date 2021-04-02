@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        {!! Form::model($worker, array('method' => 'POST', 'url' => 'admin/maintenance/update', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
+                                        {!! Form::model($one_maintenance, array('method' => 'POST', 'url' => 'admin/maintenance/update', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
                                         @include('admin.forms.maintenance', ['submit' => 'Uredi'])
                                         {!! Form::close() !!}
                                         @include('admin.forms.error')

@@ -40,8 +40,6 @@ class MaintenancesController extends Controller
         $maintenances = $request->get('maintenance');
         //dd($maintenances);
         
-       
-        
         if($maintenances != null){
             foreach ($maintenances as $maintenance){
                 // There are 3 types of maintenance: 
@@ -105,4 +103,45 @@ class MaintenancesController extends Controller
 
         return redirect('admin/maintenance');
     }
+    
+    /**
+     * Shows form for editing maintenance.
+     *
+     * @param int $maintenance_id
+     * @return view(admin/maintenance/edit) w form(admin/forms/maintenance)
+     */
+    public function edit($id)
+    {
+        $oneMaintenance = Maintenance::find($id);
+        //dd($oneMaintenance);
+        $councils = Council::all();
+        $user = Auth::user();
+        $userOfMaintenance = User::find($oneMaintenance->user_id);
+        $userName = $userOfMaintenance->name;
+        //dd($user);
+
+        return view ('admin.maintenance.edit', ['active' => 'addMaintenance', 'one_maintenance' => $oneMaintenance, 'councils' => $councils, 'user' => $user, 'user_name' => $userName]);
+    }
+    
+    /**
+     * Stores data from maintenance form
+     *
+     * @param Request $request
+     * @return redirect(admin/maintenance)
+     */
+    public function update(Request $request) 
+    {   
+        
+        $id = $request->maintenance_id;
+        
+        $maintenance = Maintenance::find($id);
+        
+        $maintenance->update($request->all());
+        
+        Session::flash('message', 'success_'.__('Analiza je uređena!'));
+
+        return redirect('admin/maintenance');
+        
+    }
+    
 }

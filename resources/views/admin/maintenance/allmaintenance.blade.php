@@ -77,8 +77,10 @@
                                                             <td>{{ Auth::user()->name }}</td>
                                                             <td>{{ $maintenance->date }}</td>
                                                             <td>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Izmene')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
                                                                     <i class="material-icons">create</i></a>
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/delete')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši analizu')}}">
+                                                                    <i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

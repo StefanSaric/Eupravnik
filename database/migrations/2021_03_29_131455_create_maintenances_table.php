@@ -17,14 +17,14 @@ class CreateMaintenancesTable extends Migration
             $table->id();
             $table->integer('council_id');
             $table->integer('user_id');
-            $table->date('date');
-            $table->string('name')->nullable();
-            $table->string('reported_condition')->nullable();
-            $table->string('contractor')->nullable();
-            $table->string('priority')->nullable();
-            $table->date('element_date')->nullable();
-            $table->string('type')->nullable();
-            $table->string('status')->nullable();
+            $table->string('date', 100);
+            $table->string('name', 255)->nullable();
+            $table->string('reported_condition', 255)->nullable();
+            $table->string('contractor', 255)->nullable();
+            $table->string('priority', 100)->nullable();
+            $table->string('element_date', 100)->nullable();
+            $table->string('type', 100)->nullable();
+            $table->string('status', 100)->nullable();
             $table->timestamps();
         });
     }
