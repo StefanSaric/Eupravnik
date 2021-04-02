@@ -1,6 +1,6 @@
 @csrf
 @if(isset($maintenance))
-    <input type="hidden" id="worker_id" name="worker_id" value="{{$maintenance->id}}">
+    <input type="hidden" id="maintenance_id" name="maintenance_id" value="{{$maintenance->id}}">
 @endif
 <div class="row"><!--Start 'Skupstina' form field-->
     <div class="input-field col s12">

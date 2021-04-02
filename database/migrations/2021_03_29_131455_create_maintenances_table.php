@@ -22,6 +22,7 @@ class CreateMaintenancesTable extends Migration
             $table->string('reported_condition')->nullable();
             $table->string('contractor')->nullable();
             $table->string('priority')->nullable();
+            $table->date('element_date')->nullable();
             $table->string('type')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
