@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/edit.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/maintenance.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/allmaintenance.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/public/js/maintenances-form.js</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/EnforcersController.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/create.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/layouts/sidebar.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/routes/web.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Maintenance.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/MaintenancesController.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/enforcers/allenforcers.blade.php</file>
         </group>
     </open-files>
 </project-private>

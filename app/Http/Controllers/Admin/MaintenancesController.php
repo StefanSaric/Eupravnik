@@ -17,11 +17,35 @@ class MaintenancesController extends Controller
         $maintenances = Maintenance::join('councils', 'councils.id', '=', 'maintenances.council_id')
             ->where('maintenances.user_id', '=' ,  Auth::user()->id)
             ->where('maintenances.type', '=', 'check')
-            ->select('maintenances.id as id','maintenances.date as date','councils.name as council')
+            ->select('maintenances.id as id','maintenances.date as date','maintenances.group_id as group_id','councils.name as council')
             ->get();
         //dd($maintenances);
 
         return view('admin.maintenance.allmaintenance', ['active' => 'allMaintenances', 'maintenances' => $maintenances]);
+    }
+    
+    public function onemaintenance ($group_id) {
+
+        $maintenances = Maintenance::join('councils', 'councils.id', '=', 'maintenances.council_id')
+            ->where('maintenances.user_id', '=' ,  Auth::user()->id)
+            ->where('maintenances.type', '=', 'check')
+            ->where('group_id', '=', $group_id)
+            ->select('maintenances.id as id',
+                    'maintenances.date as date',
+                    'maintenances.group_id as group_id',
+                    'maintenances.name as name',
+                    'maintenances.reported_condition as reported_condition',
+                    'maintenances.contractor as contractor',
+                    'maintenances.priority as priority',
+                    'maintenances.element_date as element_date',
+                    'councils.name as council')
+            ->get();
+        
+        
+        //$maintenances = Maintenance::where('group_id', '=', $group_id)->get();
+        //dd($maintenances);
+
+        return view('admin.maintenance.onemaintenance', ['active' => 'allMaintenances', 'maintenances' => $maintenances]);
     }
 
     public function create (){
@@ -36,12 +60,15 @@ class MaintenancesController extends Controller
 
         $user = Auth::user();
         //dd($request);
-        
+        $date = date('Y-m-d', strtotime($request->date));
+        $groupId = $user->id . '_' . $request->council_id . '_' . $date;
         $maintenances = $request->get('maintenance');
-        //dd($maintenances);
+        
+        //dd($maintenances);       
         
         if($maintenances != null){
             foreach ($maintenances as $maintenance){
+                
                 // There are 3 types of maintenance: 
                 // 1)Provera stanja-CHECK, 2)Program odrzavanja-PROGRAM, 3)Radni nalog-ASSIGNMENT
                 // When check box is checked, on submit btn, 2 types of maintenance will be created: 1) and 2)
@@ -50,24 +77,26 @@ class MaintenancesController extends Controller
                     $newMaintenanceCheck = Maintenance::create([
                                 'council_id' => $request->council_id,
                                 'user_id' => $user->id,
-                                'date' => $request->date,
+                                'group_id' => $groupId,
+                                'date' => $date,
                                 'name' => $maintenance['name'],
                                 'reported_condition' => $maintenance['reported_condition'],
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
-                                'element_date' => $maintenance['element_date'],
+                                'element_date' => date('Y-m-d',strtotimime($maintenance['element_date'])),
                                 'type' => 'check'
                     ]);
                     
                     $newMaintenanceProgram = Maintenance::create([
                                 'council_id' => $request->council_id,
                                 'user_id' => $user->id,
-                                'date' => $request->date,
+                                'group_id' => $groupId,
+                                'date' => $date,
                                 'name' => $maintenance['name'],
                                 'reported_condition' => $maintenance['reported_condition'],
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
-                                'element_date' => $maintenance['element_date'],
+                                'element_date' => date('Y-m-d',strtotimime($maintenance['element_date'])),
                                 'type' => 'program'
                     ]);
                     
@@ -79,12 +108,13 @@ class MaintenancesController extends Controller
                     $newMaintenanceCheck = Maintenance::create([
                                 'council_id' => $request->council_id,
                                 'user_id' => $user->id,
-                                'date' => $request->date,
+                                'group_id' => $groupId,
+                                'date' => $date,
                                 'name' => $maintenance['name'],
                                 'reported_condition' => $maintenance['reported_condition'],
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
-                                'element_date' => $maintenance['element_date'],
+                                'element_date' => date('Y-m-d',strtotimime($maintenance['element_date'])),
                                 'type' => 'check'
                     ]);
                     $newMaintenanceCheck->save();
@@ -95,7 +125,8 @@ class MaintenancesController extends Controller
             $newMaintenance = Maintenance::create([
                         'council_id' => $request->council_id,
                         'user_id' => $user->id,
-                        'date' => $request->date,
+                        'group_id' => $groupId,
+                        'date' => $date,
                         'type' => 'check'
                 ]);
             $newMaintenance->save();

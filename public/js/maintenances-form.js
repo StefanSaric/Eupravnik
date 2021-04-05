@@ -1,3 +1,22 @@
+var currYear = (new Date()).getFullYear();
+$(document).ready(function () {
+    $('.datepicker').datepicker({
+        i18n: {
+            cancel: 'Otkaži',
+            clear: 'Obriši',
+            done: 'U redu',
+            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+            weekdays: ["Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"],
+            weekdaysShort: ["Pon", "Uto", "Sre", "Čet", "Pet", "Sub", "Ned"],
+            weekdaysAbbrev: ["P", "U", "S", "Č", "P", "S", "N"]
+        },
+        defaultDate: new Date(),
+        yearRange: [1928, currYear],
+        format: "yyyy-mm-dd"
+    });    
+});
+
 var value = $('#numofmaintenance').val();
 if (value == 0) {
     var counter = 1;
@@ -75,8 +94,8 @@ $(document).on('click', "#addMaintenance", function() {
                     </div>
                     <div class="input-field col s12 m4 l4">
                         <i class='material-icons prefix'>date_range</i>
-                        <input type="text" name="maintenance[`+counter+`][element_date]" id="maintenance[`+counter+`][element_date]" placeholder="Datum provere" onfocus="(this.type='date')"
-                            value="" required></input>
+                        <input type="text" name="maintenance[`+counter+`][element_date]" id="maintenance[`+counter+`][element_date]" placeholder="Datum provere"  
+                         class="datepicker" value="" required></input>
                     </div>
                 </div>
                 <div class="row">
@@ -100,8 +119,23 @@ $(document).on('click', "#addMaintenance", function() {
     counter++;
     div.append(html);
     
-    $(document).ready(function(){
-    $('select').formSelect();
+    $(document).ready(function () {
+        $('select').formSelect();
+        $('.datepicker').datepicker({
+            i18n: {
+                cancel: 'Otkaži',
+                clear: 'Obriši',
+                done: 'U redu',
+                months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
+                monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+                weekdays: ["Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"],
+                weekdaysShort: ["Pon", "Uto", "Sre", "Čet", "Pet", "Sub", "Ned"],
+                weekdaysAbbrev: ["P", "U", "S", "Č", "P", "S", "N"]
+            },
+            defaultDate: new Date(),
+            yearRange: [1928, currYear],
+            format: "yyyy-mm-dd"
+        });
     });
     
 });

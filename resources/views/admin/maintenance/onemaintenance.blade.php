@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Analize Stanja')}}</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Analiza Stanja')}}</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
@@ -28,7 +28,7 @@
                                 <a href="{{ url('admin/') }}">Dash</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ url('admin/maintenance') }}">{{__('Analize Stanja')}}</a>
+                                <a href="{{ url('admin/maintenance') }}">{{__('Analiza Stanja')}}</a>
                             </li>
                         </ol>
                     </div>
@@ -66,8 +66,11 @@
                                                         <th>{{__('Naziv Skupštine')}}</th>
                                                         <th>{{__('Upravnik')}}</th>
                                                         <th>{{__('Datum analize')}}</th>
-                                                        <!--<th></th>-->
-                                                        <th style="min-width: 85px">{{__('Akcije')}}</th>
+                                                        <th>{{__('Naziv elementa')}}</th>
+                                                        <th>{{__('Stanje')}}</th>
+                                                        <th>{{__('Izvođač')}}</th>
+                                                        <th>{{__('Prioritet')}}</th>
+                                                        <th>{{__('Datum provere elementa')}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -76,29 +79,12 @@
                                                             <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                             <td>{{ $maintenance->council }}</td>
                                                             <td>{{ Auth::user()->name }}</td>
-                                                            <td>{{ date('d.m.Y',strtotime($maintenance->date)) }}</td>
-                                                            <!--<td>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped mb-6 waves-effect waves-light " data-position="top" data-tooltip="{{__('Pogledaj analizu')}}">
-                                                                    <i class="material-icons">search</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped mb-6 waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu')}}">
-                                                                    <i class="material-icons">assignment</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped mb-6 waves-effect waves-light " data-position="top" data-tooltip="{{__('Napravi program')}}">
-                                                                    <i class="material-icons">assignment_turned_in</i></a>
-                                                            </td>-->
-                                                            <td style='white-space: nowrap; vertical-align: middle'>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/show')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Pogledaj analizu')}}">
-                                                                    <i class="material-icons">search</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u PDF-u')}}">
-                                                                    <i class="material-icons">picture_as_pdf</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u XLSX-u')}}">
-                                                                    <i class="material-icons">library_books</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Napravi program')}}">
-                                                                    <i class="material-icons">exit_to_app</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
-                                                                    <i class="material-icons">create</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/delete')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Obriši analizu')}}">
-                                                                    <i class="material-icons">delete</i></a>
-                                                            </td>
+                                                            <td>{{ date('d.m.Y', strtotime($maintenance->date)) }}</td>
+                                                            <td>{{ $maintenance->name }}</td>
+                                                            <td>{{ $maintenance->reported_condition }}</td>
+                                                            <td>{{ $maintenance->contractor }}</td>
+                                                            <td>{{ $maintenance->priority }}</td>
+                                                            <td>{{ date('d.m.Y', strtotime($maintenance->element_date)) }}</td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
