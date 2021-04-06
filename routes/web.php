@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/partners/{id}/delete', 'Admin\PartnersController@delete');
 
     Route::get('/maintenance', 'Admin\MaintenancesController@index');
+    Route::get('/maintenance/{group_id}/show', 'Admin\MaintenancesController@onemaintenance');
     Route::get('/maintenance/create', 'Admin\MaintenancesController@create');
     Route::post('/maintenance/store', 'Admin\MaintenancesController@store');
     Route::get('/maintenance/{id}/edit', 'Admin\MaintenancesController@edit');
