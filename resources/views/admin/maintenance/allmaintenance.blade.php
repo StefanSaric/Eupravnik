@@ -92,6 +92,8 @@
                                                                     <i class="material-icons">picture_as_pdf</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u XLSX-u')}}">
                                                                     <i class="material-icons">library_books</i></a>
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Dodaj dokument')}}">
+                                                                    <i class="material-icons">add_to_photos</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Napravi program')}}">
                                                                     <i class="material-icons">exit_to_app</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">

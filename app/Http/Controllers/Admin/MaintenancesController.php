@@ -8,6 +8,7 @@ use App\Maintenance;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 class MaintenancesController extends Controller
@@ -83,7 +84,7 @@ class MaintenancesController extends Controller
                                 'reported_condition' => $maintenance['reported_condition'],
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
-                                'element_date' => date('Y-m-d',strtotimime($maintenance['element_date'])),
+                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
                                 'type' => 'check'
                     ]);
                     
@@ -96,7 +97,7 @@ class MaintenancesController extends Controller
                                 'reported_condition' => $maintenance['reported_condition'],
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
-                                'element_date' => date('Y-m-d',strtotimime($maintenance['element_date'])),
+                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
                                 'type' => 'program'
                     ]);
                     
@@ -114,7 +115,7 @@ class MaintenancesController extends Controller
                                 'reported_condition' => $maintenance['reported_condition'],
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
-                                'element_date' => date('Y-m-d',strtotimime($maintenance['element_date'])),
+                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
                                 'type' => 'check'
                     ]);
                     $newMaintenanceCheck->save();
@@ -173,6 +174,22 @@ class MaintenancesController extends Controller
 
         return redirect('admin/maintenance');
         
+    }
+    
+    /**
+     * Deletes maintenance
+     *
+     * @param int $maintenance_id
+     * @return redirect(admin/maintenance)
+     */
+    public function delete($id)
+    {
+        $maintenance = Maintenance::find($id);
+        $maintenance->delete();
+        
+        Session::flash('message', 'info_'.__('Analiza je obrisana!'));
+        
+        return redirect('admin/maintenance');
     }
     
 }

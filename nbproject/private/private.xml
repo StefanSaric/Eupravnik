@@ -5,11 +5,10 @@
         <group>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/edit.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/maintenance.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/allmaintenance.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/public/js/maintenances-form.js</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/create.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/layouts/sidebar.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/routes/web.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/MaintenancesController.php</file>
         </group>
     </open-files>
 </project-private>
