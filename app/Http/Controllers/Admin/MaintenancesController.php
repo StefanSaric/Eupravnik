@@ -16,9 +16,11 @@ class MaintenancesController extends Controller
     public function index () {
 
         $maintenances = Maintenance::join('councils', 'councils.id', '=', 'maintenances.council_id')
+            ->join('users', 'users.id', '=', 'maintenances.user_id')
             ->where('maintenances.user_id', '=' ,  Auth::user()->id)
             ->where('maintenances.type', '=', 'check')
-            ->select('maintenances.id as id','maintenances.date as date','maintenances.group_id as group_id','councils.name as council')
+            ->groupBy('maintenances.group_id', 'users.name', 'councils.name', 'maintenances.date')
+            ->select('maintenances.date as date','maintenances.group_id as group_id','councils.name as council', 'users.name as user')
             ->get();
         //dd($maintenances);
 
@@ -142,17 +144,20 @@ class MaintenancesController extends Controller
      * @param int $maintenance_id
      * @return view(admin/maintenance/edit) w form(admin/forms/maintenance)
      */
-    public function edit($id)
+    public function edit($groupId)
     {
-        $oneMaintenance = Maintenance::find($id);
+        $maintenancesInGroup = Maintenance::where('group_id', '=', $groupId)->get();
+        dd($maintenancesInGroup);
+        $oneMaintenance = Maintenance::where('group_id', '=', $groupId)->first();
         //dd($oneMaintenance);
         $councils = Council::all();
         $user = Auth::user();
         $userOfMaintenance = User::find($oneMaintenance->user_id);
         $userName = $userOfMaintenance->name;
+        //$all_elements = Maintenance::
         //dd($user);
 
-        return view ('admin.maintenance.edit', ['active' => 'addMaintenance', 'one_maintenance' => $oneMaintenance, 'councils' => $councils, 'user' => $user, 'user_name' => $userName]);
+        return view ('admin.maintenance.edit', ['active' => 'addMaintenance', 'one_maintenance' => $oneMaintenance, 'councils' => $councils, 'user' => $user, 'user_name' => $userName, 'maintenances_in_group' => $maintenancesInGroup]);
     }
     
     /**
@@ -177,15 +182,20 @@ class MaintenancesController extends Controller
     }
     
     /**
-     * Deletes maintenance
+     * Deletes all maintenances in the same group
      *
-     * @param int $maintenance_id
+     * @param string $group_id
      * @return redirect(admin/maintenance)
      */
-    public function delete($id)
+    public function delete($group_id)
     {
-        $maintenance = Maintenance::find($id);
-        $maintenance->delete();
+        $maintenances = Maintenance::where('group_id', '=', $group_id);
+        
+        foreach ($maintenances as $maintenance){
+            
+            $maintenance->delete();
+            
+        }
         
         Session::flash('message', 'info_'.__('Analiza je obrisana!'));
         

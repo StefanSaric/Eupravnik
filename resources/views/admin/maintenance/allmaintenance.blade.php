@@ -96,7 +96,7 @@
                                                                     <i class="material-icons">add_to_photos</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Napravi program')}}">
                                                                     <i class="material-icons">exit_to_app</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
                                                                     <i class="material-icons">create</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->id.'/delete')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Obriši analizu')}}">
                                                                     <i class="material-icons">delete</i></a>

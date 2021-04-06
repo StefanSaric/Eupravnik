@@ -31,6 +31,11 @@
         <label for="date" class="">{{__('Datum')}}</label>
     </div>
 </div>
+<!-- If CREATE then the button that adds maintenance elements is added
+     If EDIT then element of maintenance is added -->
+@if(isset($one_maintenance))
+
+@else
 <div class="row"><!--Start add button-->
     <div id="add-boxes-old-unused">
         <input type="hidden" id="numofmaintenance" name="numofmaintenance" @if(isset($maintenance)) value="{{count($maintenance)}}" @else value="0" @endif>
@@ -41,6 +46,7 @@
         </div>
     </div>
 </div>
+@endif
 <div id="add-boxes">
 </div>
 <div class="row"><!--Start submit button-->

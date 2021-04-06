@@ -113,7 +113,6 @@ $(document).on('click', "#addMaintenance", function() {
                     </div>
                 </div>
             </div>
-            
         </div>
     `;
     counter++;
