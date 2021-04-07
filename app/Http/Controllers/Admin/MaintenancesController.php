@@ -44,11 +44,10 @@ class MaintenancesController extends Controller
                     'councils.name as council')
             ->get();
         
-        
-        //$maintenances = Maintenance::where('group_id', '=', $group_id)->get();
-        //dd($maintenances);
+        // Extracting council name for the sake of the bread crumb. All maintenances share the same council so it is irrelevant from which one you extract it.
+        $councilName = $maintenances[0]->council;
 
-        return view('admin.maintenance.onemaintenance', ['active' => 'allMaintenances', 'maintenances' => $maintenances]);
+        return view('admin.maintenance.onemaintenance', ['active' => 'allMaintenances', 'maintenances' => $maintenances, 'council_name' => $councilName]);
     }
 
     public function create (){
@@ -60,9 +59,9 @@ class MaintenancesController extends Controller
     }
 
     public function store (Request $request) {
-
+        
+        //dd($request->all());
         $user = Auth::user();
-        //dd($request);
         $date = date('Y-m-d', strtotime($request->date));
         $groupId = $user->id . '_' . $request->council_id . '_' . $date;
         $maintenances = $request->get('maintenance');
@@ -147,17 +146,23 @@ class MaintenancesController extends Controller
     public function edit($groupId)
     {
         $maintenancesInGroup = Maintenance::where('group_id', '=', $groupId)->get();
-        dd($maintenancesInGroup);
+        //dd($maintenancesInGroup);
         $oneMaintenance = Maintenance::where('group_id', '=', $groupId)->first();
         //dd($oneMaintenance);
         $councils = Council::all();
+        
+        // Active user
         $user = Auth::user();
+        // User from the DB
         $userOfMaintenance = User::find($oneMaintenance->user_id);
         $userName = $userOfMaintenance->name;
-        //$all_elements = Maintenance::
-        //dd($user);
+        $userId = $userOfMaintenance->id;
+        
+        $councilId = $oneMaintenance->council_id;
 
-        return view ('admin.maintenance.edit', ['active' => 'addMaintenance', 'one_maintenance' => $oneMaintenance, 'councils' => $councils, 'user' => $user, 'user_name' => $userName, 'maintenances_in_group' => $maintenancesInGroup]);
+        return view ('admin.maintenance.edit', ['active' => 'addMaintenance', 'one_maintenance' => $oneMaintenance, 'councils' => $councils, 
+            'user' => $user, 'user_name' => $userName, 'user_id' => $userId, 'maintenances_in_group' => $maintenancesInGroup, 'group_id' => $groupId,
+            'council_id' => $councilId]);
     }
     
     /**
@@ -168,12 +173,88 @@ class MaintenancesController extends Controller
      */
     public function update(Request $request) 
     {   
+        //dd($request->all());
+        // maintenances are elements in a maintenance
+        $maintenances = $request->get('maintenance');
+        $groupId = $request->group_id;
+        $date = date('Y-m-d', strtotime($request->date));
         
-        $id = $request->maintenance_id;
+        $maintenancesInGroup = Maintenance::where('group_id', '=', $groupId)->get();
+        //dd($maintenancesInGroup);
+        // Delete old/existing maintenance entries so that the new/edited ones could be saved instead
+        foreach ($maintenancesInGroup as $maintenance){
+            
+            $maintenance->delete();
+        }
         
-        $maintenance = Maintenance::find($id);
+        // Saving new/edited maintenances the same way as in store() method
+        if($maintenances != null){
+            foreach ($maintenances as $maintenance){
+                
+                // There are 3 types of maintenance: 
+                // 1)Provera stanja-CHECK, 2)Program odrzavanja-PROGRAM, 3)Radni nalog-ASSIGNMENT
+                // When check box is checked, on submit btn, 2 types of maintenance will be created: 1) and 2)
+                //!!! The difference is only in 'type' !!!
+                if(isset($maintenance['type_check'])){
+                    
+                    $newMaintenanceCheck = Maintenance::create([
+                                'council_id' => $request->council_id,
+                                'user_id' => $request->user_id,
+                                'group_id' => $groupId,
+                                'date' => $date,
+                                'name' => $maintenance['name'],
+                                'reported_condition' => $maintenance['reported_condition'],
+                                'contractor' => $maintenance['contractor'],
+                                'priority' => $maintenance['priority'],
+                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
+                                'type' => 'check'
+                    ]);
+                    
+                    $newMaintenanceProgram = Maintenance::create([
+                                'council_id' => $request->council_id,
+                                'user_id' => $request->user_id,
+                                'group_id' => $groupId,
+                                'date' => $date,
+                                'name' => $maintenance['name'],
+                                'reported_condition' => $maintenance['reported_condition'],
+                                'contractor' => $maintenance['contractor'],
+                                'priority' => $maintenance['priority'],
+                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
+                                'type' => 'program'
+                    ]);
+                    
+                    $newMaintenanceCheck->save();
+                    $newMaintenanceProgram->save();
+                    
+                } else {
+
+                    $newMaintenanceCheck = Maintenance::create([
+                                'council_id' => $request->council_id,
+                                'user_id' => $request->user_id,
+                                'group_id' => $groupId,
+                                'date' => $date,
+                                'name' => $maintenance['name'],
+                                'reported_condition' => $maintenance['reported_condition'],
+                                'contractor' => $maintenance['contractor'],
+                                'priority' => $maintenance['priority'],
+                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
+                                'type' => 'check'
+                    ]);
+                    $newMaintenanceCheck->save();
+                }
+            }
+            
+        } else {
+            $newMaintenance = Maintenance::create([
+                        'council_id' => $request->council_id,
+                        'user_id' => $request->user_id,
+                        'group_id' => $groupId,
+                        'date' => $date,
+                        'type' => 'check'
+                ]);
+            $newMaintenance->save();
+        }
         
-        $maintenance->update($request->all());
         
         Session::flash('message', 'success_'.__('Analiza je uređena!'));
 
@@ -189,12 +270,11 @@ class MaintenancesController extends Controller
      */
     public function delete($group_id)
     {
-        $maintenances = Maintenance::where('group_id', '=', $group_id);
+        $maintenances = Maintenance::where('group_id', '=', $group_id)->get();
         
         foreach ($maintenances as $maintenance){
             
-            $maintenance->delete();
-            
+            $maintenance->delete();            
         }
         
         Session::flash('message', 'info_'.__('Analiza je obrisana!'));

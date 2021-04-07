@@ -17,12 +17,13 @@ $(document).ready(function () {
     });    
 });
 
-var value = $('#numofmaintenance').val();
-if (value == 0) {
+var valueString = $('#numofmaintenance').val();
+var valueInt = parseInt(valueString);
+if (valueInt == 0) {
     var counter = 1;
 }
 else{
-    var counter = value;
+    var counter = valueInt;
 }
 
 //$(document).on('click', "#addMaintenance", function() {

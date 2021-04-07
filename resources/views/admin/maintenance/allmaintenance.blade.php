@@ -88,17 +88,17 @@
                                                             <td style='white-space: nowrap; vertical-align: middle'>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/show')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Pogledaj analizu')}}">
                                                                     <i class="material-icons">search</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u PDF-u')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u PDF-u')}}">
                                                                     <i class="material-icons">picture_as_pdf</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u XLSX-u')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Izvezi analizu u XLSX-u')}}">
                                                                     <i class="material-icons">library_books</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Dodaj dokument')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Dodaj dokument')}}">
                                                                     <i class="material-icons">add_to_photos</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Napravi program')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class=" tooltipped waves-effect waves-light " data-position="top" data-tooltip="{{__('Napravi program')}}">
                                                                     <i class="material-icons">exit_to_app</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
                                                                     <i class="material-icons">create</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->id.'/delete')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Obriši analizu')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/delete')}}" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="{{__('Obriši analizu')}}">
                                                                     <i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>
