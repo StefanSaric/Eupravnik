@@ -24,6 +24,15 @@ class CouncilsController extends Controller
         return view('admin.councils.allcouncils', ['active' => 'allCouncils', 'councils' => $councils]);
     }
     
+    public function show($id)
+    {
+        $council = Council::find($id);
+        $addresses = CouncilAddress::where('council_id', '=', $id)->get();
+        $acttab = 'addresses';
+        
+        return view('admin.councils.show', ['active' => 'allCouncils', 'council' => $council, 'addresses' => $addresses, 'acttab' => $acttab]);
+    }
+    
     /**
      * Shows form for inserting new council.
      *
@@ -85,7 +94,7 @@ class CouncilsController extends Controller
     /**
      * Deletes role =!!!! INACTIVE FUNCTION !!!!=
      *
-     * @param int $role_id
+     * @param int $council_id
      * @return redirect(admin/roles)
      */
     public function delete($id)
@@ -96,5 +105,30 @@ class CouncilsController extends Controller
         Session::flash('message', 'info_'.__('Skupština je obrisana!'));
         
         return redirect('admin/councils');
+    }
+    
+    public function addAddress($id)
+    {
+        
+    }
+    
+    public function storeAddress(Request $request)
+    {
+        
+    }
+    
+    public function editAddress($id)
+    {
+        
+    }
+    
+    public function updateAddress(Request $request)
+    {
+        
+    }
+    
+    public function addUnit($id)
+    {
+        
     }
 }

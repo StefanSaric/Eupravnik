@@ -24,7 +24,7 @@
                             <a href="{{ url('admin/') }}">Dash</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ url('admin/users') }}">{{__('Skupštine stanara')}}</a>
+                            <a href="{{ url('admin/councils') }}">{{__('Skupštine stanara')}}</a>
                         </li>
                         <li class="breadcrumb-item">
                             {{__('Uredi')}}
@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    {!! Form::model($user, array('method' => 'POST', 'url' => 'admin/councils/update', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
+                                    {!! Form::model($council, array('method' => 'POST', 'url' => 'admin/councils/update', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
                                     @include('admin.forms.councils', ['submit' => 'Uredi'])
                                     {!! Form::close() !!}
                                     @include('admin.forms.error')

@@ -75,7 +75,7 @@
                                                 @foreach($councils as $num => $council)
                                                    <tr id="{{ $council->id }}" class="gradeX">
                                                     <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                    <td>{{ $council->name }}</td>
+                                                    <td><a href='{{url('/admin/councils/show/'.$council->id)}}'>{{ $council->name }}</a></td>
                                                     <td>{{ $council->short_name }}</td>
                                                     <td>{{ $council->city }}</td>
                                                     <td>{{ $council->area }}</td>

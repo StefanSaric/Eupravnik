@@ -21,8 +21,8 @@ class CreateCouncilsTable extends Migration
             $table->string('area');
             $table->string('account');
             $table->string('maticni');
-            $table->float('latitude');
-            $table->float('longitude');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->string('pib');
             $table->string('phone');
             $table->timestamps();
