@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class MaintenancesController extends Controller
@@ -63,75 +64,90 @@ class MaintenancesController extends Controller
         //dd($request->all());
         $user = Auth::user();
         $date = date('Y-m-d', strtotime($request->date));
-        $groupId = $user->id . '_' . $request->council_id . '_' . $date;
+        //$groupId = $user->id . '_' . $request->council_id . '_' . $date;
         $maintenances = $request->get('maintenance');
         
         //dd($maintenances);       
-        
-        if($maintenances != null){
-            foreach ($maintenances as $maintenance){
-                
-                // There are 3 types of maintenance: 
-                // 1)Provera stanja-CHECK, 2)Program odrzavanja-PROGRAM, 3)Radni nalog-ASSIGNMENT
-                // When check box is checked, on submit btn, 2 types of maintenance will be created: 1) and 2)
-                if(isset($maintenance['type_check'])){
-                    
-                    $newMaintenanceCheck = Maintenance::create([
-                                'council_id' => $request->council_id,
-                                'user_id' => $user->id,
-                                'group_id' => $groupId,
-                                'date' => $date,
-                                'name' => $maintenance['name'],
-                                'reported_condition' => $maintenance['reported_condition'],
-                                'contractor' => $maintenance['contractor'],
-                                'priority' => $maintenance['priority'],
-                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
-                                'type' => 'check'
-                    ]);
-                    
-                    $newMaintenanceProgram = Maintenance::create([
-                                'council_id' => $request->council_id,
-                                'user_id' => $user->id,
-                                'group_id' => $groupId,
-                                'date' => $date,
-                                'name' => $maintenance['name'],
-                                'reported_condition' => $maintenance['reported_condition'],
-                                'contractor' => $maintenance['contractor'],
-                                'priority' => $maintenance['priority'],
-                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
-                                'type' => 'program'
-                    ]);
-                    
-                    $newMaintenanceCheck->save();
-                    $newMaintenanceProgram->save();
-                    
-                } else {
-
-                    $newMaintenanceCheck = Maintenance::create([
-                                'council_id' => $request->council_id,
-                                'user_id' => $user->id,
-                                'group_id' => $groupId,
-                                'date' => $date,
-                                'name' => $maintenance['name'],
-                                'reported_condition' => $maintenance['reported_condition'],
-                                'contractor' => $maintenance['contractor'],
-                                'priority' => $maintenance['priority'],
-                                'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
-                                'type' => 'check'
-                    ]);
-                    $newMaintenanceCheck->save();
-                }
-            }
+        $transaction = DB::transaction(function () use($request, $maintenances, $date) {
             
-        } else {
-            $newMaintenance = Maintenance::create([
-                        'council_id' => $request->council_id,
-                        'user_id' => $user->id,
-                        'group_id' => $groupId,
-                        'date' => $date,
-                        'type' => 'check'
+            $maxGroupId = Maintenance::max('group_id');
+            
+            if($maxGroupId == 0 || $maxGroupId == null){
+                $groupId = 1;
+            }else {
+                $groupId = $maxGroupId + 1;
+            }
+
+            if ($maintenances != null) {
+                foreach ($maintenances as $maintenance) {
+
+                    // There are 3 types of maintenance: 
+                    // 1)Provera stanja-CHECK, 2)Program odrzavanja-PROGRAM, 3)Radni nalog-ASSIGNMENT
+                    // When check box is checked, on submit btn, 2 types of maintenance will be created: 1) and 2)
+                    if (isset($maintenance['type_check'])) {
+
+                        $newMaintenanceCheck = Maintenance::create([
+                                    'council_id' => $request->council_id,
+                                    'user_id' => Auth::user()->id,
+                                    'group_id' => $groupId,
+                                    'date' => $date,
+                                    'name' => $maintenance['name'],
+                                    'reported_condition' => $maintenance['reported_condition'],
+                                    'contractor' => $maintenance['contractor'],
+                                    'priority' => $maintenance['priority'],
+                                    'element_date' => date('Y-m-d', strtotime($maintenance['element_date'])),
+                                    'type' => 'check'
+                        ]);
+
+                        $newMaintenanceProgram = Maintenance::create([
+                                    'council_id' => $request->council_id,
+                                    'user_id' => Auth::user()->id,
+                                    'group_id' => $groupId,
+                                    'date' => $date,
+                                    'name' => $maintenance['name'],
+                                    'reported_condition' => $maintenance['reported_condition'],
+                                    'contractor' => $maintenance['contractor'],
+                                    'priority' => $maintenance['priority'],
+                                    'element_date' => date('Y-m-d', strtotime($maintenance['element_date'])),
+                                    'type' => 'program'
+                        ]);
+
+                        $newMaintenanceCheck->save();
+                        $newMaintenanceProgram->save();
+                    } else {
+
+                        $newMaintenanceCheck = Maintenance::create([
+                                    'council_id' => $request->council_id,
+                                    'user_id' => Auth::user()->id,
+                                    'group_id' => $groupId,
+                                    'date' => $date,
+                                    'name' => $maintenance['name'],
+                                    'reported_condition' => $maintenance['reported_condition'],
+                                    'contractor' => $maintenance['contractor'],
+                                    'priority' => $maintenance['priority'],
+                                    'element_date' => date('Y-m-d', strtotime($maintenance['element_date'])),
+                                    'type' => 'check'
+                        ]);
+                        $newMaintenanceCheck->save();
+                    }
+                }
+            } else {
+                $newMaintenance = Maintenance::create([
+                            'council_id' => $request->council_id,
+                            'user_id' => Auth::user()->id,
+                            'group_id' => $groupId,
+                            'date' => $date,
+                            'type' => 'check'
                 ]);
-            $newMaintenance->save();
+                $newMaintenance->save();
+            }
+        }, 5);
+        //dd($transaction);
+        if($transaction != null){
+            Session::flash('message', 'error_'.__('Doslo je do greske pri unosu!'));
+        }
+        else{
+            Session::flash('message', 'success_'.__('Analiza je dodata!'));
         }
 
         return redirect('admin/maintenance');

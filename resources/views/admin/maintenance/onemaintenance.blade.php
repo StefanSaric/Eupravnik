@@ -87,7 +87,11 @@
                                                             <td>{{ $maintenance->reported_condition }}</td>
                                                             <td>{{ $maintenance->contractor }}</td>
                                                             <td>{{ $maintenance->priority }}</td>
-                                                            <td>{{ date('d.m.Y', strtotime($maintenance->element_date)) }}</td>
+                                                            <td>
+                                                                @if($maintenance->element_date != null)
+                                                                    {{ date('d.m.Y', strtotime($maintenance->element_date)) }}
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>

@@ -17,7 +17,7 @@ class CreateMaintenancesTable extends Migration
             $table->id();
             $table->integer('council_id');
             $table->integer('user_id');
-            $table->string('group_id')->nullable();
+            $table->integer('group_id');
             $table->string('date', 100);
             $table->string('name', 255)->nullable();
             $table->string('reported_condition', 255)->nullable();
