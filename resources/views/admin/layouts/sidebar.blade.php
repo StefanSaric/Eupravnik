@@ -149,7 +149,7 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
-        <!-- Menu Temporary maitenance item -->
+        <!-- Menu Maintenance -->
         <li class="bold @if($active == 'allMaintenances' || $active == 'addMaintenance')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
                 <i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="{{__('Analiza Stanja')}}">{{__('Analiza Stanja')}}</span>
@@ -164,6 +164,21 @@
                     <li @if($active == 'addMaintenance')class="active" @endif>
                         <a @if($active == 'addMaintenance')class="active" @endif href="{{ url('admin/maintenance/create') }}">
                             <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Analizu ')}}">{{__('Dodaj Analizu ')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Program -->
+        <li class="bold @if($active == 'allPrograms' || $active == 'addProgram')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">build</i><span class="menu-title" data-i18n="{{__('Program Održavanja')}}">{{__('Program Održavanja')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allPrograms' || $active == 'addProgram')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allPrograms')class="active" @endif>
+                        <a @if($active == 'allPrograms')class="active" @endif href="{{ url('admin/maintenance') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Programi ')}}">{{__('Svi Programi ')}}</span></a>
                         </a>
                     </li>
                 </ul>

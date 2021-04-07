@@ -11,7 +11,7 @@
         <i class='material-icons prefix'>business</i>
         <select name="council_id" id="council_id" class="form-control" required>
             @foreach($councils as $council)
-                <option value="{{ $council->id }}" @if($council_id == $council->id) selected="selected" @endif>{{ $council->name }}</option>
+                <option value="{{ $council->id }}" @if(isset($one_maintenance))@if($council_id == $council->id) selected="selected" @endif @endif>{{ $council->name }}</option>
             @endforeach
         </select>
         <label for="council_id" class="">{{__('Skupština')}}</label>
