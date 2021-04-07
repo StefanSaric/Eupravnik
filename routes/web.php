@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/roles/update', 'Admin\RolesController@update');
     //Route::get('/roles/delete/{id}', 'Admin\RolesController@delete');
     Route::get('/councils', 'Admin\CouncilsController@index');
+    Route::get('/councils/show/{id}', 'Admin\CouncilsController@show');
     Route::get('/councils/create', 'Admin\CouncilsController@create');
     Route::post('/councils/store', 'Admin\CouncilsController@store');
     Route::get('/councils/{id}/edit', 'Admin\CouncilsController@edit');

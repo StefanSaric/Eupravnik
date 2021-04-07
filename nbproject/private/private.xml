@@ -11,6 +11,11 @@
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/layouts/sidebar.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/MaintenancesController.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/PartnersController.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/public/js/datatable.js</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/councils/show.blade.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/councils/allcouncils.blade.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/CouncilsController.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/routes/web.php</file>
         </group>
     </open-files>
 </project-private>

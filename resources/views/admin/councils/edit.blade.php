@@ -24,7 +24,7 @@
                             <a href="{{ url('admin/') }}">Dash</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ url('admin/users') }}">{{__('Skupštine stanara')}}</a>
+                            <a href="{{ url('admin/councils') }}">{{__('Skupštine stanara')}}</a>
                         </li>
                         <li class="breadcrumb-item">
                             {{__('Uredi')}}
