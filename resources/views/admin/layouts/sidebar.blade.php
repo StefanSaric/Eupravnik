@@ -44,7 +44,7 @@
         <!-- Menu Roles -->
         <li class="bold @if($active == 'allRoles' || $active == 'addRole')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Role')}}">{{__('Role')}}</span>
+                <i class="material-icons">supervisor_account</i><span class="menu-title" data-i18n="{{__('Role')}}">{{__('Role')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allRoles' || $active == 'addRole')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -64,7 +64,7 @@
         <!-- Menu Councils -->
         <li class="bold @if($active == 'allCouncils' || $active == 'addCouncil')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Skupštine stanara')}}">{{__('Skupštine stanara')}}</span>
+                <i class="material-icons">business</i><span class="menu-title" data-i18n="{{__('Skupštine stanara')}}">{{__('Skupštine stanara')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allCouncils' || $active == 'addCouncil')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -86,7 +86,7 @@
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
                 <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Radnici')}}">{{__('Radnici')}}</span>
             </a>
-            <div class="collapsible-body" @if($active == 'allCouncils' || $active == 'addCouncil')style="display: block" @endif>
+            <div class="collapsible-body" @if($active == 'allWorkers' || $active == 'addWorker')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li @if($active == 'allWorkers')class="active" @endif>
                         <a @if($active == 'allWorkers')class="active" @endif href="{{ url('admin/workers') }}">
@@ -96,6 +96,74 @@
                     <li @if($active == 'addWorker')class="active" @endif>
                         <a @if($active == 'addWorker')class="active" @endif href="{{ url('admin/workers/create') }}">
                             <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Radnika')}}">{{__('Dodaj Radnika')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Codebooks -->
+        <li class="bold @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">library_books</i><span class="menu-title" data-i18n="{{__('Šifarnici')}}">{{__('Šifarnici')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li class="bold @if($active == 'allEnforcers' || $active == 'addEnforcer')active open @endif">
+                        <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                            <i class="material-icons">supervisor_account</i><span class="menu-title" data-i18n="{{__('Izvršitelji')}}">{{__('Izvršitelji')}}</span>
+                        </a>
+                        <div class="collapsible-body" @if($active == 'allEnforcers' || $active == 'addEnforcer')style="display: block" @endif>
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li @if($active == 'allEnforcers')class="active" @endif>
+                                    <a @if($active == 'allEnforcers')class="active" @endif href="{{ url('admin/enforcers') }}">
+                                        <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi izvršitelji')}}">{{__('Svi izvršitelji')}}</span></a>
+                                    </a>
+                                </li>
+                                <li @if($active == 'addEnforcer')class="active" @endif>
+                                    <a @if($active == 'addEnforcer')class="active" @endif href="{{ url('admin/enforcers/create') }}">
+                                        <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj izvršitelja')}}">{{__('Dodaj izvršitelja')}}</span></a>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="bold @if($active == 'allPartners' || $active == 'addPartner')active open @endif">
+                        <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                            <i class="material-icons">people_outline</i><span class="menu-title" data-i18n="{{__('Partneri')}}">{{__('Partneri')}}</span>
+                        </a>
+                        <div class="collapsible-body" @if($active == 'allPartners' || $active == 'addPartner')style="display: block" @endif>
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li @if($active == 'allPartners')class="active" @endif>
+                                    <a @if($active == 'allPartners')class="active" @endif href="{{ url('admin/partners') }}">
+                                        <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi partneri')}}">{{__('Svi partneri')}}</span></a>
+                                    </a>
+                                </li>
+                                <li @if($active == 'addPartner')class="active" @endif>
+                                    <a @if($active == 'addPartner')class="active" @endif href="{{ url('admin/partners/create') }}">
+                                        <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj partnera')}}">{{__('Dodaj partnera')}}</span></a>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Temporary maitenance item -->
+        <li class="bold @if($active == 'allMaintenances' || $active == 'addMaintenance')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="{{__('Analiza Stanja')}}">{{__('Analiza Stanja')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allMaintenances' || $active == 'addMaintenance')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allMaintenances')class="active" @endif>
+                        <a @if($active == 'allMaintenances')class="active" @endif href="{{ url('admin/maintenance') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve Analize ')}}">{{__('Sve Analize ')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addMaintenance')class="active" @endif>
+                        <a @if($active == 'addMaintenance')class="active" @endif href="{{ url('admin/maintenance/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Analizu ')}}">{{__('Dodaj Analizu ')}}</span></a>
                         </a>
                     </li>
                 </ul>
