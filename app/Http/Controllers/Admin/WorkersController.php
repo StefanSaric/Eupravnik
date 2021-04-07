@@ -36,8 +36,8 @@ class WorkersController extends Controller
 
     public function store (Request $request) {
         $worker = Worker::create(['email' => $request->email,
-            'password' => $request->password,
-            'password_confirm' => $request->password_confirm,
+            //'password' => $request->password,
+            //'password_confirm' => $request->password_confirm,
             'type_id' => $request->type_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
