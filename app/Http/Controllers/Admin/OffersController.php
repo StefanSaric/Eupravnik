@@ -23,7 +23,7 @@ class OffersController extends Controller
     }
 
     public function store (Request $request) {
-        //dd($request->all());
+        dd($request->all());
 
         $offer = Offer::create([
             'maintenance_id' => $request->email,
