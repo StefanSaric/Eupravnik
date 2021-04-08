@@ -26,6 +26,7 @@ class CreateMaintenancesTable extends Migration
             $table->string('element_date', 100)->nullable();
             $table->string('type', 100)->nullable();
             $table->string('status', 100)->nullable();
+            $table->boolean('is_checked')->nullable();
             $table->timestamps();
         });
     }

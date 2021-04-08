@@ -97,7 +97,8 @@
                     </div>
                     <div class="input-field col s12 m3 l3">
                         <label for="maintenance[{{$num}}][type_check]">
-                            <input type="checkbox" name="maintenance[{{$num}}][type_check]" id="maintenance[{{$num}}][type_check]" />
+                            <input type="checkbox" name="maintenance[{{$num}}][type_check]" id="maintenance[{{$num}}][type_check]"
+                                   @if($maintenance_in_group->is_checked == true) checked disabled="" @endif/>
                             <span>Prosledi u program održavanja?</span>
                         </label>
                     </div>

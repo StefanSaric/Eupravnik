@@ -96,7 +96,8 @@ class MaintenancesController extends Controller
                                     'contractor' => $maintenance['contractor'],
                                     'priority' => $maintenance['priority'],
                                     'element_date' => date('Y-m-d', strtotime($maintenance['element_date'])),
-                                    'type' => 'check'
+                                    'type' => 'check',
+                                    'is_checked' => true
                         ]);
 
                         $newMaintenanceProgram = Maintenance::create([
@@ -161,7 +162,9 @@ class MaintenancesController extends Controller
      */
     public function edit($groupId)
     {
-        $maintenancesInGroup = Maintenance::where('group_id', '=', $groupId)->get();
+        $maintenancesInGroup = Maintenance::where('group_id', '=', $groupId)
+                ->where('type', '=', 'check')
+                ->get();
         //dd($maintenancesInGroup);
         $oneMaintenance = Maintenance::where('group_id', '=', $groupId)->first();
         //dd($oneMaintenance);
@@ -223,7 +226,8 @@ class MaintenancesController extends Controller
                                 'contractor' => $maintenance['contractor'],
                                 'priority' => $maintenance['priority'],
                                 'element_date' => date('Y-m-d',strtotime($maintenance['element_date'])),
-                                'type' => 'check'
+                                'type' => 'check',
+                                'is_checked' => true
                     ]);
                     
                     $newMaintenanceProgram = Maintenance::create([
