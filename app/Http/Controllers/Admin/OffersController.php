@@ -6,6 +6,8 @@ use App\Document;
 use App\Http\Controllers\Controller;
 use App\Offer;
 use App\Partner;
+use App\Maintenance;
+use App\Council;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,17 +18,25 @@ class OffersController extends Controller
         // ove treba napraviti funkciju koja vraca sve ponude (offere), koji pripadaju Maintenanceu iz koga se kreiraju
     }
 
-    public function create (){
+    public function create ($programId){
+        
+        $program = Maintenance::where('id', '=', $programId)->first();
+        $elementName = $program->name;
+        
+        $council = Council::where('id', '=', $program->council_id)->first();
+        $councilName = $council->name;
+        
         $partners = Partner::all();
         $documents = Document::all();
-        return view('admin.offers.create', ['active' => 'addOffer', 'partners' => $partners, 'documents' => $documents]);
+        return view('admin.offers.create', ['active' => 'addOffer', 'program_id' => $programId, 'partners' => $partners,
+                    'documents' => $documents, 'element_name' => $elementName, 'council_name' => $councilName]);
     }
 
     public function store (Request $request) {
-        dd($request->all());
+        //dd($request->all());
 
         $offer = Offer::create([
-            'maintenance_id' => $request->email,
+            'program_id' => $request->program_id,
             'partner_id' => $request->partner_id,
             'date' =>  date("Y-m-d", strtotime($request->date)),
             'price' => $request->price,
@@ -48,9 +58,9 @@ class OffersController extends Controller
                 $one_document = Document::create(['offer_id' => $offer->id, 'url' => $url]);
             }
         }
+        Session::flash('message', 'success_'.__('Ponuda je uspešno dodata!'));
 
-
-        return redirect('admin/offers');
+        return redirect('admin/programs');
     }
 
     public function edit($id)

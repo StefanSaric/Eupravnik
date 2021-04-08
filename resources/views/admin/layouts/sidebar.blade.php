@@ -177,7 +177,7 @@
             <div class="collapsible-body" @if($active == 'allPrograms' || $active == 'addProgram')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li @if($active == 'allPrograms')class="active" @endif>
-                        <a @if($active == 'allPrograms')class="active" @endif href="{{ url('admin/maintenance') }}">
+                        <a @if($active == 'allPrograms')class="active" @endif href="{{ url('admin/programs') }}">
                             <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Programi ')}}">{{__('Svi Programi ')}}</span></a>
                         </a>
                     </li>

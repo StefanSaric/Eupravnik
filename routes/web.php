@@ -67,8 +67,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/maintenance/{id}/edit', 'Admin\MaintenancesController@edit');
     Route::post('/maintenance/update', 'Admin\MaintenancesController@update');
     Route::get('/maintenance/{id}/delete', 'Admin\MaintenancesController@delete');
+    
+    Route::get('/programs', 'Admin\ProgramsController@index');
+    Route::get('/programs/grabOffers/{program_id}', 'Admin\ProgramsController@grabOffers');
 
-    Route::get('/offers/create', 'Admin\OffersController@create');
+    Route::get('/offers/{id}/create', 'Admin\OffersController@create');
     Route::post('/offers/store', 'Admin\OffersController@store');
     Route::get('/offers/{id}/edit', 'Admin\OffersController@edit');
     Route::post('/offers/update', 'Admin\OffersController@update');

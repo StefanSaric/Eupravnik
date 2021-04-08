@@ -2,6 +2,7 @@
 @if(isset($offer))
     <input type="hidden" id="offer_id" name="offer_id" value="{{$offer->id}}">
 @endif
+<input type="hidden" id="program_id" name="program_id" value="{{$program_id}}">
 <div class="row"><!--Start 'Skupstina' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>contacts</i>
