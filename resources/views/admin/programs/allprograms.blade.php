@@ -109,9 +109,9 @@
                                                         <td style='white-space: nowrap; vertical-align: middle'>
                                                             <a href="{{url('/admin/offers/'.$program->id.'/create')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Dodaj ponudu')}}">
                                                                 <i class="material-icons">add</i></a>
-                                                            <a href="{{url('/admin/programs/'.$program->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
+                                                            <a href="{{url('/admin/programs/'.$program->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Izmeni program')}}">
                                                                 <i class="material-icons">create</i></a>
-                                                            <a href="{{url('/admin/programs/'.$program->id.'/delete')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši analizu')}}">
+                                                            <a href="{{url('/admin/programs/'.$program->id.'/delete')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši program')}}">
                                                                 <i class="material-icons">delete</i></a>
                                                         </td>
                                                     </tr>
@@ -137,8 +137,8 @@
 @stop
 
 @section('pageScripts')
-<script src="{{ asset('/js/datatable.js') }}"></script>
 <script src="{{ asset('/js/users.js') }}"></script>
+<script src="{{ asset('/js/allprograms.js') }}"></script>
 @stop
 
 

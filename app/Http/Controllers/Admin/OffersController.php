@@ -55,7 +55,7 @@ class OffersController extends Controller
                 move_uploaded_file($document, $document_path);
                 //File::make($document->getRealPath())->save(public_path($path) . '/dokument_' . $document_id . $now . '.' . $document->getClientOriginalExtension());
                 $url = $path . '/dokument_' . $document_id . $now . '.' . $document->getClientOriginalExtension();
-                $one_document = Document::create(['offer_id' => $offer->id, 'url' => $url]);
+                $one_document = Document::create(['offer_id' => $offer->id, 'url' => $url, 'name' => $document->getClientOriginalName()]);
             }
         }
         Session::flash('message', 'success_'.__('Ponuda je uspešno dodata!'));
@@ -66,19 +66,21 @@ class OffersController extends Controller
     public function edit($id)
     {
         $offer = Offer::find($id);
+        $partners = Partner::all();
 
-        return view ('admin.offers.edit', ['active' => 'addOffer','offer' => $offer]);
+        return view ('admin.offers.edit', ['active' => 'addOffer','offer' => $offer, 'partners' => $partners]);
     }
 
     public function update(Request $request)
     {
-
-        $id = $request->id;
+        // dd($request->all());
+        $id = $request->offer_id;
         $offer = Offer::find($id);
         $offer->update($request->all());
 
         Session::flash('message', 'success_'.__('Ponuda je izmenjena!'));
 
+        return redirect('admin/programs');
         // trebalo bi da se vraca na stranicu Maintenance->id
         // return redirect('admin/');
 

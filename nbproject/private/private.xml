@@ -3,19 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/edit.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/onemaintenance.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/create.blade.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/public/js/allprograms.js</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/offers.blade.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/ProgramsController.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/programs/allprograms.blade.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/offers/create.blade.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/routes/web.php</file>
+            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/OffersController.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/MaintenancesController.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/workers.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/partners.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/PartnersController.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/maintenance.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/partners/allpartners.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/maintenance/allmaintenance.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/public/js/maintenances-form.js</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/layouts/sidebar.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/WorkersController.php</file>
         </group>
     </open-files>
 </project-private>

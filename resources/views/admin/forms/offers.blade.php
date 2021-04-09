@@ -1,14 +1,15 @@
 @csrf
 @if(isset($offer))
     <input type="hidden" id="offer_id" name="offer_id" value="{{$offer->id}}">
-@endif
+@else
 <input type="hidden" id="program_id" name="program_id" value="{{$program_id}}">
+@endif
 <div class="row"><!--Start 'Skupstina' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>contacts</i>
         <select name="partner_id" id="partner_id" class="form-control" required>
             @foreach($partners as $partner)
-                <option value="{{ $partner->id }}">{{ $partner->name }}</option>
+                <option value="{{ $partner->id }}" @if(isset($offer) && $partner->id == $offer->partner_id) selected="selected" @endif>{{ $partner->name }}</option>
             @endforeach
         </select>
         <label for="partner_id" class="">{{__('Partner')}}</label>
@@ -28,7 +29,7 @@
     <div class="input-field col s12">
         <i class='material-icons prefix'>event_note</i>
         <textarea type="text" name="description" id="description" class="materialize-textarea validate @error('description') invalid @enderror"
-               value="@if(!isset($offer)){{old('description')}}@endif" @if(isset($offer) || old('description') != null) placeholder="" @endif required></textarea>
+            value="@if(isset($offer)){{$offer->description}}@else{{old('description')}}@endif" @if(isset($offer) || old('description') != null) placeholder="" @endif required>@if(isset($offer)){{$offer->description}}@else{{old('description')}}@endif</textarea>
         <label for="description" class="">{{__('Opis')}}</label>
     </div>
 </div>
