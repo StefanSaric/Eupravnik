@@ -101,7 +101,19 @@ class ProgramsController extends Controller
             $html = $html . '</tbody></table><br>';
                   
         } else {
-            $html = $html . __('Nema ponuda') . '<br>';
+            //$html = $html . __('Nema ponuda') . '<br>';
+            $html = $html . '<table id="datatable" class="display table-responsive nowrap striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center">' . __('Nema ponuda') . '</td>
+                                    </tr>
+                                </tbody>
+                            </table><br>';
         }
         $html = $html . '</div>';
         
