@@ -221,49 +221,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
-                                                    <th>{{__('Naziv')}}</th>
-                                                    <th>{{__('Tip prostora')}}</th>
-                                                    <th>{{__('Jedinica')}}</th>
-                                                    <th>{{__('Cena')}}</th>
-                                                    <th>{{__('Aktivan')}}</th>
-                                                    <th style="min-width: 85px">{{__('Akcije')}}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                                    <td>Upravnik</td>
-                                                    <td>Stambeni</td>
-                                                    <td>Komad</td>
-                                                    <td>150,00</td>
-                                                    <td>Da</td>
-                                                    <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
-                                                            <i class="material-icons">create</i></a>
-                                                    </td>
-                                                </tr> 
-                                                <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                                    <td>Održavanje</td>
-                                                    <td>Stambeni</td>
-                                                    <td>Komad</td>
-                                                    <td>180,00</td>
-                                                    <td>Da</td>
-                                                    <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
-                                                            <i class="material-icons">create</i></a>
-                                                    </td>
-                                                </tr> 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="assignments">
-                                    <div class='row' >
-                                        <table id="assignmentstable" class="display table-responsive multitables">
-                                            <thead>
-                                                <tr>
-                                                    <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Partner')}}</th>
                                                     <th>{{__('Kontakt tel.')}}</th>
                                                     <th>{{__('Održavanje')}}</th>
@@ -284,20 +241,21 @@
                                                         <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
-                                                </tr> 
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div id="announcements">
+                                <div id="assignments">
                                     <div class='row' >
-                                        <table id="announcementstable" class="display table-responsive multitables">
+                                        <table id="assignmentstable" class="display table-responsive multitables">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
-                                                    <th>{{__('Naslov')}}</th>
+                                                    <th>{{__('Status')}}</th>
                                                     <th>{{__('Datum')}}</th>
-                                                    <th>{{__('Adresa')}}</th>
+                                                    <th>{{__('Tip')}}</th>
+                                                    <th>{{__('Partner')}}</th>
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
                                             </thead>
@@ -313,12 +271,86 @@
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr> 
+                                                @foreach($assignments as $assignment)
+                                                <tr class="gradeX">
+                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>@if($assignment->status == 1){{__('Dodeljen')}}
+                                                        @elseif($assignment->status == 2){{__('U toku')}}
+                                                        @elseif($assignment->status == 3){{__('Završen')}}
+                                                        @else{{__('Dodeljen')}}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ date('d.m.Y.', strtotime($assignment->date)) }}</td>
+                                                    <td>@if($assignment->type == 'assignment'){{__('Iz ponuda')}}
+                                                        @else{{__('Intervencija')}}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$assignment->contractor}}</td>
+                                                    <td>
+                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                            <i class="material-icons">create</i></a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="announcements">
+                                    <div class='row' >
+                                        <table id="announcementstable" class="display table-responsive multitables">
+                                            <thead>
+                                                <tr>
+                                                    <th>&nbsp;&nbsp;&nbsp;#</th>
+                                                    <th>{{__('Naslov')}}</th>
+                                                    <th>{{__('Datum')}}</th>
+                                                    <th>{{__('Email')}}</th>
+                                                    <th>{{__('Okačeno')}}</th>
+                                                    <th style="min-width: 85px">{{__('Akcije')}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="gradeX">
+                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>Čišćenje snega</td>
+                                                    <td>20.03.2021.</td>
+                                                    <td>Poslat</td>
+                                                    <td>Ne</td>
+                                                    <td>
+                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                            <i class="material-icons">create</i></a>
+                                                    </td>
+                                                </tr> 
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div id='meetings'>
-                                    <p>Ovo je samo test</p> 
+                                    <div class='row' >
+                                        <table id="meetingstable" class="display table-responsive multitables">
+                                            <thead>
+                                                <tr>
+                                                    <th>&nbsp;&nbsp;&nbsp;#</th>
+                                                    <th>{{__('Datum')}}</th>
+                                                    <th>{{__('Sazvao')}}</th>
+                                                    <th>{{__('Obaveštenja')}}</th>
+                                                    <th style="min-width: 85px">{{__('Akcije')}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="gradeX">
+                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>20.03.2021.</td>
+                                                    <td>{{Auth::user()->name}}</td>
+                                                    <td>Poslato</td>
+                                                    <td>
+                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                            <i class="material-icons">create</i></a>
+                                                    </td>
+                                                </tr> 
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
