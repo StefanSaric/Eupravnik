@@ -15,7 +15,7 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->integer('maintenance_id');
+            $table->integer('program_id');
             $table->integer('partner_id');
             $table->date('date');
             $table->float('price');

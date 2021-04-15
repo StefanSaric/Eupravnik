@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Analiza Stanja za: ' . $council_name)}}</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Analiza Stanja za: ') . $council_name}}</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
@@ -31,7 +31,7 @@
                                 <a href="{{ url('admin/maintenance') }}">{{__('Analize Stanja')}}</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">{{__('Analiza za: ' . $council_name)}}</a>
+                                <a href="#">{{__('Analiza za: ') . $council_name}}</a>
                             </li>
                         </ol>
                     </div>
@@ -87,7 +87,11 @@
                                                             <td>{{ $maintenance->reported_condition }}</td>
                                                             <td>{{ $maintenance->contractor }}</td>
                                                             <td>{{ $maintenance->priority }}</td>
-                                                            <td>{{ date('d.m.Y', strtotime($maintenance->element_date)) }}</td>
+                                                            <td>
+                                                                @if($maintenance->element_date != null)
+                                                                    {{ date('d.m.Y', strtotime($maintenance->element_date)) }}
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>

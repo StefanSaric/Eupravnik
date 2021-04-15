@@ -53,8 +53,8 @@
                                         </div>
                                     </div>
                                     <div id="datatablolder">
-                                        {!! Form::open(array('method' => 'DELETE', 'id' => 'userForm', 'role' => 'form')) !!}
-                                        {!! Form::submit(null, ['id' => 'userButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
+                                        {!! Form::open(array('method' => 'DELETE', 'id' => 'workerForm', 'role' => 'form')) !!}
+                                        {!! Form::submit(null, ['id' => 'workerButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
                                         {!! Form::close() !!}
                                         <div class="row">
                                             <div class="col s12">
@@ -65,9 +65,10 @@
                                                         <th>&nbsp;&nbsp;&nbsp;#</th>
                                                         <th>{{__('Ime')}}</th>
                                                         <th>{{__('Prezime')}}</th>
+                                                        <th>{{__('Tip radnika')}}</th>
                                                         <th>{{__('E-mail')}}</th>
                                                         <th>{{__('Telefon')}}</th>
-                                                        <th>{{__('Aktivan')}}</th>
+                                                        <th>{{__('Licenca')}}</th>
                                                         <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                     </tr>
                                                     </thead>
@@ -75,12 +76,14 @@
                                                     @foreach($workers as $num => $worker)
                                                         <tr id="{{ $worker->id }}" class="gradeX">
                                                             <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                            <td>{{ $worker->first_name }}</td>
+                                                            <td>{{ $worker->name }}</td>
+                                                            <td>{{ $worker->surname }}</td>
+                                                            <td>{{ $worker->worker_type }}</td>
                                                             <td>{{ $worker->email }}</td>
                                                             <td>{{ $worker->telephone }}</td>
                                                             <td>{{ $worker->licence }}</td>
                                                             <td>
-                                                                <a href="{{url('/admin/workers/'.$worker->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi radnika')}}">
+                                                                <a href="{{url('/admin/workers/'.$worker->id.'/edit')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi radnika')}}">
                                                                     <i class="material-icons">create</i></a>
                                                             </td>
                                                         </tr>

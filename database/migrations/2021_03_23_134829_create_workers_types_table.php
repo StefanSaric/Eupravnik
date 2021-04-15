@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkerTypesTable extends Migration
+class CreateWorkersTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWorkerTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('worker_types', function (Blueprint $table) {
+        Schema::create('workers_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        {!! Form::model($worker, array('method' => 'POST', 'url' => 'admin/offers/update', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
+                                        {!! Form::model($offer, array('method' => 'POST', 'url' => 'admin/offers/update', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
                                         @include('admin.forms.offers', ['submit' => 'Uredi'])
                                         {!! Form::close() !!}
                                         @include('admin.forms.error')
@@ -70,4 +70,7 @@
 @section('vendorScripts')
     <script src="{{ asset('vendors/jquery-validation/jquery.validate.js') }}"></script>
     <script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>
+@stop
+@section('pageScripts')
+    <script src="{{ asset('js/offers-form.js') }}"></script>
 @stop
