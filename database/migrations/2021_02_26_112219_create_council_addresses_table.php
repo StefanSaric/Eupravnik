@@ -28,7 +28,7 @@ class CreateCouncilAddressesTable extends Migration
             $table->boolean('cellar');
             $table->boolean('attic');
             $table->boolean('shelter');
-            $table->boolean('energy_passport');
+            $table->boolean('energy_passport')->nullable();
             $table->timestamps();
         });
     }

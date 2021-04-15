@@ -51,15 +51,79 @@
         <label for="elevators_number" class="">{{__('Broj liftova')}}</label>
     </div>
 </div>
-
-
-
-
+<div class="row"><!--Start 'maticni' form field-->
+    <div class="input-field col s12 m6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <input type="text" name="floors_number" id="floors_number" class="validate @error('floors_number') invalid @enderror"  
+               value="@if(isset($address)){{ $address->floors_number }}@else{{ old('floors_number') }}@endif" @if(isset($address) || old('floors_number') != null) placeholder="" @endif required></input>
+        <label for="floors_number" class="">{{__('Broj etaža')}}</label>
+    </div>
+</div>
+<div class="row"><!--Start 'status' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <select id="roof_type" name="roof_type">
+            <option value="kosi" @if(isset($address) && $address->roof_type == 'kosi') selected="selected" @endif>{{__('Kosi')}}</option>
+            <option value="ravan" @if(isset($address) && $address->roof_type == 'ravan') == 'ravan') selected="selected" @endif>{{__('Ravan')}}</option>
+        </select>
+        <label>{{__('Tip krova')}}</label>
+    </div>
+</div>
+<div class="row"><!--Start 'status' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <select id="lightning_rod" name="lightning_rod">
+            <option value="1" @if(isset($address) && $address->lightning_rod == 1) selected="selected" @endif>{{__('Ima')}}</option>
+            <option value="0" @if(isset($address) && $address->lightning_rod == 0) selected="selected" @endif>{{__('Nema')}}</option>
+        </select>
+        <label>{{__('Gromobran')}}</label>
+    </div>
+</div>
+<div class="row"><!--Start 'status' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <select id="district_heating" name="district_heating">
+            <option value="1" @if(isset($address) && $address->district_heating == 1) selected="selected" @endif>{{__('Ima')}}</option>
+            <option value="0" @if(isset($address) && $address->district_heating == 0) selected="selected" @endif>{{__('Nema')}}</option>
+        </select>
+        <label>{{__('Daljinsko grejanje')}}</label>
+    </div>
+</div>
+<div class="row"><!--Start 'status' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <select id="cellar" name="cellar">
+            <option value="1" @if(isset($address) && $address->cellar == 1) selected="selected" @endif>{{__('Ima')}}</option>
+            <option value="0" @if(isset($address) && $address->cellar == 0) selected="selected" @endif>{{__('Nema')}}</option>
+        </select>
+        <label>{{__('Podrum')}}</label>
+    </div>
+</div>
+<div class="row"><!--Start 'status' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <select id="attic" name="attic">
+            <option value="1" @if(isset($address) && $address->attic == 1) selected="selected" @endif>{{__('Ima')}}</option>
+            <option value="0" @if(isset($address) && $address->attic == 0) selected="selected" @endif>{{__('Nema')}}</option>
+        </select>
+        <label>{{__('Tavan')}}</label>
+    </div>
+</div>
+<div class="row"><!--Start 'status' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>assignment_ind</i>
+        <select id="shelter" name="shelter">
+            <option value="1" @if(isset($address) && $address->shelter == 1) selected="selected" @endif>{{__('Ima')}}</option>
+            <option value="0" @if(isset($address) && $address->shelter == 0) selected="selected" @endif>{{__('Nema')}}</option>
+        </select>
+        <label>{{__('Sklonište')}}</label>
+    </div>
+</div>
 <div class="row"><!--Start 'pib' form field-->
     <div class="input-field col s12 m6">
         <i class='material-icons prefix'>assignment</i>
         <input type="text" name="energy_passport" id="energy_passport" class="validate @error('energy_passport') invalid @enderror"  
-               value="@if(isset($address)){{ $address->energy_passport }}@else{{ old('energy_passport') }}@endif" @if(isset($address) || old('energy_passport') != null) placeholder="" @endif required></input>
+               value="@if(isset($address)){{ $address->energy_passport }}@else{{ old('energy_passport') }}@endif" @if(isset($address) || old('energy_passport') != null) placeholder="" @endif></input>
         <label for="energy_passport" class="">{{__('Energetski pasoš')}}</label>
     </div>
 </div>
