@@ -12,6 +12,6 @@ class CouncilAddress extends Model
      * @var array
      */
     protected $fillable = [
-        'council_id', 'protection_status', 'area_size', 'built_year', 'short_name', 'floors_number', 'elevators_number', 'roof_type', 'lightning_rod', 'district heating', 'cellar', 'attic', 'shelter', 'energy_passport'
+        'council_id', 'address', 'protection_status', 'area_size', 'built_year', 'short_name', 'floors_number', 'elevators_number', 'roof_type', 'lightning_rod', 'district_heating', 'cellar', 'attic', 'shelter', 'energy_passport'
     ];
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\Council;
 use App\CouncilAddress;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class CouncilsController extends Controller
 {
@@ -19,7 +20,7 @@ class CouncilsController extends Controller
      */
     public function index()
     {
-        $councils = Council::all();
+        $councils = Council::where('user_id', '=', Auth::user()->id);
 
         return view('admin.councils.allcouncils', ['active' => 'allCouncils', 'councils' => $councils]);
     }
@@ -51,8 +52,11 @@ class CouncilsController extends Controller
      */
     public function store(Request $request) 
     {
-        $council = Council::create($request->all());
+        $council = Council::create(['name' => $request->name, 'short_name' => $request->short_name, 'city' => $request->city, 'area' => $request->area,
+            'account' => $request->account, 'maticni' => $request->maticni, 'latitude' => $request->latitude, 'longitude' => $request->longitude, 'pib' => $request->pib,
+            'phone' => $request->phone]);
         $council->save();
+        $address = CouncilAddress::create([]);
         
         Session::flash('message', 'success_'.__('Skupština je dodata!'));
         

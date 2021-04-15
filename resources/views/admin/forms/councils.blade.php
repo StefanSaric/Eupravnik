@@ -2,6 +2,7 @@
 @if(isset($council))
 <input type="hidden" id="council_id" name="council_id" value="{{$council->id}}">
 @endif
+<input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id}}">
 <div class="row"><!--Start 'name' form field-->
     <div class="input-field col s12 m6">
         <i class='material-icons prefix'>domain</i>

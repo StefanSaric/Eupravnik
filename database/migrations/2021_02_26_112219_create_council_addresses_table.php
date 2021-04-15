@@ -24,7 +24,7 @@ class CreateCouncilAddressesTable extends Migration
             $table->integer('elevators_number');
             $table->string('roof_type');
             $table->boolean('lightning_rod');
-            $table->boolean('district heating');
+            $table->boolean('district_heating');
             $table->boolean('cellar');
             $table->boolean('attic');
             $table->boolean('shelter');
