@@ -7,7 +7,7 @@ $(document).ready(function() {
     
     $('.multitables').each(function(){
         $(this).dataTable({
-           sPaginationType: "full_numbers",
+            sPaginationType: "full_numbers",
             aaSorting: [],
             oColVis: {
                 "buttonText": "Columns",

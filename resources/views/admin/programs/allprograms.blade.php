@@ -137,7 +137,6 @@
 @stop
 
 @section('pageScripts')
-<script src="{{ asset('/js/users.js') }}"></script>
 <script src="{{ asset('/js/allprograms.js') }}"></script>
 @stop
 

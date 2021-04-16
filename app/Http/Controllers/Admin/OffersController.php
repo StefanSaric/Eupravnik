@@ -8,6 +8,7 @@ use App\Offer;
 use App\Partner;
 use App\Maintenance;
 use App\Council;
+use Auth;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -95,5 +96,28 @@ class OffersController extends Controller
 
         // trebalo bi da se vraca na stranicu Maintenance->id
         // return redirect('admin/');
+    }
+    
+    public function accept($id)
+    {
+        $offer = Offer::find($id);
+        $offer->status = 'assigned';
+        $offer->save();
+        $programme = Maintenance::find($offer->program_id);
+        $programme->is_checked = 1;
+        $programme->save();
+        $partner = Partner::find($offer->partner_id);
+        $assignment = Maintenance::create([
+                'council_id' => $programme->council_id,
+                'user_id' => Auth::user()->id,
+                'date' => $offer->date,
+                'name' => $programme->name.' - '.$offer->description,
+                'contractor' => $partner->name,
+                'type' => 'assignment',
+                'status' => 1
+            ]);
+        Session::flash('acttab', 'assignments');
+        
+        return redirect('/admin/councils/show/'.$programme->council_id);
     }
 }

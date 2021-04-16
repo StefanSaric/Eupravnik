@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/', 'Admin\AdminController@index');
+    Route::get('/getAppointments/{id}', 'Admin\AdminController@getAppointments');
     Route::get('/users', 'Admin\UsersController@index');
     Route::get('/users/create', 'Admin\UsersController@create');
     Route::post('/users/store', 'Admin\UsersController@store');
@@ -81,5 +82,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/offers/{id}/edit', 'Admin\OffersController@edit');
     Route::post('/offers/update', 'Admin\OffersController@update');
     Route::get('/offers/{id}/delete', 'Admin\OffersController@delete');
+    Route::get('/offers/{id}/accept', 'Admin\OffersController@accept');
 
 });

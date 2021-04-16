@@ -47,12 +47,13 @@ class ProgramsController extends Controller
                         'offers.id as id',
                         'partners.name as partner_name')
                 ->get();
+        $program = Maintenance::find($programId);
         
         $html = '<div style="margin-left: 30px; margin-right: 30px">';
 
         if (count($offers) > 0) {
 
-            $html = $html . '<table id="datatable" class="display table-responsive nowrap striped">
+            $html = $html . '<table id="offers_'.$programId.' class="display table-responsive nowrap striped appended-data-table">
                                 <thead>
                                     <tr>
                                         <th>&nbsp;&nbsp;&nbsp;' . __("Ponude") . '</th>
@@ -86,8 +87,12 @@ class ProgramsController extends Controller
                                     
                 $html = $html    . '</td>
                                     <td>' . $offer->price . '</td>
-                                    <td>
-                                        <a href="' . url('/admin/offers/' . $offer->id . '/edit') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Izmeni ponudu') . '">
+                                    <td>';
+                if(!$program->is_checked){
+                    $html = $html    . '<a href="' . url('/admin/offers/' . $offer->id . '/accept') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Prihvati ponudu') . '">
+                                            <i class="material-icons">done</i></a>';
+                }
+                $html = $html    .     '<a href="' . url('/admin/offers/' . $offer->id . '/edit') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Izmeni ponudu') . '">
                                             <i class="material-icons">create</i></a>
                                         <a href="' . url('/admin/offers/' . $offer->id . '/delete') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Obriši ponudu') . '">
                                             <i class="material-icons">delete</i></a>
@@ -102,7 +107,7 @@ class ProgramsController extends Controller
                   
         } else {
             //$html = $html . __('Nema ponuda') . '<br>';
-            $html = $html . '<table id="datatable" class="display table-responsive nowrap striped">
+            $html = $html . '<table "offers_'.$programId.'" class="display table-responsive nowrap striped appended-data-table">
                                 <thead>
                                     <tr>
                                         <th></th>

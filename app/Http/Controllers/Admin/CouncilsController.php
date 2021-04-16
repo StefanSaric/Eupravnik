@@ -35,6 +35,7 @@ class CouncilsController extends Controller
                 ->get();
         if(Session::has('acttab')){
             $acttab = Session::get('acttab');
+            //dd($acttab);
         }
         else{
             $acttab = 'addresses';

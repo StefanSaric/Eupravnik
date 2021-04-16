@@ -68,7 +68,7 @@
                                         <a href="#contracts" @if($acttab == 'contracts') class="active" @endif>Ugovori</a>
                                     </li>
                                     <li class="tab">
-                                        <a href="#assignments" @if($acttab == 'contracts') class="active" @endif>Nalozi</a>
+                                        <a href="#assignments" @if($acttab == 'assignments') class="active" @endif>Nalozi</a>
                                     </li>
                                     <li class="tab">
                                         <a href="#announcements" @if($acttab == 'announcements') class="active" @endif>Obaveštenja</a>
@@ -253,6 +253,7 @@
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Status')}}</th>
+                                                    <th>{{__('Opis')}}</th>
                                                     <th>{{__('Datum')}}</th>
                                                     <th>{{__('Tip')}}</th>
                                                     <th>{{__('Partner')}}</th>
@@ -263,8 +264,9 @@
                                                 <tr class="gradeX">
                                                     <td>&nbsp;&nbsp;&nbsp;</td>
                                                     <td>Završen</td>
+                                                    <td>Popravka lampe u hodniku</td>
                                                     <td>20.03.2021.</td>
-                                                    <td>Iz ponuda</td>
+                                                    <td>Intervencija</td>
                                                     <td>Test radionica</td>
                                                     <td>
                                                         <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
@@ -280,8 +282,9 @@
                                                         @else{{__('Dodeljen')}}
                                                         @endif
                                                     </td>
+                                                    <td>{{ $assignment->name }}</td>
                                                     <td>{{ date('d.m.Y.', strtotime($assignment->date)) }}</td>
-                                                    <td>@if($assignment->type == 'assignment'){{__('Iz ponuda')}}
+                                                    <td>@if($assignment->type == 'assignment'){{__('Iz programa')}}
                                                         @else{{__('Intervencija')}}
                                                         @endif
                                                     </td>

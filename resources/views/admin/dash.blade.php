@@ -1,7 +1,9 @@
 @extends('admin.layouts.layout')
 
 @section('vendorCss')
-
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/fullcalendar/css/fullcalendar.min.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/fullcalendar/daygrid/daygrid.min.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/fullcalendar/timegrid/timegrid.min.css')}}"/>
 @stop
 
 @section('content')
@@ -34,8 +36,8 @@
                         <input type="hidden" id="docId" value="{{Auth::user()->id}}"/>
                         <div id="clendar" class="card">
                             <div class="card-content">
-                                <h4 class="card-title"></h4>
-                                <div></div>
+                                <h4 class="card-title">{{__('Kalendar')}}</h4>
+                                <div id='calendar-preview'></div>
                             </div>
                         </div>
                     </div>
@@ -47,8 +49,39 @@
 @stop
 
 @section('vendorScripts')
-
+<script src="{{ asset('/vendors/fullcalendar/lib/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('/vendors/fullcalendar/lib/moment.min.js') }}"></script>
+<script src="{{ asset('/vendors/fullcalendar/js/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('/vendors/fullcalendar/interaction/interaction.min.js') }}"></script>
+<script src="{{ asset('/vendors/fullcalendar/daygrid/daygrid.min.js') }}"></script>
+<script src="{{ asset('/vendors/fullcalendar/timegrid/timegrid.min.js') }}"></script>
+<script src="{{ asset('/vendors/fullcalendar/locales/sr.js') }}"></script>
 @stop
 @section('pageScripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var docId = $('#docId').val();
+        var calendarEl = document.getElementById('calendar-preview');
 
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            height: 550,
+            plugins: ['dayGrid','timeGrid', 'interaction'],
+            defaultView: 'dayGridMonth',
+            firstDay: 1,
+            locale: 'sr',
+            slotLabelFormat:{
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            },
+            events: window.location + '/getAppointments/' + docId,
+//            eventClick: function(eventInfo){
+//                //alert(eventInfo.event.id);
+//                window.location = window.location + '/patient/' +eventInfo.event.id;
+//            }
+        });
+
+        calendar.render();
+    });
+</script>
 @stop

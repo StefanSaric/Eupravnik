@@ -1,22 +1,14 @@
 var base = $('#base_url').val();
+var table;
 
-var table = $('#datatable').DataTable({
-    sPaginationType: "full_numbers",
-            aaSorting: [],
-            oColVis: {
-                "buttonText": "Columns",
-                "iOverlayFade": 4,
-                "sAlign": "right"
-            },
-            oLanguage: {
-                sLengthMenu: '_MENU_ entries per page',
-                sSearch: '<i class="fa fa-search"></i>',
-                oPaginate: {
-                    sPrevious: '<i class="fa fa-angle-left"></i>',
-                    sNext: '<i class="fa fa-angle-right"></i>'
-                }
-            }
+$(document).ready(function(){
+    table = $('#datatable').DataTable({
+        responsive: true,
+        scrollCollapse: true,
+        lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+    });
 });
+
 
 $('#datatable tbody').on('click', 'td.details-control', function () {
    //alert('usao');

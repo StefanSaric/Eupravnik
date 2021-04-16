@@ -20,6 +20,7 @@ class CreateOffersTable extends Migration
             $table->date('date');
             $table->float('price');
             $table->text('description');
+            $table->text('status')->nullable();
             $table->timestamps();
         });
     }
