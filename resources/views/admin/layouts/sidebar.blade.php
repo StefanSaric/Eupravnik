@@ -104,7 +104,7 @@
         <!-- Menu Codebooks -->
         <li class="bold @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">library_books</i><span class="menu-title" data-i18n="{{__('Šifarnici')}}">{{__('Šifarnici')}}</span>
+                <i class="material-icons">storage</i><span class="menu-title" data-i18n="{{__('Šifarnici')}}">{{__('Šifarnici')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -179,6 +179,26 @@
                     <li @if($active == 'allPrograms')class="active" @endif>
                         <a @if($active == 'allPrograms')class="active" @endif href="{{ url('admin/programs') }}">
                             <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Programi ')}}">{{__('Svi Programi ')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Duties -->
+        <li class="bold @if($active == 'allDuties' || $active == 'addDuty')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Obaveze')}}">{{__('Obaveze')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allDuties' || $active == 'addDuty')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allDuties')class="active" @endif>
+                        <a @if($active == 'allDuties')class="active" @endif href="{{ url('admin/duties') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve Obaveze ')}}">{{__('Sve Obaveze ')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addDuty')class="active" @endif>
+                        <a @if($active == 'addDuty')class="active" @endif href="{{ url('admin/duties/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Obavezu ')}}">{{__('Dodaj Obavezu ')}}</span></a>
                         </a>
                     </li>
                 </ul>
