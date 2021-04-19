@@ -67,12 +67,14 @@ class DutiesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Duty  $duty
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Duty $duty)
+    public function show($id)
     {
-        //
+        $duty = Duty::find($id);
+        
+        return view ('admin.duties.oneduty', ['active' => 'allDuties', 'duty' => $duty]);
     }
 
     /**
