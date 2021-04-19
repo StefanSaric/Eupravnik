@@ -45,6 +45,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editAddress/{id}', 'Admin\CouncilsController@editAddress');
     Route::post('/councils/updateAddress', 'Admin\CouncilsController@updateAddress');
     Route::get('/councils/deleteAddress/{id}', 'Admin\CouncilsController@deleteAddress');
+    Route::get('/councils/addBill/{id}', 'Admin\CouncilsController@addBill');
+    Route::post('/councils/storeBill', 'Admin\CouncilsController@storeBill');
+    Route::get('/councils/editBill/{id}', 'Admin\CouncilsController@editBill');
+    Route::post('/councils/updateBill', 'Admin\CouncilsController@updateBill');
+    Route::get('/councils/deleteBill/{id}', 'Admin\CouncilsController@deleteBill');
+    Route::get('/councils/addTransaction/{id}', 'Admin\CouncilsController@addTransaction');
+    Route::post('/councils/storeTransaction', 'Admin\CouncilsController@storeTransaction');
+    Route::get('/councils/editTransaction/{id}', 'Admin\CouncilsController@editTransaction');
+    Route::post('/councils/updateTransaction', 'Admin\CouncilsController@updateTransaction');
+    Route::get('/councils/deleteTransaction/{id}', 'Admin\CouncilsController@deleteTransaction');
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
     Route::get('/workers', 'Admin\WorkersController@index');
     Route::get('/workers/create', 'Admin\WorkersController@create');
