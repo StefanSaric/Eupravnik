@@ -68,6 +68,12 @@
                                         <a href="#contracts" @if($acttab == 'contracts') class="active" @endif>Ugovori</a>
                                     </li>
                                     <li class="tab">
+                                        <a href="#bills" @if($acttab == 'bills') class="active" @endif>Fakturisanje</a>
+                                    </li>
+                                    <li class="tab">
+                                        <a href="#transactions" @if($acttab == 'transactions') class="active" @endif>Transakcije</a>
+                                    </li>
+                                    <li class="tab">
                                         <a href="#assignments" @if($acttab == 'assignments') class="active" @endif>Nalozi</a>
                                     </li>
                                     <li class="tab">
@@ -299,6 +305,109 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div id="bills">
+                                    <div class='row' style="background-color: #f2f2f2">
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Servisi za fakturisanje')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addBill/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
+                                                                    +</a>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <table id="billstable" class="display table-responsive multitables">
+                                            <thead>
+                                                <tr>
+                                                    <th>&nbsp;&nbsp;&nbsp;#</th>
+                                                    <th>{{__('Datum')}}</th>
+                                                    <th>{{__('Partner')}}</th>
+                                                    <th>{{__('Iznos')}}</th>
+                                                    <th>{{__('Tip')}}</th>
+                                                    <th>{{__('Status')}}</th>
+                                                    <th style="min-width: 85px">{{__('Akcije')}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($bills as $bill)
+                                                <tr class="gradeX">
+                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>{{ date('d.m.Y.', strtotime($bill->date))}}</td>
+                                                    <td>{{ $bill->partner }}</td>
+                                                    <td>{{ $bill->amount }}</td>
+                                                    <td>@if($bill->type == 'income'){{__('Prihod')}}
+                                                        @else{{__('Trošak')}}
+                                                        @endif
+                                                    </td>
+                                                    <td>@if($bill->state == 'unpaied'){{__('Neplaćen')}}
+                                                        @elseif($bill->state == 'partly'){{__('U otplati')}}
+                                                        @else {{__('Plaćen')}}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{url('/admin/councils/editBill/'.$bill->id)}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi fakturu')}}">
+                                                            <i class="material-icons">create</i></a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="transactions">
+                                    <div class='row' style="background-color: #f2f2f2">
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Troškovi i prihodi')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addTransaction/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
+                                                                    +</a>
+                                        </div>
+                                    </div>
+                                    <div class='row' >
+                                        <table id="transactionstable" class="display table-responsive multitables">
+                                            <thead>
+                                                <tr>
+                                                    <th>&nbsp;&nbsp;&nbsp;#</th>
+                                                    <th>{{__('Datum')}}</th>
+                                                    <th>{{__('Iznos')}}</th>
+                                                    <th>{{__('Tip')}}</th>
+                                                    <th>{{__('Napomena')}}</th>
+                                                    <th style="min-width: 85px">{{__('Akcije')}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($transactions as $transaction)
+                                                <tr class="gradeX">
+                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>{{ date('d.m.Y.', strtotime($transaction->date))}}</td>
+                                                    <td>{{ $transaction->amount }}</td>
+                                                    <td>@if($transaction->type == 'income'){{__('Prihod')}}
+                                                        @else{{__('Trošak')}}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$transaction->note}}</td>
+                                                    <td>
+                                                        <a href="{{url('/admin/councils/editTransaction/'.$transaction->id)}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                            <i class="material-icons">create</i></a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <div id="announcements">
                                     <div class='row' >
                                         <table id="announcementstable" class="display table-responsive multitables">
@@ -363,5 +472,14 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('vendorScripts')
+<script src="{{ asset('/vendors/data-tables/js/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('/vendors/data-tables/extensions/Responsive/js/dataTables.responsive.min.js') }}"></script>
+@stop
+
+@section('pageScripts')
+<script src="{{ asset('/js/showcouncils.js') }}"></script>
 @stop
 
