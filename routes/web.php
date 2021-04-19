@@ -93,5 +93,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/offers/update', 'Admin\OffersController@update');
     Route::get('/offers/{id}/delete', 'Admin\OffersController@delete');
     Route::get('/offers/{id}/accept', 'Admin\OffersController@accept');
+    
+    Route::get('/duties', 'Admin\DutiesController@index');
+    Route::get('/duties/create', 'Admin\DutiesController@create');
+    Route::post('/duties/store', 'Admin\DutiesController@store');
+    Route::get('/duties/{id}/edit', 'Admin\DutiesController@edit');
+    Route::post('/duties/update', 'Admin\DutiesController@update');
+    Route::get('/duties/{id}/delete', 'Admin\DutiesController@delete');
 
 });
