@@ -28,7 +28,7 @@ class LawsuitsController extends Controller
                 'lawsuits.status as status')
             ->get();
 
-        return view('admin.lawsuits.allLawsuits', ['active' => 'allLawsuits', 'lawsuits' => $lawsuits]);
+        return view('admin.lawsuits.alllawsuits', ['active' => 'allLawsuits', 'lawsuits' => $lawsuits]);
     }
 
     public function create (){
