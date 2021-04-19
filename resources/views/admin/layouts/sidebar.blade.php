@@ -184,6 +184,66 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        <!-- Menu Duties -->
+        <li class="bold @if($active == 'allDuties' || $active == 'addDuty')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Obaveze')}}">{{__('Obaveze')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allDuties' || $active == 'addDuty')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allDuties')class="active" @endif>
+                        <a @if($active == 'allDuties')class="active" @endif href="{{ url('admin/duties') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve Obaveze ')}}">{{__('Sve Obaveze ')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addDuty')class="active" @endif>
+                        <a @if($active == 'addDuty')class="active" @endif href="{{ url('admin/duties/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Obavezu ')}}">{{__('Dodaj Obavezu ')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Warning -->
+        <li class="bold @if($active == 'allWarnings' || $active == 'addWarning')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Opomene')}}">{{__('Opomene')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allWarnings' || $active == 'addWarning')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allWarnings')class="active" @endif>
+                        <a @if($active == 'allWarnings')class="active" @endif href="{{ url('admin/warnings') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve Opomene ')}}">{{__('Sve Opomene ')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addWarning')class="active" @endif>
+                        <a @if($active == 'addWarning')class="active" @endif href="{{ url('admin/warnings/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Opomenu ')}}">{{__('Dodaj Opomenu ')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
+        <!-- Menu Warning -->
+        <li class="bold @if($active == 'allLawsuits' || $active == 'addLawsuit')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Tužbe')}}">{{__('Tužbe')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allLawsuits' || $active == 'addLawsuit')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allLawsuits')class="active" @endif>
+                        <a @if($active == 'allLawsuits')class="active" @endif href="{{ url('admin/lawsuits') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve Tužbe ')}}">{{__('Sve Tužbe ')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addLawsuit')class="active" @endif>
+                        <a @if($active == 'addLawsuit')class="active" @endif href="{{ url('admin/lawsuits/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Tužbu ')}}">{{__('Dodaj Tužbu ')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
     </ul>
     <div class="navigation-background"></div>
     <a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out">
