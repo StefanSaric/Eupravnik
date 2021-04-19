@@ -184,6 +184,21 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        <!-- Menu Documents -->
+        <li class="bold @if($active == 'allDocuments')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">library_books</i><span class="menu-title" data-i18n="{{__('Dokumenti')}}">{{__('Dokumenti')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allDocuments' || $active == 'addDuty')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allDocuments')class="active" @endif>
+                        <a @if($active == 'allDocuments')class="active" @endif href="{{ url('admin/documents') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Dokumenti ')}}">{{__('Sve Dokumenti ')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
         <!-- Menu Duties -->
         <li class="bold @if($active == 'allDuties' || $active == 'addDuty')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
