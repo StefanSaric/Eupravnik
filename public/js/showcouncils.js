@@ -25,7 +25,7 @@ $(document).ready(function(){
         }
     });
     
-    $('#transactionsstable').dataTable({
+    $('#transactionstable').dataTable({
         responsive: true,
         scrollCollapse: true,
         lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
