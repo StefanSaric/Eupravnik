@@ -45,6 +45,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editAddress/{id}', 'Admin\CouncilsController@editAddress');
     Route::post('/councils/updateAddress', 'Admin\CouncilsController@updateAddress');
     Route::get('/councils/deleteAddress/{id}', 'Admin\CouncilsController@deleteAddress');
+    Route::get('/councils/addBill/{id}', 'Admin\CouncilsController@addBill');
+    Route::post('/councils/storeBill', 'Admin\CouncilsController@storeBill');
+    Route::get('/councils/editBill/{id}', 'Admin\CouncilsController@editBill');
+    Route::post('/councils/updateBill', 'Admin\CouncilsController@updateBill');
+    Route::get('/councils/deleteBill/{id}', 'Admin\CouncilsController@deleteBill');
+    Route::get('/councils/addTransaction/{id}', 'Admin\CouncilsController@addTransaction');
+    Route::post('/councils/storeTransaction', 'Admin\CouncilsController@storeTransaction');
+    Route::get('/councils/editTransaction/{id}', 'Admin\CouncilsController@editTransaction');
+    Route::post('/councils/updateTransaction', 'Admin\CouncilsController@updateTransaction');
+    Route::get('/councils/deleteTransaction/{id}', 'Admin\CouncilsController@deleteTransaction');
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
     Route::get('/workers', 'Admin\WorkersController@index');
     Route::get('/workers/create', 'Admin\WorkersController@create');
@@ -83,6 +93,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/offers/update', 'Admin\OffersController@update');
     Route::get('/offers/{id}/delete', 'Admin\OffersController@delete');
     Route::get('/offers/{id}/accept', 'Admin\OffersController@accept');
+    
+    Route::get('/duties', 'Admin\DutiesController@index');
+    Route::get('/duties/create', 'Admin\DutiesController@create');
+    Route::post('/duties/store', 'Admin\DutiesController@store');
+    Route::get('/duties/{id}/edit', 'Admin\DutiesController@edit');
+    Route::post('/duties/update', 'Admin\DutiesController@update');
+    Route::get('/duties/{id}/delete', 'Admin\DutiesController@delete');
 
     Route::get('/warnings', 'Admin\WarningsController@index');
     Route::get('/warnings/create', 'Admin\WarningsController@create');
