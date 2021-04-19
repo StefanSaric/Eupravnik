@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Radnici')}}</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Dokumenti')}}</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
@@ -28,7 +28,7 @@
                                 <a href="{{ url('admin/') }}">Dash</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ url('admin/workers') }}">{{__('Radnici')}}</a>
+                                <a href="{{ url('admin/documents') }}">{{__('Dokumenti')}}</a>
                             </li>
                         </ol>
                     </div>
@@ -53,38 +53,32 @@
                                         </div>
                                     </div>
                                     <div id="datatablolder">
-                                        {!! Form::open(array('method' => 'DELETE', 'id' => 'workerForm', 'role' => 'form')) !!}
-                                        {!! Form::submit(null, ['id' => 'workerButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
+                                        {!! Form::open(array('method' => 'DELETE', 'id' => 'enforcerForm', 'role' => 'form')) !!}
+                                        {!! Form::submit(null, ['id' => 'enforcerButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
                                         {!! Form::close() !!}
                                         <div class="row">
                                             <div class="col s12">
-                                                <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovog radnika?')}}'/>
+                                                <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovaj dokument?')}}'/>
                                                 <table id="datatable" class="display table-responsive">
                                                     <thead>
                                                     <tr>
                                                         <th>&nbsp;&nbsp;&nbsp;#</th>
-                                                        <th>{{__('Ime')}}</th>
-                                                        <th>{{__('Prezime')}}</th>
-                                                        <th>{{__('Tip radnika')}}</th>
-                                                        <th>{{__('E-mail')}}</th>
-                                                        <th>{{__('Telefon')}}</th>
-                                                        <th>{{__('Licenca')}}</th>
+                                                        <th>{{__('Naziv')}}</th>
+                                                        <th>{{__('Kreiran')}}</th>
+                                                        <th>{{__('Vrsta')}}</th>
                                                         <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($workers as $num => $worker)
-                                                        <tr id="{{ $worker->id }}" class="gradeX">
+                                                    @foreach($documents as $num => $document)
+                                                        <tr id="{{ $document->id }}" class="gradeX">
                                                             <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                            <td>{{ $worker->name }}</td>
-                                                            <td>{{ $worker->surname }}</td>
-                                                            <td>{{ $worker->worker_type }}</td>
-                                                            <td>{{ $worker->email }}</td>
-                                                            <td>{{ $worker->telephone }}</td>
-                                                            <td>{{ $worker->licence }}</td>
-                                                            <td>
-                                                                <a href="{{url('/admin/workers/'.$worker->id.'/edit')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi radnika')}}">
-                                                                    <i class="material-icons">create</i></a>
+                                                            <td>{{ $document->name }}</td>
+                                                            <td>{{ $document->created_at }}</td>
+                                                            <td>{{ $document->type }}</td>
+                                                            <td style='white-space: nowrap; vertical-align: middle'>
+                                                                <a href="{{url('/admin/documents/'.$document->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Export')}}">
+                                                                    <i class="material-icons">add_to_photos</i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
