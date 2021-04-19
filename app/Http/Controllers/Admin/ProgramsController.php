@@ -49,19 +49,20 @@ class ProgramsController extends Controller
                 ->get();
         $program = Maintenance::find($programId);
         
-        $html = '<div style="margin-left: 30px; margin-right: 30px">';
+        $html = '<div style="background-color: #f4f5f7"><div style="margin-left: 30px; margin-right: 30px">';
 
         if (count($offers) > 0) {
 
             $html = $html . '<table id="offers_'.$programId.' class="display table-responsive nowrap striped appended-data-table">
                                 <thead>
-                                    <tr>
-                                        <th>&nbsp;&nbsp;&nbsp;' . __("Ponude") . '</th>
-                                        <th>' . __("Partner") . '</th>
+                                    <tr style="background-color: #f4f5f7">
+                                        <th style="width: 1%" class="all">&nbsp;&nbsp;&nbsp;#</th>
+                                        <th style="width: 15%" class="all">' . __("Partner") . '</th>
                                         <th>' . __("Opis") . '</th>
-                                        <th>' . __("Datum") . '</th>
+                                        <th style="width: 10%">' . __("Datum") . '</th>
                                         <th>' . __("Dokumenti") . '</th>
-                                        <th>' . __("Cena") . '</th>
+                                        <th style="width: 10%" class="all">' . __("Cena") . '</th>
+                                        <th></th>
                                         <th>' . __("Akcije") . '</th>
                                     </tr>
                                 </thead>
@@ -90,37 +91,38 @@ class ProgramsController extends Controller
                                     <td>';
                 if(!$program->is_checked){
                     $html = $html    . '<a href="' . url('/admin/offers/' . $offer->id . '/accept') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Prihvati ponudu') . '">
-                                            <i class="material-icons">done</i></a>';
+                                            <i class="material-icons">check_circle</i></a>';
                 }
-                $html = $html    .     '<a href="' . url('/admin/offers/' . $offer->id . '/edit') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Izmeni ponudu') . '">
-                                            <i class="material-icons">create</i></a>
+                $html = $html    . '</td>'
+                                  . '<td><a href="' . url('/admin/offers/' . $offer->id . '/edit') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Izmeni ponudu') . '">
+                                            <i class="material-icons">edit</i></a>
                                         <a href="' . url('/admin/offers/' . $offer->id . '/delete') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Obriši ponudu') . '">
                                             <i class="material-icons">delete</i></a>
                                     </td>    
                                 </tr>
-                                <tr>
-                                    <td colspan="7" class="odd"><div class="alert alert-dark" role="alert"></div>
+                                <tr style="background-color: #f4f5f7; border-bottom: none">
+                                    <td colspan="8">
                                     </td>
                                 </tr>';
             }
             $html = $html . '</tbody></table><br>';
                   
         } else {
-            //$html = $html . __('Nema ponuda') . '<br>';
-            $html = $html . '<table "offers_'.$programId.'" class="display table-responsive nowrap striped appended-data-table">
+            
+            $html = $html . '<table "offers_'.$programId.'_empty" class="display table-responsive nowrap striped appended-data-table">
                                 <thead>
-                                    <tr>
+                                    <tr style="background-color: #f4f5f7>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="text-align: center">' . __('Nema ponuda') . '</td>
+                                        <td style="text-align: center; vertical-align: middle>' . __('Nema ponuda') . '</td>
                                     </tr>
                                 </tbody>
                             </table><br>';
         }
-        $html = $html . '</div>';
+        $html = $html . '</div></div>';
         
         return compact('html');
     }
