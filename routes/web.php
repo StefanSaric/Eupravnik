@@ -85,6 +85,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/offers/{id}/accept', 'Admin\OffersController@accept');
     
     Route::get('/duties', 'Admin\DutiesController@index');
+    Route::get('/duties/{id}/show', 'Admin\DutiesController@show');
     Route::get('/duties/create', 'Admin\DutiesController@create');
     Route::post('/duties/store', 'Admin\DutiesController@store');
     Route::get('/duties/{id}/edit', 'Admin\DutiesController@edit');

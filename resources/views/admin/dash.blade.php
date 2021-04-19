@@ -75,10 +75,10 @@
                 hour12: false
             },
             events: window.location + '/getAppointments/' + docId,
-//            eventClick: function(eventInfo){
-//                //alert(eventInfo.event.id);
-//                window.location = window.location + '/patient/' +eventInfo.event.id;
-//            }
+            eventClick: function(eventInfo){
+                //alert(eventInfo.event.id);
+                window.location = window.location + '/duties/' +eventInfo.event.id + '/show';
+            }
         });
 
         calendar.render();
