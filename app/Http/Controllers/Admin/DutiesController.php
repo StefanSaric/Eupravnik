@@ -46,22 +46,30 @@ class DutiesController extends Controller
         }else{
             $isPrivate = false;
         }
-        
-        $duty = Duty::create([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'date_from' => date('Y-m-d', strtotime($request->date_from)),
-                    'time_from' => $request->time_from,
-                    'date_to' => date('Y-m-d', strtotime($request->date_to)),
-                    'time_to' => $request->time_to,
-                    'is_private' => $isPrivate
-        ]);
-        //dd($duty);
-        $duty->save();
-        
-        Session::flash('message', 'success_'.__('Obaveza je dodata!'));
-        
-        return redirect('admin/duties');
+        if($request->date_from > $request->date_to){
+            Session::flash('message', 'error_'.__('Datum završetka obaveze ne može biti pre datuma početka!'));
+            return back()->withInput();
+            
+        }else if($request->date_from == $request->date_to && $request->time_from > $request->time_to){
+            Session::flash('message', 'error_' . __('Vreme završetka obaveze ne može biti pre vremena početka!'));
+            return back()->withInput();
+            
+        } else {
+            $duty = Duty::create([
+                        'name' => $request->name,
+                        'description' => $request->description,
+                        'date_from' => date('Y-m-d', strtotime($request->date_from)),
+                        'time_from' => $request->time_from,
+                        'date_to' => date('Y-m-d', strtotime($request->date_to)),
+                        'time_to' => $request->time_to,
+                        'is_private' => $isPrivate
+            ]);
+            //dd($duty);
+            $duty->save();
+
+            Session::flash('message', 'success_' . __('Obaveza je dodata!'));
+            return redirect('admin/duties');
+        }
     }
 
     /**

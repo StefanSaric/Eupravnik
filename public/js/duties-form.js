@@ -83,7 +83,9 @@ $(document).ready(function () {
         if (dayFrom == dayTo && timeFrom > timeTo) {
             $('#time_to_warning').removeAttr('hidden');
             $('#offer_submit_btn').attr('disabled', true);
-        }else{
+        }else if(dayFrom > dayTo){
+            $('#time_to_warning').attr('hidden', true);
+        }else {
             $('#time_to_warning').attr('hidden', true);
             $('#offer_submit_btn').removeAttr('disabled');
         }

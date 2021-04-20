@@ -10,6 +10,9 @@
 @stop
     
 @section('content')
+@if(Session::has('message'))
+<input id="message" type="hidden" value="{{ Session::get('message') }}" />
+@endif
 <div class="row">
     <div id="breadcrumbs-wrapper" data-image="{{asset('images/breadcrumb-bg.jpg')}}">
         <!-- Search for small screen-->
