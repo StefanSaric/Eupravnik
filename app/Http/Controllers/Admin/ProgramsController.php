@@ -70,7 +70,7 @@ class ProgramsController extends Controller
 
             foreach ($offers as $num => $offer) {
                 
-                $documents = Document::where('offer_id', '=', $offer->id)->get();
+                $documents = Document::where('type_id', '=', $offer->id)->where('type', '=', 'offer')->get();
                 $num += 1;
                 $html = $html . '<tr id="' . $offer->id . '" class="gradeX">
                                     <td>&nbsp;&nbsp;&nbsp;' . $num . '</td>
