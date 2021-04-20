@@ -10,6 +10,9 @@
 @stop
     
 @section('content')
+@if(Session::has('message'))
+<input id="message" type="hidden" value="{{ Session::get('message') }}" />
+@endif
 <div class="row">
     <div id="breadcrumbs-wrapper" data-image="{{asset('images/breadcrumb-bg.jpg')}}">
         <!-- Search for small screen-->
@@ -44,7 +47,7 @@
                                 <div class="card-title">
                                     <div class="row">
                                         <div class="col s12 m6 l6">
-                                            <h4 class="card-title">{{__('Forma za dodavanje obaveza')}}</h4>
+                                            <h4 class="card-title">{{__('Forma za dodavanje obaveze')}}</h4>
                                         </div>
                                         <div class="col s12 m6 l6">
                                             <p class='pull-right'></p>

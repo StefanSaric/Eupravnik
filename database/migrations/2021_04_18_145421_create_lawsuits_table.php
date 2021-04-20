@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDocumentsTable extends Migration
+class CreateLawsuitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('lawsuits', function (Blueprint $table) {
             $table->id();
-            //$table->integer('offer_id');
-            $table->string('url');
-            $table->string('name');
-            $table->string('type');
-            $table->integer('type_id');
+            $table->integer('council_id');
+            $table->integer('partner_id');
+            $table->integer('enforcer_id');
+            $table->date('date_from');
+            $table->date('date_to');
+            $table->float('price');
+            $table->text('status');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('lawsuits');
     }
 }

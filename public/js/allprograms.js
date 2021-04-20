@@ -14,6 +14,7 @@ $('#datatable tbody').on('click', 'td.details-control', function () {
    //alert('usao');
     var tr = $(this).closest('tr');
     var row = table.row( tr );
+    //row.style.backgroundColor = '#f4f5f7';
     //alert(row.data().DT_RowId);
     if ( row.child.isShown() ) {
         row.child.hide();

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Warning extends Model
 {
     protected $fillable = [
-        'url', 'name', 'type', 'type_id'
+        'council_id','partner_id','date_from','date_to','price','status'
     ];
 }

@@ -94,7 +94,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/maintenance/{id}/edit', 'Admin\MaintenancesController@edit');
     Route::post('/maintenance/update', 'Admin\MaintenancesController@update');
     Route::get('/maintenance/{id}/delete', 'Admin\MaintenancesController@delete');
-    
+    Route::get('/maintenance/adddocument', 'Admin\MaintenancesController@adddocument');
+
     Route::get('/programs', 'Admin\ProgramsController@index');
     Route::get('/programs/grabOffers/{program_id}', 'Admin\ProgramsController@grabOffers');
 
@@ -104,12 +105,33 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/offers/update', 'Admin\OffersController@update');
     Route::get('/offers/{id}/delete', 'Admin\OffersController@delete');
     Route::get('/offers/{id}/accept', 'Admin\OffersController@accept');
-    
+
+    Route::get('/documents', 'Admin\DocumentsController@index');
+    Route::get('/documents/{type}/{id}/create', 'Admin\DocumentsController@create');
+    Route::post('/documents/store', 'Admin\DocumentsController@store');
+
     Route::get('/duties', 'Admin\DutiesController@index');
+    Route::get('/duties/{id}/show', 'Admin\DutiesController@show');
     Route::get('/duties/create', 'Admin\DutiesController@create');
     Route::post('/duties/store', 'Admin\DutiesController@store');
     Route::get('/duties/{id}/edit', 'Admin\DutiesController@edit');
     Route::post('/duties/update', 'Admin\DutiesController@update');
     Route::get('/duties/{id}/delete', 'Admin\DutiesController@delete');
+
+    Route::get('/warnings', 'Admin\WarningsController@index');
+    Route::get('/warnings/create', 'Admin\WarningsController@create');
+    Route::post('/warnings/store', 'Admin\WarningsController@store');
+    Route::get('/warnings/{id}/show', 'Admin\WarningsController@onewarning');
+    Route::get('/warnings/{id}/edit', 'Admin\WarningsController@edit');
+    Route::post('/warnings/update', 'Admin\WarningsController@update');
+    Route::get('/warnings/{id}/delete', 'Admin\WarningsController@delete');
+
+    Route::get('/lawsuits', 'Admin\LawsuitsController@index');
+    Route::get('/lawsuits/create', 'Admin\LawsuitsController@create');
+    Route::post('/lawsuits/store', 'Admin\LawsuitsController@store');
+    Route::get('/lawsuits/{id}/show', 'Admin\LawsuitsController@onelawsuit');
+    Route::get('/lawsuits/{id}/edit', 'Admin\LawsuitsController@edit');
+    Route::post('/lawsuits/update', 'Admin\LawsuitsController@update');
+    Route::get('/lawsuits/{id}/delete', 'Admin\LawsuitsController@delete');
 
 });

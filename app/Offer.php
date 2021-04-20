@@ -10,7 +10,7 @@ class Offer extends Model
         'program_id', 'partner_id', 'date', 'price', 'description', 'status'
     ];
 
-    public function documents() {
-        return $this->hasMany('App\Document', 'offer_id', 'id');
-    }
+//    public function documents() {
+//        return $this->hasMany('App\Document', 'offer_id', 'id');
+//    }
 }

@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Radnici')}}</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Opomene')}}</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
@@ -28,7 +28,7 @@
                                 <a href="{{ url('admin/') }}">Dash</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ url('admin/workers') }}">{{__('Radnici')}}</a>
+                                <a href="{{ url('admin/warnings') }}">{{__('Opomene')}}</a>
                             </li>
                         </ol>
                     </div>
@@ -53,38 +53,44 @@
                                         </div>
                                     </div>
                                     <div id="datatablolder">
-                                        {!! Form::open(array('method' => 'DELETE', 'id' => 'workerForm', 'role' => 'form')) !!}
-                                        {!! Form::submit(null, ['id' => 'workerButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
+                                        {!! Form::open(array('method' => 'DELETE', 'id' => 'enforcerForm', 'role' => 'form')) !!}
+                                        {!! Form::submit(null, ['id' => 'enforcerButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
                                         {!! Form::close() !!}
                                         <div class="row">
                                             <div class="col s12">
-                                                <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovog radnika?')}}'/>
+                                                <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovog izvršitelja?')}}'/>
                                                 <table id="datatable" class="display table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th>&nbsp;&nbsp;&nbsp;#</th>
-                                                        <th>{{__('Ime')}}</th>
-                                                        <th>{{__('Prezime')}}</th>
-                                                        <th>{{__('Tip radnika')}}</th>
-                                                        <th>{{__('E-mail')}}</th>
-                                                        <th>{{__('Telefon')}}</th>
-                                                        <th>{{__('Licenca')}}</th>
+                                                        <th>{{__('Broj opomene')}}</th>
+                                                        <th>{{__('Skupstina')}}</th>
+                                                        <th>{{__('Obveznik')}}</th>
+                                                        <th>{{__('Period')}}</th>
+                                                        <th>{{__('Platiti do')}}</th>
+                                                        <th>{{__('Iznos')}}</th>
+                                                        <th>{{__('Status')}}</th>
                                                         <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($workers as $num => $worker)
-                                                        <tr id="{{ $worker->id }}" class="gradeX">
+                                                    @foreach($warnings as $num => $warning)
+                                                        <tr id="{{ $warning->id }}" class="gradeX">
                                                             <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                            <td>{{ $worker->name }}</td>
-                                                            <td>{{ $worker->surname }}</td>
-                                                            <td>{{ $worker->worker_type }}</td>
-                                                            <td>{{ $worker->email }}</td>
-                                                            <td>{{ $worker->telephone }}</td>
-                                                            <td>{{ $worker->licence }}</td>
-                                                            <td>
-                                                                <a href="{{url('/admin/workers/'.$worker->id.'/edit')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi radnika')}}">
+                                                            <td>{{ $warning->council_name }}</td>
+                                                            <td>{{ $warning->partner_name }}</td>
+                                                            <td>{{ $warning->date_from }}</td>
+                                                            <td>{{ $warning->date_to }}</td>
+                                                            <td>{{ $warning->price }}</td>
+                                                            <td>{{ $warning->status }}</td>
+                                                            <td style='white-space: nowrap; vertical-align: middle'>
+                                                                <a href="{{url('/admin/warnings/'.$warning->id.'/show')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Pogledaj tužbu')}}">
+                                                                    <i class="material-icons">search</i></a>
+                                                                <a href="{{url('/admin/warnings/'.$warning->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Štampaj')}}">
+                                                                    <i class="material-icons">add_to_photos</i></a>
+                                                                <a href="{{url('/admin/warnings/'.$warning->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Izmeni tužbu')}}">
                                                                     <i class="material-icons">create</i></a>
+                                                                <a href="{{url('/admin/warnings/'.$warning->id.'/delete')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši tužbu')}}">
+                                                                    <i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
