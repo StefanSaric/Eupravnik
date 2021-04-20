@@ -56,6 +56,9 @@
                        @if(isset($duty) || old('date_to') != null) placeholder="" @endif
                        required></input>
                 <label for="date_to" class="">{{__('Datum do')}}</label>
+                <div style="margin-left: 3rem">
+                    <p id="date_to_warning" hidden="" style="color: red">{{'Datum završetka obaveze ne može biti pre datuma početka!'}}</p>
+                </div>
             </div>
             <div class="col s11 m2 l2">
             </div>
@@ -66,7 +69,7 @@
                        @if(isset($duty) || old('time_to') != null) placeholder="" @endif
                        required></input>
                 <label for="time_to" class="">{{__('Vreme do')}}</label>
-                <div>
+                <div style="margin-left: 3rem">
                     <p id="time_to_warning" hidden="" style="color: red">{{'Vreme završetka obaveze ne može biti pre vremena početka!'}}</p>
                 </div>
             </div>
