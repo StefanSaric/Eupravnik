@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/maintenance/{id}/edit', 'Admin\MaintenancesController@edit');
     Route::post('/maintenance/update', 'Admin\MaintenancesController@update');
     Route::get('/maintenance/{id}/delete', 'Admin\MaintenancesController@delete');
+    Route::get('/maintenance/adddocument', 'Admin\MaintenancesController@adddocument');
 
     Route::get('/programs', 'Admin\ProgramsController@index');
     Route::get('/programs/grabOffers/{program_id}', 'Admin\ProgramsController@grabOffers');
@@ -95,6 +96,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/offers/{id}/accept', 'Admin\OffersController@accept');
 
     Route::get('/documents', 'Admin\DocumentsController@index');
+    Route::get('/documents/{type}/{id}/create', 'Admin\DocumentsController@create');
+    Route::post('/documents/store', 'Admin\DocumentsController@store');
 
     Route::get('/duties', 'Admin\DutiesController@index');
     Route::get('/duties/{id}/show', 'Admin\DutiesController@show');

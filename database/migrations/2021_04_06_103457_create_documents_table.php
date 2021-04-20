@@ -15,9 +15,11 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->integer('offer_id');
+            //$table->integer('offer_id');
             $table->string('url');
             $table->string('name');
+            $table->string('type');
+            $table->integer('type_id');
             $table->timestamps();
         });
     }
