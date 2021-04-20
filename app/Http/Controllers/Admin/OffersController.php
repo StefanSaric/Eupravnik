@@ -20,13 +20,13 @@ class OffersController extends Controller
     }
 
     public function create ($programId){
-        
+
         $program = Maintenance::where('id', '=', $programId)->first();
         $elementName = $program->name;
-        
+
         $council = Council::where('id', '=', $program->council_id)->first();
         $councilName = $council->name;
-        
+
         $partners = Partner::all();
         $documents = Document::all();
         return view('admin.offers.create', ['active' => 'addOffer', 'program_id' => $programId, 'partners' => $partners,
@@ -44,19 +44,16 @@ class OffersController extends Controller
             'description' => $request->description]);
 
         $now = time();
+        $type = "offer";
         $document_id = 0;
-        $path = 'documents/offer/' . $offer->id;
+        $path = 'documents/'. $type;
         if ($request->file('documents') != null) {
             foreach ($request->file('documents') as $document) {
                 $document_id++;
-                $document_path = public_path($path) . '/dokument_' . $document_id . $now . '.' . $document->getClientOriginalExtension();
-                if (!is_dir(dirname($document_path))) {
-                    mkdir(dirname($document_path), 0777, true);
-                }
+                $document_path = public_path($path) . $document->getClientOriginalExtension();
                 move_uploaded_file($document, $document_path);
-                //File::make($document->getRealPath())->save(public_path($path) . '/dokument_' . $document_id . $now . '.' . $document->getClientOriginalExtension());
-                $url = $path . '/dokument_' . $document_id . $now . '.' . $document->getClientOriginalExtension();
-                $one_document = Document::create(['offer_id' => $offer->id, 'url' => $url, 'name' => $document->getClientOriginalName()]);
+                $url = $path . $document->getClientOriginalExtension();
+                $one_document = Document::create(['url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $type, 'type_id' => $offer->id]);
             }
         }
         Session::flash('message', 'success_'.__('Ponuda je uspešno dodata!'));
@@ -97,7 +94,7 @@ class OffersController extends Controller
         // trebalo bi da se vraca na stranicu Maintenance->id
         // return redirect('admin/');
     }
-    
+
     public function accept($id)
     {
         $offer = Offer::find($id);
@@ -117,7 +114,7 @@ class OffersController extends Controller
                 'status' => 1
             ]);
         Session::flash('acttab', 'assignments');
-        
+
         return redirect('/admin/councils/show/'.$programme->council_id);
     }
 }

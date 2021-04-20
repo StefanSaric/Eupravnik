@@ -193,7 +193,7 @@
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li @if($active == 'allDocuments')class="active" @endif>
                         <a @if($active == 'allDocuments')class="active" @endif href="{{ url('admin/documents') }}">
-                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Dokumenti ')}}">{{__('Sve Dokumenti ')}}</span></a>
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Dokumenti ')}}">{{__('Svi Dokumenti ')}}</span></a>
                         </a>
                     </li>
                 </ul>
