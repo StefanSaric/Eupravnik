@@ -43,16 +43,15 @@ class OffersController extends Controller
             'price' => $request->price,
             'description' => $request->description]);
 
-        $now = time();
         $type = "offer";
         $document_id = 0;
-        $path = 'documents/'. $type;
+        $path = 'documents/';
         if ($request->file('documents') != null) {
             foreach ($request->file('documents') as $document) {
                 $document_id++;
-                $document_path = public_path($path) . $document->getClientOriginalExtension();
+                $document_path = public_path($path) . $document->getClientOriginalName();
                 move_uploaded_file($document, $document_path);
-                $url = $path . $document->getClientOriginalExtension();
+                $url = $path . $document->getClientOriginalName();
                 $one_document = Document::create(['url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $type, 'type_id' => $offer->id]);
             }
         }

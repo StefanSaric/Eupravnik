@@ -6,6 +6,7 @@ use App\Document;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class DocumentsController extends Controller
 {
@@ -23,15 +24,23 @@ class DocumentsController extends Controller
 
     public function store (Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'documents' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
 
         $document_id = 0;
-        $path = 'documents/'. $request->type;
+        $path = 'documents/';
         if ($request->file('documents') != null) {
             foreach ($request->file('documents') as $document) {
                 $document_id++;
-                $document_path = public_path($path) . $document->getClientOriginalExtension();
+                $document_path = public_path($path) . $document->getClientOriginalName();
                 move_uploaded_file($document, $document_path);
-                $url = $path . $document->getClientOriginalExtension();
+                $url = $path. $document->getClientOriginalName();
                 $one_document = Document::create(['url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $request->type, 'type_id' => $request->type_id]);
             }
         }
