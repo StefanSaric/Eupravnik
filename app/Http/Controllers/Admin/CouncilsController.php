@@ -197,7 +197,42 @@ class CouncilsController extends Controller
     
     public function storeMeeting(Request $request)
     {
-        $meeting = Meeting::create($request->all());
+        //dd($request);
+        if($request->type == "0"){
+            $is_announced = 0;
+            $email_sent = 0;
+            $type = 0;
+        }
+        else if($request->type == '1'){
+            $is_announced = 1;
+            $email_sent = 0;
+            $type = 1;
+        }
+        else{
+            $is_announced = 1;
+            $email_sent = 1;
+            $type = 2;
+        }
+        $meeting = Meeting::create([
+            'council_id' => $request->council_id,
+            'user_id' => Auth::user()->id,
+            'date' => $request->date,
+            'time' => $request->time,
+            'is_announced' => $is_announced,
+            'email_sent' => $email_sent
+            ]);
+        if($type > 0){
+            $announce = Announcement::create([
+                'council_id' => $request->council_id,
+                'user_id' => Auth::user()->id,
+                'date' => date('Y-m-d'),
+                'name' => 'Sednica skupštine '.date('d.m.Y.', strtotime($request->date)),
+                'greeting' => 'Poštovane komšije,',
+                'content' => 'dana '.date('d.m.Y.', strtotime($request->date)).' u '.$request->time.' će biti održana sednica skupštine stanara',
+                'signature' => 'Upravnik zgrade,/n'.Auth::user()->name,
+                'email_sent' => $email_sent
+            ]);
+        }
         
         Session::flash('acttab', 'meetings');
         Session::flash('message', 'info_'.__('Sastanak je dodat!'));
@@ -215,8 +250,11 @@ class CouncilsController extends Controller
     
     public function updateMeeting(Request $request)
     {
+        //dd($request);
         $meeting = Meeting::find($request->meeting_id);
-        $meeting->update($request->all());
+        $meeting->date = $request->date;
+        $meeting->time = $request->time;
+        $meeting->save();
         
         Session::flash('acttab', 'meetings');
         Session::flash('message', 'info_'.__('Sastanak je uredjen!'));
@@ -244,7 +282,17 @@ class CouncilsController extends Controller
     
     public function storeAnnouncement(Request $request)
     {
-        $announcement = Announcement::create($request->all());
+        //dd($request);
+        $announcement = Announcement::create([
+            'council_id' => $request->council_id,
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'date' => $request->date,
+            'greeting' => $request->greeting,
+            'content' => $request->content,
+            'signature' => $request->signature,
+            'email_sent' => 0
+        ]);
         
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je dodato!'));
@@ -257,7 +305,7 @@ class CouncilsController extends Controller
         $announcement = Announcement::find($id);
         $council = Council::find($announcement->council_id);
         
-        return view('admin.councils.editMeeting', ['active' => 'allCouncils', 'council' => $council, 'announcement' => $announcement]);
+        return view('admin.councils.editAnnouncement', ['active' => 'allCouncils', 'council' => $council, 'announcement' => $announcement]);
     }
     
     public function updateAnnouncement(Request $request)
@@ -280,6 +328,25 @@ class CouncilsController extends Controller
         Session::flash('message', 'info_'.__('Obavestenje je obrisano!'));
         
         return redirect('admin/councils/show/'.$council_id);
+    }
+    
+    public function announcementToPDF($id)
+    {
+        $announcement = Announcement::find($id);
+        $compiled = view('admin/councils/announcementPDF')->with(['announcement'=> $announcement])->render();
+        $mpdf = new \Mpdf\Mpdf([
+            'format' => 'A4',
+            'orientation' => 'P',
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 15,
+            'margin_bottom' => 8,
+            'margin_header' => 0,
+            'margin_footer' => 0
+        ]);
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->WriteHTML($compiled);
+        $mpdf->Output();
     }
     
     public function addBill($id)

@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Skupštine stanara - adrese')}}</span></h5>
+                    <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Skupštine stanara - obaveštenje')}}</span></h5>
                 </div>
                 <div class="col s12 m6 l6 right-align-md">
                     <ol class="breadcrumbs mb-0">
@@ -30,7 +30,7 @@
                             <a href="{{ url('admin/councils/show/'.$council->id) }}">{{ $council->name }}</a>
                         </li>
                         <li class="breadcrumb-item">
-                            {{__('Dodaj račun')}}
+                            {{__('Dodaj obaveštenje')}}
                         </li>
                     </ol>
                 </div>
@@ -47,7 +47,7 @@
                                 <div class="card-title">
                                     <div class="row">
                                         <div class="col s12 m6 l6">
-                                            <h4 class="card-title">{{__('Forma za dodavanje troška/prihoda skupštine stanara')}}</h4>
+                                            <h4 class="card-title">{{__('Forma za dodavanje obaveštenja skupštine stanara')}}</h4>
                                         </div>
                                         <div class="col s12 m6 l6">
                                             <p class='pull-right'></p>
@@ -55,8 +55,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    {!! Form::open(array('method' => 'POST', 'url' => 'admin/councils/storeBill', 'id' => 'fileupload', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'files' => true, 'enctype' => 'multipart/form-data')) !!}
-                                    @include('admin.forms.councilbill', ['submit' => 'Dodaj'])
+                                    {!! Form::open(array('method' => 'POST', 'url' => 'admin/councils/storeAnnouncement', 'id' => 'fileupload', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'files' => true, 'enctype' => 'multipart/form-data')) !!}
+                                    @include('admin.forms.councilannouncement', ['submit' => 'Dodaj'])
                                     {!! Form::close() !!}
                                     @include('admin.forms.error')
                                 </div>
@@ -72,7 +72,7 @@
 
 @section('vendorScripts')
 <script src="{{ asset('vendors/jquery-validation/jquery.validate.js') }}"></script>
-<script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>	
+<script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>
 @stop
 @section('pageScripts')
 <script src="{{ asset('js/milan_datetime_formats.js') }}"></script>
