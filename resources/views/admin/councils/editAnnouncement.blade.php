@@ -4,6 +4,7 @@
 @section('vendorCss')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/select2/select2.min.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/select2/select2-materialize.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/quill/quill.snow.css')}}"/>
 @stop
 @section('pageCss')
 <link rel="stylesheet" type="text/css" href="{{asset('css/users-form.css')}}"/>
@@ -16,7 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Skupštine stanara - adrese')}}</span></h5>
+                    <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Uredjivanje obaveštenja')}}</span></h5>
                 </div>
                 <div class="col s12 m6 l6 right-align-md">
                     <ol class="breadcrumbs mb-0">
@@ -30,7 +31,7 @@
                             <a href="{{ url('admin/councils/show/'.$council->id) }}">{{ $council->name }}</a>
                         </li>
                         <li class="breadcrumb-item">
-                            {{__('Dodaj račun')}}
+                            {{__('Uredi obaveštenje')}}
                         </li>
                     </ol>
                 </div>
@@ -47,7 +48,7 @@
                                 <div class="card-title">
                                     <div class="row">
                                         <div class="col s12 m6 l6">
-                                            <h4 class="card-title">{{__('Forma za dodavanje troška/prihoda skupštine stanara')}}</h4>
+                                            <h4 class="card-title">{{__('Forma za uredjivanje obaveštenja skupštine stanara')}}</h4>
                                         </div>
                                         <div class="col s12 m6 l6">
                                             <p class='pull-right'></p>
@@ -55,8 +56,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    {!! Form::open(array('method' => 'POST', 'url' => 'admin/councils/storeBill', 'id' => 'fileupload', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'files' => true, 'enctype' => 'multipart/form-data')) !!}
-                                    @include('admin.forms.councilbill', ['submit' => 'Dodaj'])
+                                    {!! Form::model($announcement, array('method' => 'POST', 'url' => 'admin/councils/updateAnnouncement', 'class' => 'form-horizontal form-bordered form-validate', 'role' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
+                                    @include('admin.forms.councilannouncement', ['submit' => 'Uredi'])
                                     {!! Form::close() !!}
                                     @include('admin.forms.error')
                                 </div>
@@ -72,7 +73,7 @@
 
 @section('vendorScripts')
 <script src="{{ asset('vendors/jquery-validation/jquery.validate.js') }}"></script>
-<script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>	
+<script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>
 @stop
 @section('pageScripts')
 <script src="{{ asset('js/milan_datetime_formats.js') }}"></script>

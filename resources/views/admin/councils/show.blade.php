@@ -7,13 +7,19 @@
 
 @section('pageCss')
 <link rel="stylesheet" type="text/css" href="{{asset('css/datatables.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/councilshow.css')}}"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
 @stop
 
 @section('content')
 @if(Session::has('message'))
 <input id="message" type="hidden" value="{{ Session::get('message') }}" />
 @endif
-
+<input id="latitude" type="hidden" value="{{ $council->latitude }}" />
+<input id="longitude" type="hidden" value="{{ $council->longitude }}" />
+<input id="council_name" type="hidden" value="{{ $council->name }}" />
 <div class="row">
     <div id="breadcrumbs-wrapper" data-image="{{asset('images/breadcrumb-bg.jpg')}}">
         <!-- Search for small screen-->
@@ -86,6 +92,15 @@
                             </div>
                             <div class="card-content">
                                 <div id="addresses">
+                                    <div class='row' style="background-color: #f2f2f2">
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Osnovni podaci')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/'.$council->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi adresu')}}">
+                                                                    <i class="material-icons">create</i></a>
+                                        </div>
+                                    </div>
                                     <div class='row'>
                                         <div class='col s12 m6 l6'>
                                             <text style="font-weight: bold; color: black">{{__('Skupština: ')}}</text>{{ $council->name }}
@@ -103,14 +118,14 @@
                                         </div>
                                     </div>
                                     @foreach($addresses as $key => $address)
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row address-blocks' style="background-color: #f2f2f2" data-counter="{{($key+1)}}" data-address="{{$address->address}}, {{$council->city}}">
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Adresa')}}@if(count($addresses)>1){{' '.($key+1)}}@endif: {{$address->address}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/editAddress/'.$address->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi adresu')}}">
+                                            <a href="{{url('/admin/councils/editAddress/'.$address->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi adresu')}}">
                                                                     <i class="material-icons">create</i></a>
-                                            <a href='{{url('/admin/councils/deleteAddress/'.$address->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši adresu')}}">
+                                            <a href='{{url('/admin/councils/deleteAddress/'.$address->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši adresu')}}">
                                                 <i class="material-icons">delete</i></a>
                                         </div>
                                     </div>
@@ -157,7 +172,7 @@
                                             <text style="font-weight: bold; color: black">{{__('Sklonište: ')}}</text>@if($address->shelter){{__('ima')}}@else{{__('nema')}}@endif
                                         </div>
                                         <div class='col s12 m6 l6'>
-                                            <text style="font-weight: bold; color: black">{{__('Energetski pasoš: ')}}</text>{{ $council->energy_passport }}
+                                            <text style="font-weight: bold; color: black">{{__('Energetski pasoš: ')}}</text>{{ $address->energy_passport }}
                                         </div>
                                         <div class='col s12 m4 l4'></div>
                                     </div>
@@ -167,6 +182,16 @@
                                             <a href="{{url('/admin/councils/addAddress/'.$council->id)}}" class="btn cyan waves-effect waves-light tooltipped" data-position="top" data-tooltip="{{__('Dodaj adresu')}}">
                                                             +</a>
                                         </div>
+                                    </div>
+                                    <div class='row' style="background-color: #f2f2f2">
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Mapa')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div id="myleafletmap" style="height: 500px"></div>
                                     </div>
                                 </div>
                                 <div id="units">
@@ -198,7 +223,7 @@
                                                     <td>Stambeni</td>
                                                     <td>Da</td>
                                                     <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
+                                                        <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr> 
@@ -213,7 +238,7 @@
                                                     <td>Stambeni</td>
                                                     <td>Da</td>
                                                     <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
+                                                        <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr> 
@@ -244,7 +269,7 @@
                                                     <td>10.03.2020.</td>
                                                     <td>11.04.2021.</td>
                                                     <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
+                                                        <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr>
@@ -254,7 +279,7 @@
                                 </div>
                                 <div id="assignments">
                                     <div class='row' >
-                                        <table id="assignmentstable" class="display table-responsive multitables">
+                                        <table id="assignmentstable" class="display table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
@@ -275,7 +300,7 @@
                                                     <td>Intervencija</td>
                                                     <td>Test radionica</td>
                                                     <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                        <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr> 
@@ -296,7 +321,7 @@
                                                     </td>
                                                     <td>{{$assignment->contractor}}</td>
                                                     <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                        <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr>
@@ -311,12 +336,12 @@
                                             <h5>{{__('Servisi za fakturisanje')}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/addBill/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
+                                            <a href="{{url('/admin/councils/addBill/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
                                                                     +</a>
                                         </div>
                                     </div>
                                     <div class='row'>
-                                        <table id="billstable" class="display table-responsive multitables">
+                                        <table id="billstable" class="display">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
@@ -345,7 +370,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <a href="{{url('/admin/councils/editBill/'.$bill->id)}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi fakturu')}}">
+                                                        <a href="{{url('/admin/councils/editBill/'.$bill->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi fakturu')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr>
@@ -371,12 +396,12 @@
                                             <h5>{{__('Troškovi i prihodi')}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/addTransaction/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
+                                            <a href="{{url('/admin/councils/addTransaction/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
                                                                     +</a>
                                         </div>
                                     </div>
                                     <div class='row' >
-                                        <table id="transactionstable" class="display table-responsive multitables">
+                                        <table id="transactionstable" class="display table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
@@ -399,7 +424,7 @@
                                                     </td>
                                                     <td>{{$transaction->note}}</td>
                                                     <td>
-                                                        <a href="{{url('/admin/councils/editTransaction/'.$transaction->id)}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                        <a href="{{url('/admin/councils/editTransaction/'.$transaction->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr>
@@ -419,57 +444,94 @@
                                     </div>
                                 </div>
                                 <div id="announcements">
+                                    <div class='row' style="background-color: #f2f2f2">
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Obaveštenja')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addAnnouncement/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj obaveštenje')}}">
+                                                                    +</a>
+                                        </div>
+                                    </div>
                                     <div class='row' >
-                                        <table id="announcementstable" class="display table-responsive multitables">
+                                        <table id="announcementstable" class="display table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Naslov')}}</th>
                                                     <th>{{__('Datum')}}</th>
-                                                    <th>{{__('Email')}}</th>
-                                                    <th>{{__('Okačeno')}}</th>
+                                                    <th>{{__('Poslat email')}}</th>
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($announcements as $announcement)
                                                 <tr class="gradeX">
                                                     <td>&nbsp;&nbsp;&nbsp;</td>
-                                                    <td>Čišćenje snega</td>
-                                                    <td>20.03.2021.</td>
-                                                    <td>Poslat</td>
-                                                    <td>Ne</td>
-                                                    <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
-                                                            <i class="material-icons">create</i></a>
+                                                    <td>{{ $announcement->name }}</td>
+                                                    <td>{{ date('d.m.Y.', strtotime($announcement->date))}}</td>
+                                                    <td>@if($announcement->email_sent == 1){{__('Da')}}
+                                                        @else{{__('Ne')}}
+                                                        @endif
                                                     </td>
-                                                </tr> 
+                                                    <td>
+                                                        <a href="{{url('/admin/councils/editAnnouncement/'.$announcement->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi obaveštenje')}}">
+                                                            <i class="material-icons">create</i></a>
+                                                            <a href="{{url('/admin/councils/announcementToPDF/'.$announcement->id)}}" target="__blank" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Prikazi PDF')}}">
+                                                            <i class="material-icons">picture_as_pdf</i></a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
+                                        </table>
                                         </table>
                                     </div>
                                 </div>
                                 <div id='meetings'>
+                                    <div class='row' style="background-color: #f2f2f2">
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Sednice')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addMeeting/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj sednicu')}}">
+                                                                    +</a>
+                                        </div>
+                                    </div>
                                     <div class='row' >
-                                        <table id="meetingstable" class="display table-responsive multitables">
+                                        <table id="meetingstable" class="display table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Datum')}}</th>
+                                                    <th>{{__('Vreme')}}</th>
                                                     <th>{{__('Sazvao')}}</th>
-                                                    <th>{{__('Obaveštenja')}}</th>
+                                                    <th>{{__('Obaveštenje')}}</th>
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($meetings as $key => $meeting)
                                                 <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                                    <td>20.03.2021.</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;{{($key+1)}}</td>
+                                                    <td>{{date('d.m.Y', strtotime($meeting->date))}}</td>
+                                                    <td>{{$meeting->time}}</td>
                                                     <td>{{Auth::user()->name}}</td>
-                                                    <td>Poslato</td>
+                                                    <td>@if($meeting->is_announced)
+                                                        @if($meeting->email_sent)
+                                                        {{__('E-mail')}}
+                                                        @else
+                                                        {{__('Kreirano')}}
+                                                        @endif
+                                                        @else
+                                                        {{__('Nema')}}
+                                                        @endif
+                                                    </td>
                                                     <td>
-                                                        <a href="#" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
+                                                        <a href="{{url('/admin/councils/editMeeting/'.$meeting->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi sednicu')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr> 
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -490,6 +552,9 @@
 @stop
 
 @section('pageScripts')
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
 <script src="{{ asset('/js/showcouncils.js') }}"></script>
 @stop
 

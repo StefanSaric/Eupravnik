@@ -12,6 +12,6 @@ class Announcement extends Model
      * @var array
      */
     protected $fillable = [
-        'council_id', 'user_id', 'name', 'greeting', 'content', 'signature', 'email_sent'
+        'council_id', 'user_id', 'date', 'name', 'greeting', 'content', 'signature', 'email_sent'
     ];
 }

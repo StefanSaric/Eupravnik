@@ -12,6 +12,6 @@ class Meeting extends Model
      * @var array
      */
     protected $fillable = [
-        'council_id', 'user_id', 'date', 'is_announced', 'email_sent'
+        'council_id', 'user_id', 'date', 'time', 'is_announced', 'email_sent'
     ];
 }

@@ -75,5 +75,5 @@
 <script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>	
 @stop
 @section('pageScripts')
-<script src="{{ asset('js/councils-form.js') }}"></script>
+<script src="{{ asset('js/milan_datetime_formats.js') }}"></script>
 @stop
