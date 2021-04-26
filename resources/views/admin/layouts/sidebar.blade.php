@@ -104,7 +104,7 @@
         <!-- Menu Codebooks -->
         <li class="bold @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">library_books</i><span class="menu-title" data-i18n="{{__('Šifarnici')}}">{{__('Šifarnici')}}</span>
+                <i class="material-icons">storage</i><span class="menu-title" data-i18n="{{__('Šifarnici')}}">{{__('Šifarnici')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -152,7 +152,7 @@
         <!-- Menu Maintenance -->
         <li class="bold @if($active == 'allMaintenances' || $active == 'addMaintenance')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="{{__('Analiza Stanja')}}">{{__('Analiza Stanja')}}</span>
+                <i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="{{__('Analize Stanja')}}">{{__('Analize Stanja')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allMaintenances' || $active == 'addMaintenance')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -172,7 +172,7 @@
         <!-- Menu Program -->
         <li class="bold @if($active == 'allPrograms' || $active == 'addProgram')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">build</i><span class="menu-title" data-i18n="{{__('Program Održavanja')}}">{{__('Program Održavanja')}}</span>
+                <i class="material-icons">build</i><span class="menu-title" data-i18n="{{__('Programi Održavanja')}}">{{__('Programi Održavanja')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allPrograms' || $active == 'addProgram')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -202,7 +202,7 @@
         <!-- Menu Duties -->
         <li class="bold @if($active == 'allDuties' || $active == 'addDuty')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Obaveze')}}">{{__('Obaveze')}}</span>
+                <i class="material-icons">assignment_turned_in</i><span class="menu-title" data-i18n="{{__('Obaveze')}}">{{__('Obaveze')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allDuties' || $active == 'addDuty')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -222,7 +222,7 @@
         <!-- Menu Warning -->
         <li class="bold @if($active == 'allWarnings' || $active == 'addWarning')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Opomene')}}">{{__('Opomene')}}</span>
+                <i class="material-icons">assignment_late</i><span class="menu-title" data-i18n="{{__('Opomene')}}">{{__('Opomene')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allWarnings' || $active == 'addWarning')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
@@ -242,7 +242,7 @@
         <!-- Menu Warning -->
         <li class="bold @if($active == 'allLawsuits' || $active == 'addLawsuit')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">assignment</i><span class="menu-title" data-i18n="{{__('Tužbe')}}">{{__('Tužbe')}}</span>
+                <i class="material-icons">gavel</i><span class="menu-title" data-i18n="{{__('Tužbe')}}">{{__('Tužbe')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allLawsuits' || $active == 'addLawsuit')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">

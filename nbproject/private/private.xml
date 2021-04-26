@@ -14,15 +14,6 @@
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/duties/oneduty.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/dash.blade.php</file>
             <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/duties.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/councils/show.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/public/js/councilannouncements-form.js</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/councils/addAnnouncement.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Http/Controllers/Admin/CouncilsController.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/councils/editAnnouncement.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/routes/web.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/app/Announcement.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/resources/views/admin/forms/councilannouncement.blade.php</file>
-            <file>file:/C:/wamp64/www/php_eupravnik/public/css/councilshow.css</file>
         </group>
     </open-files>
 </project-private>
