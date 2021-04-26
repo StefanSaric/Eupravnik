@@ -73,7 +73,7 @@
                                                     @foreach($documents as $num => $document)
                                                         <tr id="{{ $document->id }}" class="gradeX">
                                                             <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                            <td><a href="{{url('/'.$document->url)}}" target="_blank">{{ $document->name }}</a></td>
+                                                            <td class="show-on-small show-on-medium"><a href="{{url('/'.$document->url)}}" target="_blank">{{ $document->name }}</a></td>
                                                             <td>{{ $document->created_at }}</td>
                                                             <td>{{ $document->type }}</td>
                                                             <td style='white-space: nowrap; vertical-align: middle'>
