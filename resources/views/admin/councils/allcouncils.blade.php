@@ -74,7 +74,7 @@
                                                 <tbody>
                                                 @foreach($councils as $num => $council)
                                                    <tr id="{{ $council->id }}" class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                    <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                     <td><a href='{{url('/admin/councils/show/'.$council->id)}}'>{{ $council->name }}</a></td>
                                                     <td>{{ $council->short_name }}</td>
                                                     <td>{{ $council->city }}</td>

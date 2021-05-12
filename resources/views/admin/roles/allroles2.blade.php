@@ -70,7 +70,7 @@
                                                 <tbody>
                                                     @foreach($roles as $num => $role)
                                                     <tr id="{{ $role->id }}" class="gradeX">
-                                                        <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                        <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                         <td>{{ $role->name }}</td>
                                                         <td>
                                                             <a href="{{url('/admin/roles/'.$role->id.'/edit')}}" 

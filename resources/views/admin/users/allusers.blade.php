@@ -71,7 +71,7 @@
                                                 <tbody>
                                                 @foreach($users as $num => $user)
                                                    <tr id="{{ $user->id }}" class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                    <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>

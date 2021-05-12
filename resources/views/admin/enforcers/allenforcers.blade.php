@@ -72,7 +72,7 @@
                                                 <tbody>
                                                 @foreach($enforcers as $num => $enforcer)
                                                    <tr id="{{ $enforcer->id }}" class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                    <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                     <td>{{ $enforcer->name }}</td>
                                                     <td>{{ $enforcer->address }}</td>
                                                     <td>{{ $enforcer->city }}</td>
