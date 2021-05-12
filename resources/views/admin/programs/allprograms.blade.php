@@ -86,14 +86,14 @@
                                                         <th>{{__('Prioritet')}}</th>
                                                         <th>{{__('Proveren')}}</th>
                                                         <!--<th></th>-->
-                                                        <th style="min-width: 85px">{{__('Akcije')}}</th>
+                                                        <th style="width: 4%">{{__('Akcije')}}</th>
+                                                        <th class="all" style="max-width: 20px"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($programs as $num => $program)
                                                     <tr id="{{ $program->id }}" class="gradeX">
                                                         <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
-                                                        <td class='details-control' style="max-width: 20px"></td>
                                                         <td>{{ $program->council }}</td>
                                                         <td>{{ Auth::user()->name }}</td>
                                                         <td>{{ date('d.m.Y',strtotime($program->date)) }}</td>
@@ -110,6 +110,7 @@
                                                             <a href="{{url('/admin/offers/'.$program->id.'/create')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Dodaj ponudu')}}">
                                                                 <i class="material-icons">add</i></a>
                                                         </td>
+                                                        <td class='details-control' style="max-width: 20px"></td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>

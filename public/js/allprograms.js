@@ -7,6 +7,13 @@ $(document).ready(function(){
         scrollCollapse: true,
         lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
     });
+    
+    subtable = $('.subtables').DataTable({
+        responsive: true,
+        scrollCollapse: true,
+        lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+    });
+    
 });
 
 
@@ -17,12 +24,27 @@ $('#datatable tbody').on('click', 'td.details-control', function () {
     //row.style.backgroundColor = '#f4f5f7';
     //alert(row.data().DT_RowId);
     if ( row.child.isShown() ) {
+        // This row is already open - close it
         row.child.hide();
         tr.removeClass('shown');
     }
     else {
-        row.child( format(row.data()) ).show();
+        // Open this row
+        //var d = row.data();
+        //var tableID = "offers_"+d.DT_RowId;
+        //alert(tableID);
+        
+        row.child(format(row.data())).show();
         tr.addClass('shown');
+
+//        $('#' + tableID).DataTable({
+//
+//            responsive: true,
+//            scrollCollapse: true,
+//            destroy: true,
+//            select: true
+//        });
+
     }
 });
 
@@ -37,6 +59,10 @@ function format ( rowData ) {
             div
                 .html( json['html'] )
                 .removeClass( 'loading' );
+                $(div).ready(function(){
+                    
+                    
+                });
         }
     } );
     return div;

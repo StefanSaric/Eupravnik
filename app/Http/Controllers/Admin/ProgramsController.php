@@ -53,7 +53,7 @@ class ProgramsController extends Controller
 
         if (count($offers) > 0) {
 
-            $html = $html . '<table id="offers_'.$programId.' class="display table-responsive nowrap striped appended-data-table">
+            $html = $html . '<table id="offers_'.$programId.' class="subtables display table-responsive nowrap striped appended-data-table">
                                 <thead>
                                     <tr style="background-color: #f4f5f7">
                                         <th style="width: 1%" class="all">&nbsp;&nbsp;&nbsp;#</th>
