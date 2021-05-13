@@ -76,7 +76,7 @@
                                                     <tbody>
                                                     @foreach($lawsuits as $num => $lawsuit)
                                                         <tr id="{{ $lawsuit->id }}" class="gradeX">
-                                                            <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                            <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                             <td>{{ $lawsuit->council_name }}</td>
                                                             <td>{{ $lawsuit->partner_name }}</td>
                                                             <td>{{ $lawsuit->enforcer_name }}</td>

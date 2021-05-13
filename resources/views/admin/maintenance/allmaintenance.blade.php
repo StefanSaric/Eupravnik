@@ -73,7 +73,7 @@
                                                     <tbody>
                                                     @foreach($maintenances as $num => $maintenance)
                                                         <tr id="{{ $maintenance->id }}" class="gradeX">
-                                                            <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                            <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                             <td>{{ $maintenance->council }}</td>
                                                             <td>{{ Auth::user()->name }}</td>
                                                             <td>{{ date('d.m.Y',strtotime($maintenance->date)) }}</td>

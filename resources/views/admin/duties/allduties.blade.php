@@ -76,7 +76,7 @@
                                                 <tbody>
                                                 @foreach($duties as $num => $duty)
                                                    <tr id="{{ $duty->id }}" class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                    <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                     <td>{{ $duty->name }}</td>
                                                     <td>{{ $duty->description }}</td>
                                                     <td>{{ date('d.m.Y',strtotime($duty->date_from)) }}</td>

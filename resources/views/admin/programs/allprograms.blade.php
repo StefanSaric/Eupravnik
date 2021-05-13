@@ -75,8 +75,9 @@
                                             <table id="datatable" class="display table-responsive">
                                                 <thead>
                                                     <tr>
-                                                        <th class="all" style="width: 2%">&nbsp;&nbsp;&nbsp;#</th>
-                                                        <th class="all">{{__('Skupština')}}</th>
+                                                        <th data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;#</th>
+                                                        <th style="max-width: 20px"></th>
+                                                        <th>{{__('Skupština')}}</th>
                                                         <th>{{__('Upravnik')}}</th>
                                                         <th>{{__('Datum')}}</th>
                                                         <th>{{__('Element')}}</th>

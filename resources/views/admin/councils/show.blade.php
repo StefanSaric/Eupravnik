@@ -9,8 +9,8 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/datatables.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('css/councilshow.css')}}"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""/>
 @stop
 
 @section('content')
@@ -91,99 +91,131 @@
                                 </ul>
                             </div>
                             <div class="card-content">
+                                <!---------- INFO start ---------->
                                 <div id="addresses">
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row grey lighten-4'>
                                         <div class='col s10 m10 l10'>
-                                            <h5>{{__('Osnovni podaci')}}</h5>
+                                            <h5>{{__('Osnovni podaci skupštine stanara')}}</h5>
+                                        </div>
+                                        <div class="col s12 m2 l2" style="padding-top: 1rem">
+                                            <a href="{{url('/admin/councils/'.$council->id.'/edit')}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi skupštinu')}}">
+                                                <i class="material-icons">create</i></a>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-top: 2rem; padding-bottom: 2rem">
+                                        <div class="col s12 m5">
+                                            <table class="striped compact">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="1%"><i class='material-icons prefix'>domain</i></td>
+                                                        <td width="50%"><strong>{{__('Skupština:')}}</strong></td>
+                                                        <td class="users-view-username">{{$council->name}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class='material-icons prefix'>featured_play_list</i></td>
+                                                        <td><strong>{{__('Skraćeno ime:')}}</strong></td>
+                                                        <td class="users-view-name">{{$council->short_name}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col s12 m5">
+                                            <table class="striped">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="1%"><i class='material-icons prefix'>location_city</i></td>
+                                                        <td width="50%"><strong>{{__('Mesto:')}}</strong></td>
+                                                        <td class="users-view-username">{{$council->city}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class='material-icons prefix'>location_city</i></td>
+                                                        <td><strong>{{__('Naselje:')}}</strong></td>
+                                                        <td class="users-view-name">{{$council->area}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class='row grey lighten-4'>
+                                        <div class='col s10 m10 l10'>
+                                            <h5>@if(count($addresses) == 1 ) {{__('Adresa')}} @else {{__('Adrese')}} @endif</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/'.$council->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi adresu')}}">
-                                                                    <i class="material-icons">create</i></a>
+                                            <a href="{{url('/admin/councils/addAddress/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj adresu')}}">
+                                                <i class="material-icons">add</i></a>
                                         </div>
+                                    </div>
+                                    <div>
+                                        @foreach($addresses as $key => $address)
+                                        <div class='row address-blocks grey lighten-5' style="margin-top: 1rem; margin-left: 3rem; margin-right: 3rem" data-counter="{{($key+1)}}" data-address="{{$address->address}}, {{$council->city}}">
+                                            <div class='col s10 m10 l10'>
+                                                <h5>@if(count($addresses) > 1) {{$key +1 . '.'}} @endif{{$address->address}}</h5>
+                                            </div>
+                                            <div class='col s2 m2 l2'>
+                                                <a href="{{url('/admin/councils/editAddress/'.$address->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi adresu')}}">
+                                                    <i class="material-icons">create</i></a>
+                                                <a href='{{url('/admin/councils/deleteAddress/'.$address->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši adresu')}}">
+                                                    <i class="material-icons">delete</i></a>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 4rem">
+                                            <div class='row'> 
+                                                <div class='col s12 m12 l12'>
+                                                    <text style="font-weight: bold; color: black">{{__('Status zaštite: ')}}</text>{{ $address->protection_status }}
+                                                </div>
+                                            </div>
+                                            <div class='row'>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Površina: ')}}</text>{{ $address->area_size }}
+                                                </div>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Godina izgradnje: ')}}</text>{{ $address->built_year }}
+                                                </div>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Broj etaža: ')}}</text>{{ $address->floors_number }}
+                                                </div>
+                                            </div>
+                                            <div class='row'>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Broj liftova: ')}}</text>{{ $address->elevators_number }}
+                                                </div>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Tip krova: ')}}</text>{{ $address->roof_type }}
+                                                </div>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Gromobran: ')}}</text>@if($address->lightning_road){{__('ima')}}@else{{__('nema')}}@endif
+                                                </div>
+                                            </div>
+                                            <div class='row'>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Daljinsko grejanje: ')}}</text>@if($address->district_heating){{__('ima')}}@else{{__('nema')}}@endif
+                                                </div>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Podrum: ')}}</text>@if($address->cellar){{__('ima')}}@else{{__('nema')}}@endif
+                                                </div>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Tavan: ')}}</text>@if($address->attic){{__('ima')}}@else{{__('nema')}}@endif
+                                                </div>
+                                            </div>
+                                            <div class='row'>
+                                                <div class='col s12 m4 l4'>
+                                                    <text style="font-weight: bold; color: black">{{__('Sklonište: ')}}</text>@if($address->shelter){{__('ima')}}@else{{__('nema')}}@endif
+                                                </div>
+                                                <div class='col s12 m6 l6'>
+                                                    <text style="font-weight: bold; color: black">{{__('Energetski pasoš: ')}}</text>{{ $address->energy_passport }}
+                                                </div>
+                                                <div class='col s12 m4 l4'></div>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                     </div>
                                     <div class='row'>
-                                        <div class='col s12 m6 l6'>
-                                            <text style="font-weight: bold; color: black">{{__('Skupština: ')}}</text>{{ $council->name }}
-                                        </div>
-                                        <div class='col s12 m6 l6'>
-                                            <text style="font-weight: bold; color: black">{{__('Skraćeno ime: ')}}</text>{{ $council->short_name }}
-                                        </div>
                                     </div>
-                                    <div class='row'>
-                                        <div class='col s12 m6 l6'>
-                                            <text style="font-weight: bold; color: black">{{__('Mesto: ')}}</text>{{ $council->city }}
-                                        </div>
-                                        <div class='col s12 m6 l6'>
-                                            <text style="font-weight: bold; color: black">{{__('Naselje: ')}}</text>{{ $council->area }}
-                                        </div>
-                                    </div>
-                                    @foreach($addresses as $key => $address)
-                                    <div class='row address-blocks' style="background-color: #f2f2f2" data-counter="{{($key+1)}}" data-address="{{$address->address}}, {{$council->city}}">
-                                        <div class='col s10 m10 l10'>
-                                            <h5>{{__('Adresa')}}@if(count($addresses)>1){{' '.($key+1)}}@endif: {{$address->address}}</h5>
-                                        </div>
-                                        <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/editAddress/'.$address->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi adresu')}}">
-                                                                    <i class="material-icons">create</i></a>
-                                            <a href='{{url('/admin/councils/deleteAddress/'.$address->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši adresu')}}">
-                                                <i class="material-icons">delete</i></a>
-                                        </div>
-                                    </div>
-                                    <div class='row'> 
-                                        <div class='col s12 m12 l12'>
-                                            <text style="font-weight: bold; color: black">{{__('Status zaštite: ')}}</text>{{ $address->protection_status }}
-                                        </div>
-                                    </div>
-                                    <div class='row'>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Površina: ')}}</text>{{ $address->area_size }}
-                                        </div>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Godina izgradnje: ')}}</text>{{ $address->built_year }}
-                                        </div>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Broj etaža: ')}}</text>{{ $address->floors_number }}
-                                        </div>
-                                    </div>
-                                    <div class='row'>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Broj liftova: ')}}</text>{{ $address->elevators_number }}
-                                        </div>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Tip krova: ')}}</text>{{ $address->roof_type }}
-                                        </div>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Gromobran: ')}}</text>@if($address->lightning_road){{__('ima')}}@else{{__('nema')}}@endif
-                                        </div>
-                                    </div>
-                                    <div class='row'>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Daljinsko grejanje: ')}}</text>@if($address->district_heating){{__('ima')}}@else{{__('nema')}}@endif
-                                        </div>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Podrum: ')}}</text>@if($address->cellar){{__('ima')}}@else{{__('nema')}}@endif
-                                        </div>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Tavan: ')}}</text>@if($address->attic){{__('ima')}}@else{{__('nema')}}@endif
-                                        </div>
-                                    </div>
-                                    <div class='row'>
-                                        <div class='col s12 m4 l4'>
-                                            <text style="font-weight: bold; color: black">{{__('Sklonište: ')}}</text>@if($address->shelter){{__('ima')}}@else{{__('nema')}}@endif
-                                        </div>
-                                        <div class='col s12 m6 l6'>
-                                            <text style="font-weight: bold; color: black">{{__('Energetski pasoš: ')}}</text>{{ $address->energy_passport }}
-                                        </div>
-                                        <div class='col s12 m4 l4'></div>
-                                    </div>
-                                    @endforeach
-                                    <div class='row'>
-                                        <div class='col s12 m12 l12'>
-                                            <a href="{{url('/admin/councils/addAddress/'.$council->id)}}" class="btn cyan waves-effect waves-light tooltipped" data-position="top" data-tooltip="{{__('Dodaj adresu')}}">
-                                                            +</a>
-                                        </div>
-                                    </div>
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row grey lighten-4' style="margin-top: 1rem">
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Mapa')}}</h5>
                                         </div>
@@ -194,7 +226,17 @@
                                         <div id="myleafletmap" style="height: 500px"></div>
                                     </div>
                                 </div>
+                                <!---------- PROSTORI start ---------->
                                 <div id="units">
+                                    <div class='row grey lighten-4'>
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Prostori')}}</h5>
+                                        </div>
+                                        <div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addSpace/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj prostor')}}">
+                                                <i class="material-icons">add</i></a>
+                                        </div>
+                                    </div>
                                     <div class='row' >
                                         <table id="unitstable" class="display table-responsive multitables">
                                             <thead>
@@ -246,7 +288,17 @@
                                         </table>
                                     </div>
                                 </div>
+                                <!---------- UGOVORI start ---------->
                                 <div id="contracts">
+                                    <div class='row grey lighten-4'>
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Ugovori')}}</h5>
+                                        </div>
+                                        <!--<div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addContract/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj ugovor')}}">
+                                            <i class="material-icons">add</i></a>
+                                        </div>-->
+                                    </div>
                                     <div class='row' >
                                         <table id="contractstable" class="display table-responsive multitables">
                                             <thead>
@@ -277,7 +329,17 @@
                                         </table>
                                     </div>
                                 </div>
+                                <!---------- NALOZI start ---------->
                                 <div id="assignments">
+                                    <div class='row grey lighten-4'>
+                                        <div class='col s10 m10 l10'>
+                                            <h5>{{__('Nalozi')}}</h5>
+                                        </div>
+                                        <!--<div class='col s2 m2 l2'>
+                                            <a href="{{url('/admin/councils/addAssignment/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj nalog')}}">
+                                            <i class="material-icons">add</i></a>
+                                        </div>-->
+                                    </div>
                                     <div class='row' >
                                         <table id="assignmentstable" class="display table-responsive">
                                             <thead>
@@ -330,14 +392,15 @@
                                         </table>
                                     </div>
                                 </div>
+                                <!---------- FAKTURISANJE start ---------->
                                 <div id="bills">
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row grey lighten-4'>
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Servisi za fakturisanje')}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/addBill/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
-                                                                    +</a>
+                                            <a href="{{url('/admin/councils/addBill/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
+                                                <i class="material-icons">add</i></a>
                                         </div>
                                     </div>
                                     <div class='row'>
@@ -390,14 +453,15 @@
                                         </table>
                                     </div>
                                 </div>
+                                <!---------- TRANSAKCIJE start ---------->
                                 <div id="transactions">
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row grey lighten-4'>
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Troškovi i prihodi')}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/addTransaction/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
-                                                                    +</a>
+                                            <a href="{{url('/admin/councils/addTransaction/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj fakturu')}}">
+                                                <i class="material-icons">add</i></a>
                                         </div>
                                     </div>
                                     <div class='row' >
@@ -443,14 +507,15 @@
                                         </table>
                                     </div>
                                 </div>
+                                <!---------- OBAVESTENJA start ---------->
                                 <div id="announcements">
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row grey lighten-4'">
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Obaveštenja')}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/addAnnouncement/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj obaveštenje')}}">
-                                                                    +</a>
+                                            <a href="{{url('/admin/councils/addAnnouncement/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj obaveštenje')}}">
+                                                <i class="material-icons">add</i></a>
                                         </div>
                                     </div>
                                     <div class='row' >
@@ -477,7 +542,7 @@
                                                     <td>
                                                         <a href="{{url('/admin/councils/editAnnouncement/'.$announcement->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi obaveštenje')}}">
                                                             <i class="material-icons">create</i></a>
-                                                            <a href="{{url('/admin/councils/announcementToPDF/'.$announcement->id)}}" target="__blank" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Prikazi PDF')}}">
+                                                        <a href="{{url('/admin/councils/announcementToPDF/'.$announcement->id)}}" target="__blank" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Prikazi PDF')}}">
                                                             <i class="material-icons">picture_as_pdf</i></a>
                                                     </td>
                                                 </tr>
@@ -487,14 +552,15 @@
                                         </table>
                                     </div>
                                 </div>
+                                <!---------- SEDNICE start ---------->
                                 <div id='meetings'>
-                                    <div class='row' style="background-color: #f2f2f2">
+                                    <div class='row   grey lighten-4' >
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Sednice')}}</h5>
                                         </div>
                                         <div class='col s2 m2 l2'>
-                                            <a href="{{url('/admin/councils/addMeeting/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-cyan-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj sednicu')}}">
-                                                                    +</a>
+                                            <a href="{{url('/admin/councils/addMeeting/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj sednicu')}}">
+                                                <i class="material-icons">add</i></a>
                                         </div>
                                     </div>
                                     <div class='row' >
@@ -553,8 +619,8 @@
 
 @section('pageScripts')
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+crossorigin=""></script>
 <script src="{{ asset('/js/showcouncils.js') }}"></script>
 @stop
 

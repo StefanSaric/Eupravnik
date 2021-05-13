@@ -75,7 +75,7 @@
                                                     <tbody>
                                                     @foreach($warnings as $num => $warning)
                                                         <tr id="{{ $warning->id }}" class="gradeX">
-                                                            <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                            <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                             <td>{{ $warning->council_name }}</td>
                                                             <td>{{ $warning->partner_name }}</td>
                                                             <td>{{ $warning->date_from }}</td>

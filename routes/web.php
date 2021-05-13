@@ -40,27 +40,32 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/councils/store', 'Admin\CouncilsController@store');
     Route::get('/councils/{id}/edit', 'Admin\CouncilsController@edit');
     Route::post('/councils/update', 'Admin\CouncilsController@update');
+    
     Route::get('/councils/addAddress/{id}', 'Admin\CouncilsController@addAddress');
     Route::post('/councils/storeAddress', 'Admin\CouncilsController@storeAddress');
     Route::get('/councils/editAddress/{id}', 'Admin\CouncilsController@editAddress');
     Route::post('/councils/updateAddress', 'Admin\CouncilsController@updateAddress');
     Route::get('/councils/deleteAddress/{id}', 'Admin\CouncilsController@deleteAddress');
+    
     Route::get('/councils/addBill/{id}', 'Admin\CouncilsController@addBill');
     Route::post('/councils/storeBill', 'Admin\CouncilsController@storeBill');
     Route::get('/councils/editBill/{id}', 'Admin\CouncilsController@editBill');
     Route::post('/councils/updateBill', 'Admin\CouncilsController@updateBill');
     Route::get('/councils/deleteBill/{id}', 'Admin\CouncilsController@deleteBill');
+    
     Route::get('/councils/addTransaction/{id}', 'Admin\CouncilsController@addTransaction');
     Route::post('/councils/storeTransaction', 'Admin\CouncilsController@storeTransaction');
     Route::get('/councils/editTransaction/{id}', 'Admin\CouncilsController@editTransaction');
     Route::post('/councils/updateTransaction', 'Admin\CouncilsController@updateTransaction');
     Route::get('/councils/deleteTransaction/{id}', 'Admin\CouncilsController@deleteTransaction');
+    
     Route::get('/councils/addAnnouncement/{id}', 'Admin\CouncilsController@addAnnouncement');
     Route::post('/councils/storeAnnouncement', 'Admin\CouncilsController@storeAnnouncement');
     Route::get('/councils/editAnnouncement/{id}', 'Admin\CouncilsController@editAnnouncement');
     Route::post('/councils/updateAnnouncement', 'Admin\CouncilsController@updateAnnouncement');
     Route::get('/councils/deleteAnnouncement/{id}', 'Admin\CouncilsController@deleteAnnouncement');
     Route::get('/councils/announcementToPDF/{id}', 'Admin\CouncilsController@announcementToPDF');
+    
     Route::get('/councils/addMeeting/{id}', 'Admin\CouncilsController@addMeeting');
     Route::post('/councils/storeMeeting', 'Admin\CouncilsController@storeMeeting');
     Route::get('/councils/editMeeting/{id}', 'Admin\CouncilsController@editMeeting');
