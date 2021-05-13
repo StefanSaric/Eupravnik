@@ -71,7 +71,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editMeeting/{id}', 'Admin\CouncilsController@editMeeting');
     Route::post('/councils/updateMeeting', 'Admin\CouncilsController@updateMeeting');
     Route::get('/councils/deleteMeeting/{id}', 'Admin\CouncilsController@deleteMeeting');
+    
+    Route::get('/councils/addSpace/{id}', 'Admin\CouncilsController@addSpace');
+    Route::post('/councils/storeSpace', 'Admin\CouncilsController@storeSpace');
+    Route::get('/councils/editSpace/{id}', 'Admin\CouncilsController@editSpace');
+    Route::post('/councils/updateSpace', 'Admin\CouncilsController@updateSpace');
+    Route::get('/councils/deleteSpace/{id}', 'Admin\CouncilsController@deleteSpace');
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
+    
     Route::get('/workers', 'Admin\WorkersController@index');
     Route::get('/workers/create', 'Admin\WorkersController@create');
     Route::post('/workers/store', 'Admin\WorkersController@store');
