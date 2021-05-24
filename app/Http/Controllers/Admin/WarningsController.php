@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Partner;
 use App\Warning;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +17,7 @@ class WarningsController extends Controller
 
         $warnings = Warning::join('councils', 'councils.id', '=', 'warnings.council_id')
             ->join('partners', 'partners.id', '=', 'warnings.partner_id')
+            ->where('warnings.user_id', '=', Auth::user()->id)
             ->select('warnings.id as id',
                 'councils.name as council_name',
                 'partners.name as partner_name',
@@ -29,8 +31,8 @@ class WarningsController extends Controller
     }
 
     public function create (){
-        $councils = Council::all();
-        $partners = Partner::all();
+        $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+        $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
         return view('admin.warnings.create', ['active' => 'addWarning', 'councils' => $councils,'partners' => $partners]);
     }
 
@@ -50,6 +52,7 @@ class WarningsController extends Controller
 
         // dd($request->all());
         $warning = Warning::create([
+            'user_id' => Auth::user()->id,
             'council_id' => $request->council_id,
             'partner_id' => $request->partner_id,
             'date_from' => date("Y-m-d", strtotime($request->date_from)),
@@ -81,8 +84,8 @@ class WarningsController extends Controller
     public function edit($id)
     {
         $warning = Warning::find($id);
-        $councils = Council::all();
-        $partners = Partner::all();
+        $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+        $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
 
         return view ('admin.warnings.edit', ['active' => 'addWarning', 'warning' => $warning, 'councils' => $councils, 'partners' => $partners ]);
     }

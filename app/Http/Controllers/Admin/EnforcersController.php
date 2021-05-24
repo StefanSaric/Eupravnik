@@ -62,7 +62,9 @@ class EnforcersController extends Controller
                         ->withInput($request->input());
         }
 
+        $request->merge(array('user_id' => Auth::user()->id));
         $enforcer = Enforcer::create($request->all());
+
         $enforcer->save();
 
         Session::flash('message', 'success_'.__('Izvršitelj je dodat!'));

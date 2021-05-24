@@ -61,6 +61,7 @@ class PartnersController extends Controller
                         ->withInput($request->input());
         }
 
+        $request->merge(array('user_id' => Auth::user()->id));
         $partner = Partner::create($request->all());
         $partner->save();
 

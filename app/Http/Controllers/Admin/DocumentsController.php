@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Document;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,7 +13,7 @@ class DocumentsController extends Controller
 {
     public function index ()
     {
-        $documents = Document::all();
+        $documents = Document::where('documents.user_id', '=', Auth::user()->id)->get();
 
         return view ('admin.documents.alldocuments',['active' => 'allDocuments', 'documents' => $documents]);
     }
@@ -41,7 +42,7 @@ class DocumentsController extends Controller
                 $document_path = public_path($path) . $document->getClientOriginalName();
                 move_uploaded_file($document, $document_path);
                 $url = $path. $document->getClientOriginalName();
-                $one_document = Document::create(['url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $request->type, 'type_id' => $request->type_id]);
+                $one_document = Document::create(['user_id' => Auth::user()->id,'url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $request->type, 'type_id' => $request->type_id]);
             }
         }
 

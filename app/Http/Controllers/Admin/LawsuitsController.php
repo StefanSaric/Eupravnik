@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Lawsuit;
 use App\Partner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,6 +19,7 @@ class LawsuitsController extends Controller
         $lawsuits = Lawsuit::join('councils', 'councils.id', '=', 'lawsuits.council_id')
             ->join('partners', 'partners.id', '=', 'lawsuits.partner_id')
             ->join('enforcers', 'enforcers.id', '=', 'lawsuits.enforcer_id')
+            ->where('lawsuits.user_id', '=', Auth::user()->id)
             ->select('lawsuits.id as id',
                 'councils.name as council_name',
                 'partners.name as partner_name',
@@ -32,9 +34,9 @@ class LawsuitsController extends Controller
     }
 
     public function create (){
-        $councils = Council::all();
-        $partners = Partner::all();
-        $enforcers = Enforcer::all();
+        $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+        $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
+        $enforcers = Enforcer::where('user_id', '=', Auth::user()->id)->get();
         return view('admin.lawsuits.create', ['active' => 'addLawsuit', 'councils' => $councils,'partners' => $partners, 'enforcers' => $enforcers]);
     }
 
@@ -54,6 +56,7 @@ class LawsuitsController extends Controller
 
         //lodd($request->all());
         $lawsuit = Lawsuit::create([
+            'user_id' => Auth::user()->id,
             'council_id' => $request->council_id,
             'partner_id' => $request->partner_id,
             'enforcer_id' => $request->enforcer_id,
@@ -89,9 +92,9 @@ class LawsuitsController extends Controller
     public function edit($id)
     {
         $lawsuit = Lawsuit::find($id);
-        $councils = Council::all();
-        $partners = Partner::all();
-        $enforcers = Enforcer::all();
+        $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+        $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
+        $enforcers = Enforcer::where('user_id', '=', Auth::user()->id)->get();
 
         return view ('admin.lawsuits.edit', ['active' => 'addLawsuit', 'lawsuit' => $lawsuit, 'councils' => $councils, 'partners' => $partners, 'enforcers' => $enforcers ]);
     }

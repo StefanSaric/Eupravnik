@@ -15,6 +15,7 @@ class CreateLawsuitsTable extends Migration
     {
         Schema::create('lawsuits', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('council_id');
             $table->integer('partner_id');
             $table->integer('enforcer_id');

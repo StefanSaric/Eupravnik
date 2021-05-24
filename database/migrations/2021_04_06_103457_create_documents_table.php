@@ -15,7 +15,7 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            //$table->integer('offer_id');
+            $table->integer('user_id');
             $table->string('url');
             $table->string('name');
             $table->string('type');

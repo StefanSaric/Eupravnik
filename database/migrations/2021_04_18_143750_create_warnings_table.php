@@ -15,6 +15,7 @@ class CreateWarningsTable extends Migration
     {
         Schema::create('warnings', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('council_id');
             $table->integer('partner_id');
             $table->date('date_from');
