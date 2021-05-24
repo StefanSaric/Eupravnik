@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Enforcer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,8 @@ class EnforcersController extends Controller
      */
     public function index()
     {
-        $enforcers = Enforcer::all();
+        // $enforcers = Enforcer::all();
+        $enforcers = Enforcer::where('enforcers.user_id', '=', Auth::user()->id)->get();
 
         return view('admin.enforcers.allenforcers', ['active' => 'allEnforcers', 'enforcers' => $enforcers]);
     }
@@ -38,7 +40,7 @@ class EnforcersController extends Controller
      * @param Request $request
      * @return redirect(admin/enforcers)
      */
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:50',
@@ -53,18 +55,18 @@ class EnforcersController extends Controller
             'br_resenja' => 'required|max:50',
             'status' => ''
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput($request->input());
         }
-        
+
         $enforcer = Enforcer::create($request->all());
         $enforcer->save();
-        
+
         Session::flash('message', 'success_'.__('Izvršitelj je dodat!'));
-        
+
         return redirect('admin/enforcers');
     }
 
@@ -91,15 +93,15 @@ class EnforcersController extends Controller
 
         return view ('admin.enforcers.edit', ['active' => 'addEnforcer', 'enforcer' => $enforcer]);
     }
-    
+
     /**
      * Stores data from enforcers form
      *
      * @param Request $request
      * @return redirect(admin/enforcers)
      */
-    public function update(Request $request) 
-    {   
+    public function update(Request $request)
+    {
         //dd($request);
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:50',
@@ -114,24 +116,24 @@ class EnforcersController extends Controller
             'br_resenja' => 'required|max:50',
             'status' => ''
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput($request->input());
         }
-        
+
         //dd($request);
         $id = $request->enforcer_id;
         //dd($id);
         $enforcer = Enforcer::find($id);
         //dd($enforcer);
         $enforcer->update($request->all());
-        
+
         Session::flash('message', 'success_'.__('Izvršitelj je uređen!'));
 
         return redirect('admin/enforcers');
-        
+
     }
 
     /**
@@ -144,9 +146,9 @@ class EnforcersController extends Controller
     {
         $enforcer = Enforcer::find($id);
         $enforcer->delete();
-        
+
         Session::flash('message', 'info_'.__('Izvršitelj je obrisan!'));
-        
+
         return redirect('admin/enforcers');
     }
 }

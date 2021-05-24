@@ -15,6 +15,8 @@ class CreateEnforcersTable extends Migration
     {
         Schema::create('enforcers', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('company_id');
             $table->string('name');
             $table->string('email');
             $table->string('phone')->nullable();

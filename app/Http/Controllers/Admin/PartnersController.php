@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Partner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class PartnersController extends Controller
      */
     public function index()
     {
-        $partners = Partner::all();
+        $partners = Partner::where('partners.user_id', '=' , Auth::user()->id)->get();
 
         return view('admin.partners.allpartners', ['active' => 'allPartners', 'partners' => $partners]);
     }
@@ -38,7 +39,7 @@ class PartnersController extends Controller
      * @param Request $request
      * @return redirect(admin/partners)
      */
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'partner_code' => 'max:50',
@@ -53,18 +54,18 @@ class PartnersController extends Controller
             'maticni' => 'max:50',
             'status' => ''
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput($request->input());
         }
-        
+
         $partner = Partner::create($request->all());
         $partner->save();
-        
+
         Session::flash('message', 'success_'.__('Partner je dodat!'));
-        
+
         return redirect('admin/partners');
     }
 
@@ -91,15 +92,15 @@ class PartnersController extends Controller
 
         return view ('admin.partners.edit', ['active' => 'addPartner', 'partner' => $partner]);
     }
-    
+
     /**
      * Stores data from partners form
      *
      * @param Request $request
      * @return redirect(admin/partners)
      */
-    public function update(Request $request) 
-    {   
+    public function update(Request $request)
+    {
         $validator = Validator::make($request->all(),[
             'partner_code' => 'max:50',
             'name' => 'required|max:50',
@@ -113,21 +114,21 @@ class PartnersController extends Controller
             'maticni' => 'max:50',
             'status' => ''
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput($request->input());
         }
-        
+
         $id = $request->partner_id;
         $partner = Partner::find($id);
         $partner->update($request->all());
-        
+
         Session::flash('message', 'success_'.__('Partner je uređen!'));
 
         return redirect('admin/partners');
-        
+
     }
 
     /**
@@ -140,9 +141,9 @@ class PartnersController extends Controller
     {
         $partner = Partner::find($id);
         $partner->delete();
-        
+
         Session::flash('message', 'info_'.__('Partner je obrisan!'));
-        
+
         return redirect('admin/partners');
     }
 }

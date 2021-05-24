@@ -12,6 +12,6 @@ class Enforcer extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'address', 'city', 'postcode', 'account', 'pib', 'maticni', 'br_resenja', 'status' 
+        'user_id', 'company_id', 'name', 'email', 'phone', 'address', 'city', 'postcode', 'account', 'pib', 'maticni', 'br_resenja', 'status'
     ];
 }
