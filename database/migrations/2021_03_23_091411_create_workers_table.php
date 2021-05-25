@@ -15,6 +15,7 @@ class CreateWorkersTable extends Migration
     {
         Schema::create('workers', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('email', 100)->unique();
             $table->string('password');
             $table->string('password_confirm');
