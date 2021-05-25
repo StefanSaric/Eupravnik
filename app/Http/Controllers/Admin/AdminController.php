@@ -11,7 +11,7 @@ use App\Shift;
 use App\User;
 use App\Patient;
 use App;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Duty;
 
 class AdminController extends Controller
@@ -23,22 +23,22 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
+
         return view ('admin.dash', ['active' => 'dash']);
     }
-    
+
     public function getAppointments($id, Request $request)
     {
 //        $start = strtotime($request->start);
 //        $end = strtotime($request->end);
 //        $labels = ['Sastanak skupstine', 'Nadzor popravki', 'Obnova ugovora', 'Intervju', 'Sklapanje ugovora', 'Analiza stanja'];
         $array = [];
-        
-        $appointments = Duty::all();
-        
+
+        $appointments = Duty::where('user_id', '=', Auth::user()->id)->get();
+
         foreach ($appointments as $num => $appointment){
             //dd($appointment);
-            
+
             $key = $num;
             $array[$num]['start'] = $appointment->date_from . 'T' . $appointment->time_from . ':00';
             $array[$num]['end'] = $appointment->date_to . 'T' . $appointment->time_to . ':00';
@@ -46,7 +46,7 @@ class AdminController extends Controller
             $array[$num]['color'] = '#00bcd4';
             $array[$num]['id'] = $appointment->id;
         }
-        
+
 //        for($i = 0; $i<20; $i++){
 //            $key = random_int(0, 5);
 //            $day = random_int(-2, 2);
@@ -58,9 +58,9 @@ class AdminController extends Controller
 //            $array[$i]['color'] = '#00bcd4';
 //        }
         $data = json_encode($array);
-        
+
         return $data;
     }
-    
+
 }
 

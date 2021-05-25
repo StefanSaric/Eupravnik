@@ -18,7 +18,6 @@ class EnforcersController extends Controller
      */
     public function index()
     {
-        // $enforcers = Enforcer::all();
         $enforcers = Enforcer::where('enforcers.user_id', '=', Auth::user()->id)->get();
 
         return view('admin.enforcers.allenforcers', ['active' => 'allEnforcers', 'enforcers' => $enforcers]);

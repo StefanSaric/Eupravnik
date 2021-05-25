@@ -12,6 +12,6 @@ class Duty extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'date_from', 'time_from', 'date_to', 'time_to', 'is_private' 
+        'user_id', 'name', 'description', 'date_from', 'time_from', 'date_to', 'time_to', 'is_private'
     ];
 }

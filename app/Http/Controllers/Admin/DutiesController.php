@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Duty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class DutiesController extends Controller
      */
     public function index()
     {
-        $duties = Duty::all();
+        $duties = Duty::where('user_id', '=', Auth::user()->id)->get();
 
         return view('admin.duties.allduties', ['active' => 'allDuties', 'duties' => $duties]);
     }
@@ -38,7 +39,7 @@ class DutiesController extends Controller
      * @param Request $request
      * @return redirect(admin/enforcers)
      */
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         //dd($request->time_from);
         if($request->is_private != null){
@@ -49,13 +50,14 @@ class DutiesController extends Controller
         if($request->date_from > $request->date_to){
             Session::flash('message', 'error_'.__('Datum završetka obaveze ne može biti pre datuma početka!'));
             return back()->withInput();
-            
+
         }else if($request->date_from == $request->date_to && $request->time_from > $request->time_to){
             Session::flash('message', 'error_' . __('Vreme završetka obaveze ne može biti pre vremena početka!'));
             return back()->withInput();
-            
+
         } else {
             $duty = Duty::create([
+                        'user_id' => Auth::user()->id,
                         'name' => $request->name,
                         'description' => $request->description,
                         'date_from' => date('Y-m-d', strtotime($request->date_from)),
@@ -81,7 +83,7 @@ class DutiesController extends Controller
     public function show($id)
     {
         $duty = Duty::find($id);
-        
+
         return view ('admin.duties.oneduty', ['active' => 'allDuties', 'duty' => $duty]);
     }
 
@@ -97,27 +99,27 @@ class DutiesController extends Controller
 
         return view ('admin.duties.edit', ['active' => 'addDuty', 'duty' => $duty]);
     }
-    
+
     /**
      * Stores data from duties form
      *
      * @param Request $request
      * @return redirect(admin/duties)
      */
-    public function update(Request $request) 
-    {   
+    public function update(Request $request)
+    {
         //dd($request);
         $id = $request->duty_id;
         //dd($id);
         $duty = Duty::find($id);
-        
+
         //dd($request->time_from);
         if($request->is_private != null){
             $isPrivate = true;
         }else{
             $isPrivate = false;
         }
-        
+
         $duty->name = $request->name;
         $duty->description = $request->description;
         $duty->date_from = date('Y-m-d', strtotime($request->date_from));
@@ -125,14 +127,14 @@ class DutiesController extends Controller
         $duty->date_to = date('Y-m-d', strtotime($request->date_to));
         $duty->time_to = $request->time_to;
         $duty->is_private = $isPrivate;
-        
+
         //dd($duty);
         $duty->save();
-       
+
         Session::flash('message', 'success_'.__('Obaveza je uređena!'));
 
         return redirect('admin/duties');
-        
+
     }
 
     /**
@@ -145,9 +147,9 @@ class DutiesController extends Controller
     {
         $duty = Duty::find($id);
         $duty->delete();
-        
+
         Session::flash('message', 'info_'.__('Obaveza je obrisana!'));
-        
+
         return redirect('admin/duties');
     }
 }

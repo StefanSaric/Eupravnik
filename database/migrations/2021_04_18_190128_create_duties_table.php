@@ -15,6 +15,7 @@ class CreateDutiesTable extends Migration
     {
         Schema::create('duties', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('date_from');
