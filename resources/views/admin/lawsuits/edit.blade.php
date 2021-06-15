@@ -70,4 +70,6 @@
 @section('vendorScripts')
     <script src="{{ asset('vendors/jquery-validation/jquery.validate.js') }}"></script>
     <script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/address-lawsuits.js') }}"></script>
+
 @stop

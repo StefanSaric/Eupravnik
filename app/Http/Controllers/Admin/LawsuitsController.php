@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Council;
+use App\CouncilAddress;
 use App\Enforcer;
 use App\Http\Controllers\Controller;
 use App\Lawsuit;
 use App\Partner;
+use App\Space;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -35,10 +37,22 @@ class LawsuitsController extends Controller
 
     public function create (){
         $councils = Council::where('user_id', '=', Auth::user()->id)->get();
-        $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
         $enforcers = Enforcer::where('user_id', '=', Auth::user()->id)->get();
-        return view('admin.lawsuits.create', ['active' => 'addLawsuit', 'councils' => $councils,'partners' => $partners, 'enforcers' => $enforcers]);
+
+
+        return view('admin.lawsuits.create', ['active' => 'addLawsuit', 'councils' => $councils, 'enforcers' => $enforcers]);
     }
+
+    public function getaddress ($id, $type) {
+        $data = [];
+        if($type == 1) {
+            $data = CouncilAddress::where('council_id', '=', $id)->get();
+        } else {
+            $data = Space::where('council_address_id', '=', $id)->get();
+        }
+        return response()->json(compact('data'));
+    }
+
 
     public function store (Request $request) {
 

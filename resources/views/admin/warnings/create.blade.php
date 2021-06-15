@@ -73,4 +73,5 @@
 @stop
 @section('pageScripts')
     <script src="{{ asset('js/warnings-form.js') }}"></script>
+    <script src="{{ asset('js/address-warnings.js') }}"></script>
 @stop

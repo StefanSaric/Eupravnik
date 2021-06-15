@@ -2,26 +2,33 @@
 @if(isset($lawsuit))
     <input type="hidden" id="lawsuit_id" name="lawsuit_id" value="{{$lawsuit->id}}">
 @endif
+<input type="hidden" id="base_url" value="{{url('/')}}"/>
 <div class="row"><!--Start 'Council' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
         <select name="council_id" id="council_id" class="form-control" required>
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($councils as $council)
-                <option value="{{ $council->id }}" @if(isset($lawsuit))@if($lawsuit->council_id == $council->id) selected="selected" @endif @endif>{{ $council->name }}</option>
+                <option id="council_id" value="{{ $council->id }}" @if(isset($lawsuit))@if($lawsuit->council_id == $council->id) selected="selected" @endif @endif>{{ $council->name }}</option>
             @endforeach
         </select>
         <label for="council_id" class="">{{__('Skupstina')}}</label>
     </div>
 </div>
-<div class="row"><!--Start 'Partner' form field-->
+<div class="row" id="address_div"><!--Start 'Address' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="partner_id" id="partner_id" class="form-control" required>
+        <select name="address_id" id="address_id" class="form-control" required>
+            <option value="" disabled selected>Izaberite</option>
+        </select>
+        <label for="address_id" class="">Adresa</label>
+    </div>
+</div>
+<div class="row"><!--Start 'Obveznik' form field-->
+    <div class="input-field col s12 m6 l6">
+        <i class='material-icons prefix'>group</i>
+        <select name="spaces_id" id="spaces_id" class="form-control" required>
             <option value="" disabled selected>{{__('Izaberite')}}</option>
-            @foreach($partners as $partner)
-                <option value="{{ $partner->id }}" @if(isset($lawsuit))@if($lawsuit->partner_id == $partner->id) selected="selected" @endif @endif>{{ $partner->name }}</option>
-            @endforeach
         </select>
         <label for="partner_id" class="">{{__('Obveznik')}}</label>
     </div>

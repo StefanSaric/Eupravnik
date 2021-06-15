@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Council;
+use App\CouncilAddress;
 use App\Http\Controllers\Controller;
 use App\Partner;
+use App\Space;
 use App\Warning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,8 +34,20 @@ class WarningsController extends Controller
 
     public function create (){
         $councils = Council::where('user_id', '=', Auth::user()->id)->get();
-        $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
-        return view('admin.warnings.create', ['active' => 'addWarning', 'councils' => $councils,'partners' => $partners]);
+        // $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
+        return view('admin.warnings.create', ['active' => 'addWarning', 'councils' => $councils]);
+    }
+
+    public function getaddress ($id) {
+
+        $data = CouncilAddress::where('council_id', '=', $id)->get();
+        return response()->json(compact('data'));
+    }
+
+    public function getspaces ($id) {
+
+        $data = Space::where('council_address_id', '=', $id)->get();
+        return response()->json(compact('data'));
     }
 
     public function store (Request $request) {

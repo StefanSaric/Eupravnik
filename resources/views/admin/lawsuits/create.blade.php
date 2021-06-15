@@ -73,4 +73,5 @@
 @stop
 @section('pageScripts')
     <script src="{{ asset('js/lawsuits-form.js') }}"></script>
+    <script src="{{ asset('js/address-lawsuits.js') }}"></script>
 @stop

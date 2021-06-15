@@ -40,45 +40,45 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/councils/store', 'Admin\CouncilsController@store');
     Route::get('/councils/{id}/edit', 'Admin\CouncilsController@edit');
     Route::post('/councils/update', 'Admin\CouncilsController@update');
-    
+
     Route::get('/councils/addAddress/{id}', 'Admin\CouncilsController@addAddress');
     Route::post('/councils/storeAddress', 'Admin\CouncilsController@storeAddress');
     Route::get('/councils/editAddress/{id}', 'Admin\CouncilsController@editAddress');
     Route::post('/councils/updateAddress', 'Admin\CouncilsController@updateAddress');
     Route::get('/councils/deleteAddress/{id}', 'Admin\CouncilsController@deleteAddress');
-    
+
     Route::get('/councils/addBill/{id}', 'Admin\CouncilsController@addBill');
     Route::post('/councils/storeBill', 'Admin\CouncilsController@storeBill');
     Route::get('/councils/editBill/{id}', 'Admin\CouncilsController@editBill');
     Route::post('/councils/updateBill', 'Admin\CouncilsController@updateBill');
     Route::get('/councils/deleteBill/{id}', 'Admin\CouncilsController@deleteBill');
-    
+
     Route::get('/councils/addTransaction/{id}', 'Admin\CouncilsController@addTransaction');
     Route::post('/councils/storeTransaction', 'Admin\CouncilsController@storeTransaction');
     Route::get('/councils/editTransaction/{id}', 'Admin\CouncilsController@editTransaction');
     Route::post('/councils/updateTransaction', 'Admin\CouncilsController@updateTransaction');
     Route::get('/councils/deleteTransaction/{id}', 'Admin\CouncilsController@deleteTransaction');
-    
+
     Route::get('/councils/addAnnouncement/{id}', 'Admin\CouncilsController@addAnnouncement');
     Route::post('/councils/storeAnnouncement', 'Admin\CouncilsController@storeAnnouncement');
     Route::get('/councils/editAnnouncement/{id}', 'Admin\CouncilsController@editAnnouncement');
     Route::post('/councils/updateAnnouncement', 'Admin\CouncilsController@updateAnnouncement');
     Route::get('/councils/deleteAnnouncement/{id}', 'Admin\CouncilsController@deleteAnnouncement');
     Route::get('/councils/announcementToPDF/{id}', 'Admin\CouncilsController@announcementToPDF');
-    
+
     Route::get('/councils/addMeeting/{id}', 'Admin\CouncilsController@addMeeting');
     Route::post('/councils/storeMeeting', 'Admin\CouncilsController@storeMeeting');
     Route::get('/councils/editMeeting/{id}', 'Admin\CouncilsController@editMeeting');
     Route::post('/councils/updateMeeting', 'Admin\CouncilsController@updateMeeting');
     Route::get('/councils/deleteMeeting/{id}', 'Admin\CouncilsController@deleteMeeting');
-    
+
     Route::get('/councils/addSpace/{id}', 'Admin\CouncilsController@addSpace');
     Route::post('/councils/storeSpace', 'Admin\CouncilsController@storeSpace');
     Route::get('/councils/editSpace/{id}', 'Admin\CouncilsController@editSpace');
     Route::post('/councils/updateSpace', 'Admin\CouncilsController@updateSpace');
     Route::get('/councils/deleteSpace/{id}', 'Admin\CouncilsController@deleteSpace');
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
-    
+
     Route::get('/workers', 'Admin\WorkersController@index');
     Route::get('/workers/create', 'Admin\WorkersController@create');
     Route::post('/workers/store', 'Admin\WorkersController@store');
@@ -132,6 +132,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('/warnings', 'Admin\WarningsController@index');
     Route::get('/warnings/create', 'Admin\WarningsController@create');
+    Route::get('/warnings/getaddress/{id}', 'Admin\WarningsController@getaddress');
+    Route::get('/warnings/getspaces/{id}', 'Admin\WarningsController@getspaces');
     Route::post('/warnings/store', 'Admin\WarningsController@store');
     Route::get('/warnings/{id}/show', 'Admin\WarningsController@onewarning');
     Route::get('/warnings/{id}/edit', 'Admin\WarningsController@edit');
@@ -140,6 +142,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('/lawsuits', 'Admin\LawsuitsController@index');
     Route::get('/lawsuits/create', 'Admin\LawsuitsController@create');
+    Route::get('/lawsuits/getaddress/{id}/{type}', 'Admin\LawsuitsController@getaddress');
     Route::post('/lawsuits/store', 'Admin\LawsuitsController@store');
     Route::get('/lawsuits/{id}/show', 'Admin\LawsuitsController@onelawsuit');
     Route::get('/lawsuits/{id}/edit', 'Admin\LawsuitsController@edit');
