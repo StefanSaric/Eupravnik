@@ -64,7 +64,10 @@
                                                     <tr>
                                                         <th>{{__('Broj tužbe')}}</th>
                                                         <th>{{__('Skupstina')}}</th>
+                                                        <th>{{__('Adresa')}}</th>
                                                         <th>{{__('Obveznik')}}</th>
+                                                        <th>{{__('Sprat')}}</th>
+                                                        <th>{{__('Stan')}}</th>
                                                         <th>{{__('Izvršitelj')}}</th>
                                                         <th>{{__('Period')}}</th>
                                                         <th>{{__('Platiti do')}}</th>
@@ -78,7 +81,10 @@
                                                         <tr id="{{ $lawsuit->id }}" class="gradeX">
                                                             <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                             <td>{{ $lawsuit->council_name }}</td>
-                                                            <td>{{ $lawsuit->partner_name }}</td>
+                                                            <td>{{ $lawsuit->address_name }}</td>
+                                                            <td>{{ $lawsuit->representative }}</td>
+                                                            <td>{{ $lawsuit-> floor_number }}</td>
+                                                            <td>{{ $lawsuit->apartment_number }}</td>
                                                             <td>{{ $lawsuit->enforcer_name }}</td>
                                                             <td>{{ $lawsuit->date_from }}</td>
                                                             <td>{{ $lawsuit->date_to }}</td>

@@ -27,10 +27,10 @@
 <div class="row"><!--Start 'Obveznik' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="spaces_id" id="spaces_id" class="form-control" required>
+        <select name="space_id" id="space_id" class="form-control" required>
             <option value="" disabled selected>{{__('Izaberite')}}</option>
         </select>
-        <label for="partner_id" class="">{{__('Obveznik')}}</label>
+        <label for="space_id" class="">{{__('Obveznik')}}</label>
     </div>
 </div>
 <div class="row"><!--Start 'Izvršitelj' form field-->

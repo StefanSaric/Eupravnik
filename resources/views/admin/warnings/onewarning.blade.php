@@ -63,7 +63,10 @@
                                                     <tr>
                                                         <th>{{__('Broj Tužbe')}}</th>
                                                         <th>{{__('Naziv Skupštine')}}</th>
+                                                        <th>{{__('Adresa')}}</th>
                                                         <th>{{__('Obveznik')}}</th>
+                                                        <th>{{__('Sprat')}}</th>
+                                                        <th>{{__('Stan')}}</th>
                                                         <th>{{__('Datum od')}}</th>
                                                         <th>{{__('Datum do')}}</th>
                                                         <th>{{__('Cena')}}</th>
@@ -74,7 +77,10 @@
                                                         <tr id="{{ $warning->id }}" class="gradeX">
                                                             <td>&nbsp;&nbsp;&nbsp;{{ $warning->id }}</td>
                                                             <td>{{ $warning->council_name }}</td>
-                                                            <td>{{ $warning->partner_name }}</td>
+                                                            <td>{{ $warning->address_name }}</td>
+                                                            <td>{{ $warning->representative }}</td>
+                                                            <td>{{ $warning-> floor_number }}</td>
+                                                            <td>{{ $warning->apartment_number }}</td>
                                                             <td>{{ $warning->date_from }}</td>
                                                             <td>{{ $warning->date_to }}</td>
                                                             <td>{{ $warning->price }}</td>

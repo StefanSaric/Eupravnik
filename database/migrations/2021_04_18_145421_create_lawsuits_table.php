@@ -17,7 +17,8 @@ class CreateLawsuitsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('council_id');
-            $table->integer('partner_id');
+            $table->integer('address_id');
+            $table->integer('space_id');
             $table->integer('enforcer_id');
             $table->date('date_from');
             $table->date('date_to');

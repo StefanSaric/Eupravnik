@@ -39,8 +39,8 @@ $("#address_id").on('change',function() {
                             html += '<option value="' + element["id"] + '">' + element["representative"] + " - Sprat:" + element["floor_number"] + " - Stan:" + element["apartment_number"] + '</option>'
                         });
                     }
-                    $('#spaces_id').html(html);
-                    $('#spaces_id').formSelect();
+                    $('#space_id').html(html);
+                    $('#space_id').formSelect();
                 }
             }
         });

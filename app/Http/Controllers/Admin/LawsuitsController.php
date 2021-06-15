@@ -19,12 +19,16 @@ class LawsuitsController extends Controller
     public function index () {
 
         $lawsuits = Lawsuit::join('councils', 'councils.id', '=', 'lawsuits.council_id')
-            ->join('partners', 'partners.id', '=', 'lawsuits.partner_id')
+            ->join('council_addresses', 'council_addresses.id', '=', 'lawsuits.address_id' )
+            ->join('spaces', 'spaces.id', '=', 'lawsuits.space_id')
             ->join('enforcers', 'enforcers.id', '=', 'lawsuits.enforcer_id')
             ->where('lawsuits.user_id', '=', Auth::user()->id)
             ->select('lawsuits.id as id',
                 'councils.name as council_name',
-                'partners.name as partner_name',
+                'council_addresses.address as address_name',
+                'spaces.representative as representative',
+                'spaces.floor_number as floor_number',
+                'spaces.apartment_number as apartment_number',
                 'enforcers.name as enforcer_name',
                 'lawsuits.date_from as date_from',
                 'lawsuits.date_to as date_to',
@@ -58,7 +62,8 @@ class LawsuitsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'council_id' => 'required',
-            'partner_id' => 'required',
+            'address_id' => 'required',
+            'space_id' => 'required',
             'enforcer_id' => 'required',
             'status' => 'required'
         ]);
@@ -72,7 +77,8 @@ class LawsuitsController extends Controller
         $lawsuit = Lawsuit::create([
             'user_id' => Auth::user()->id,
             'council_id' => $request->council_id,
-            'partner_id' => $request->partner_id,
+            'address_id' => $request->address_id,
+            'space_id' => $request->address_id,
             'enforcer_id' => $request->enforcer_id,
             'date_from' => date("Y-m-d", strtotime($request->date_from)),
             'date_to' => date("Y-m-d", strtotime($request->date_to)),
@@ -86,12 +92,16 @@ class LawsuitsController extends Controller
     {
         //dd($id);
         $lawsuit = Lawsuit::join('councils', 'councils.id', '=', 'lawsuits.council_id')
-            ->join('partners', 'partners.id', '=', 'lawsuits.partner_id')
+            ->join('council_addresses', 'council_addresses.id', '=', 'lawsuits.address_id' )
+            ->join('spaces', 'spaces.id', '=', 'lawsuits.space_id')
             ->join('enforcers', 'enforcers.id', '=', 'lawsuits.enforcer_id')
             ->where('lawsuits.id','=',$id)
             ->select('lawsuits.id as id',
                 'councils.name as council_name',
-                'partners.name as partner_name',
+                'council_addresses.address as address_name',
+                'spaces.representative as representative',
+                'spaces.floor_number as floor_number',
+                'spaces.apartment_number as apartment_number',
                 'enforcers.name as enforcer_name',
                 'lawsuits.date_from as date_from',
                 'lawsuits.date_to as date_to',

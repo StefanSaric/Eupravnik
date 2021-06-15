@@ -64,7 +64,10 @@
                                                     <tr>
                                                         <th>{{__('Broj opomene')}}</th>
                                                         <th>{{__('Skupstina')}}</th>
+                                                        <th>{{__('Adresa')}}</th>
                                                         <th>{{__('Obveznik')}}</th>
+                                                        <th>{{__('Sprat')}}</th>
+                                                        <th>{{__('Stan')}}</th>
                                                         <th>{{__('Period')}}</th>
                                                         <th>{{__('Platiti do')}}</th>
                                                         <th>{{__('Iznos')}}</th>
@@ -77,7 +80,10 @@
                                                         <tr id="{{ $warning->id }}" class="gradeX">
                                                             <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                             <td>{{ $warning->council_name }}</td>
-                                                            <td>{{ $warning->partner_name }}</td>
+                                                            <td>{{ $warning->address_name }}</td>
+                                                            <td>{{ $warning->representative }}</td>
+                                                            <td>{{ $warning-> floor_number }}</td>
+                                                            <td>{{ $warning->apartment_number }}</td>
                                                             <td>{{ $warning->date_from }}</td>
                                                             <td>{{ $warning->date_to }}</td>
                                                             <td>{{ $warning->price }}</td>

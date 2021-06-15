@@ -18,11 +18,15 @@ class WarningsController extends Controller
     public function index () {
 
         $warnings = Warning::join('councils', 'councils.id', '=', 'warnings.council_id')
-            ->join('partners', 'partners.id', '=', 'warnings.partner_id')
+            ->join('council_addresses', 'council_addresses.id', '=', 'warnings.address_id' )
+            ->join('spaces', 'spaces.id', '=', 'warnings.space_id')
             ->where('warnings.user_id', '=', Auth::user()->id)
             ->select('warnings.id as id',
                 'councils.name as council_name',
-                'partners.name as partner_name',
+                'council_addresses.address as address_name',
+                'spaces.representative as representative',
+                'spaces.floor_number as floor_number',
+                'spaces.apartment_number as apartment_number',
                 'warnings.date_from as date_from',
                 'warnings.date_to as date_to',
                 'warnings.price as price',
@@ -34,7 +38,6 @@ class WarningsController extends Controller
 
     public function create (){
         $councils = Council::where('user_id', '=', Auth::user()->id)->get();
-        // $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
         return view('admin.warnings.create', ['active' => 'addWarning', 'councils' => $councils]);
     }
 
@@ -54,7 +57,8 @@ class WarningsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'council_id' => 'required',
-            'partner_id' => 'required',
+            'address_id' => 'required',
+            'space_id' => 'required',
             'status' => 'required'
         ]);
         if ($validator->fails()) {
@@ -68,7 +72,8 @@ class WarningsController extends Controller
         $warning = Warning::create([
             'user_id' => Auth::user()->id,
             'council_id' => $request->council_id,
-            'partner_id' => $request->partner_id,
+            'address_id' => $request->address_id,
+            'space_id' => $request->space_id,
             'date_from' => date("Y-m-d", strtotime($request->date_from)),
             'date_to' => date("Y-m-d", strtotime($request->date_to)),
             'price' => $request->price,
@@ -80,11 +85,15 @@ class WarningsController extends Controller
     public function onewarning ($id)
     {
         $warning = Warning::join('councils', 'councils.id', '=', 'warnings.council_id')
-            ->join('partners', 'partners.id', '=', 'warnings.partner_id')
+            ->join('council_addresses', 'council_addresses.id', '=', 'warnings.address_id' )
+            ->join('spaces', 'spaces.id', '=', 'warnings.space_id')
             ->where('warnings.id','=',$id)
             ->select('warnings.id as id',
                 'councils.name as council_name',
-                'partners.name as partner_name',
+                'council_addresses.address as address_name',
+                'spaces.representative as representative',
+                'spaces.floor_number as floor_number',
+                'spaces.apartment_number as apartment_number',
                 'warnings.date_from as date_from',
                 'warnings.date_to as date_to',
                 'warnings.price as price',
