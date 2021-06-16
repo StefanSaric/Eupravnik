@@ -78,7 +78,7 @@ class LawsuitsController extends Controller
             'user_id' => Auth::user()->id,
             'council_id' => $request->council_id,
             'address_id' => $request->address_id,
-            'space_id' => $request->address_id,
+            'space_id' => $request->space_id,
             'enforcer_id' => $request->enforcer_id,
             'date_from' => date("Y-m-d", strtotime($request->date_from)),
             'date_to' => date("Y-m-d", strtotime($request->date_to)),
