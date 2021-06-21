@@ -61,6 +61,26 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        <!-- Menu Firm -->
+        <li class="bold @if($active == 'allFirms' || $active == 'addFirm')active open @endif">
+            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                <i class="material-icons">business_center</i><span class="menu-title" data-i18n="{{__('Firme')}}">{{__('Firme')}}</span>
+            </a>
+            <div class="collapsible-body" @if($active == 'allFirms' || $active == 'addFirm')style="display: block" @endif>
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li @if($active == 'allFirms')class="active" @endif>
+                        <a @if($active == 'allFirms')class="active" @endif href="{{ url('admin/firms') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve firme')}}">{{__('Sve firme')}}</span></a>
+                        </a>
+                    </li>
+                    <li @if($active == 'addFirm')class="active" @endif>
+                        <a @if($active == 'addFirm')class="active" @endif href="{{ url('admin/firms/create') }}">
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj firmu')}}">{{__('Dodaj firmu')}}</span></a>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li><!--end /menu-item -->
         <!-- Menu Councils -->
         <li class="bold @if($active == 'allCouncils' || $active == 'addCouncil')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">

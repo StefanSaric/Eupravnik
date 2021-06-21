@@ -149,4 +149,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/lawsuits/update', 'Admin\LawsuitsController@update');
     Route::get('/lawsuits/{id}/delete', 'Admin\LawsuitsController@delete');
 
+    Route::get('/firms', 'Admin\FirmsController@index');
+    Route::get('/firms/create', 'Admin\FirmsController@create');
+    Route::post('/firms/store', 'Admin\FirmsController@store');
+    Route::get('/firms/{id}/edit', 'Admin\FirmsController@edit');
+    Route::post('/firms/update', 'Admin\FirmsController@update');
+    Route::get('/firms/{id}/delete', 'Admin\FirmsController@delete');
+
 });

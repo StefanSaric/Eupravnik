@@ -9,5 +9,5 @@ class WorkersType extends Model
     protected $fillable = [
         'name'
     ];
-    
+
 }

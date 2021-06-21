@@ -27,6 +27,6 @@ class CreateWorkersTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('worker_types');
+        Schema::dropIfExists('workers_types');
     }
 }
