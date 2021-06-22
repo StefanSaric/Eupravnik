@@ -556,13 +556,7 @@ class CouncilsController extends Controller
     public function addContract ($id) {
 
         $council = Council::find($id);
-        $partners = Partner::all()
-                    ->join('firms', 'firms.id', '=', 'partners.firm_id' )
-                    ->select(
-                        'partners.id as id',
-                        'partners.name as name',
-                        'firms.percentage as percentage')
-                    ->get();
+        $partners = Partner::all();
 
 
         return view('admin.councils.addContract', ['active' => 'allCouncils', 'council' => $council, 'partners' => $partners ]);

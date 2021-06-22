@@ -315,7 +315,7 @@
                                                     <td>{{ $contract->real_price }}</td>
                                                     <td>{{ $contract->group }}</td>
                                                     <td>
-                                                        <a href="{{url('/admin/councils/addContract/'.$council->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
+                                                        <a href="{{url('/admin/councils/editContract/'.$contract->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr>

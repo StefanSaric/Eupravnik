@@ -55,8 +55,8 @@
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>assignment_ind</i>
         <select id="group" name="group">
-            <option value="group" @if(isset($contract) && $contract->group == 'group') selected="selected" @endif>{{__('Grupa Stanova')}}</option>
-            <option value="all" @if(isset($contract) && $contract->group == 'all') selected="selected" @endif>{{__('Svi Stanovi')}}</option>
+            <option value="Grupa Stanova" @if(isset($contract) && $contract->group == 'group') selected="selected" @endif>{{__('Grupa Stanova')}}</option>
+            <option value="Svi Stanovi" @if(isset($contract) && $contract->group == 'all') selected="selected" @endif>{{__('Svi Stanovi')}}</option>
         </select>
         <label>{{__('Grupa')}}</label>
     </div>
