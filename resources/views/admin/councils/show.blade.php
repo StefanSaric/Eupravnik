@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="card-tabs">
                                 <ul class="tabs tabs-fixed-width">
                                     <li class="tab">
@@ -163,7 +163,7 @@
                                             </div>
                                         </div>
                                         <div style="margin-left: 4rem">
-                                            <div class='row'> 
+                                            <div class='row'>
                                                 <div class='col s12 m12 l12'>
                                                     <text style="font-weight: bold; color: black">{{__('Status zaštite: ')}}</text>{{ $address->protection_status }}
                                                 </div>
@@ -283,10 +283,10 @@
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Ugovori')}}</h5>
                                         </div>
-                                        <!--<div class='col s2 m2 l2'>
+                                        <div class='col s2 m2 l2'>
                                             <a href="{{url('/admin/councils/addContract/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj ugovor')}}">
                                             <i class="material-icons">add</i></a>
-                                        </div>-->
+                                        </div>
                                     </div>
                                     <div class='row' >
                                         <table id="contractstable" class="display table-responsive multitables">
@@ -294,26 +294,32 @@
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Partner')}}</th>
-                                                    <th>{{__('Kontakt tel.')}}</th>
-                                                    <th>{{__('Održavanje')}}</th>
+                                                    <th>{{__('Opis')}}</th>
                                                     <th>{{__('Važi od')}}</th>
                                                     <th>{{__('Važi do')}}</th>
+                                                    <th>{{__('Ugovorena Cena')}}</th>
+                                                    <th>{{__('Stvarna Cena')}}</th>
+                                                    <th>{{__('Stanovi')}}</th>
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                                    <td>Test radionica</td>
-                                                    <td>123-456</td>
-                                                    <td>Održavanje lifta</td>
-                                                    <td>10.03.2020.</td>
-                                                    <td>11.04.2021.</td>
+                                            @foreach($contracts as $num => $contract)
+                                                <tr id="{{ $contract->id }}" class="gradeX">
+                                                    <td>&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
+                                                    <td>{{ $contract->partner }}</td>
+                                                    <td>{{ $contract->description }}</td>
+                                                    <td>{{ $contract->date_from }}</td>
+                                                    <td>{{ $contract->date_to }}</td>
+                                                    <td>{{ $contract->price }}</td>
+                                                    <td>{{ $contract->real_price }}</td>
+                                                    <td>{{ $contract->group }}</td>
                                                     <td>
-                                                        <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
+                                                        <a href="{{url('/admin/councils/addContract/'.$council->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
                                                 </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -354,7 +360,7 @@
                                                         <a href="#" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi nalog')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
-                                                </tr> 
+                                                </tr>
                                                 @foreach($assignments as $assignment)
                                                 <tr class="gradeX">
                                                     <td>&nbsp;&nbsp;&nbsp;</td>
@@ -498,7 +504,7 @@
                                 </div>
                                 <!---------- OBAVESTENJA start ---------->
                                 <div id="announcements">
-                                    <div class='row grey lighten-4'">
+                                    <div class='row grey lighten-4'>
                                         <div class='col s10 m10 l10'>
                                             <h5>{{__('Obaveštenja')}}</h5>
                                         </div>
@@ -585,7 +591,7 @@
                                                         <a href="{{url('/admin/councils/editMeeting/'.$meeting->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi sednicu')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
-                                                </tr> 
+                                                </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>

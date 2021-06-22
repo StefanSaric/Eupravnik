@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contract;
+use App\Firm;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Council;
@@ -30,11 +33,23 @@ class CouncilsController extends Controller
 
         return view('admin.councils.allcouncils', ['active' => 'allCouncils', 'councils' => $councils]);
     }
-    
+
     public function show($id)
     {
         $council = Council::find($id);
         $addresses = CouncilAddress::where('council_id', '=', $id)->get();
+        $contracts = Contract::where('council_id', '=', $id)
+                     ->join('partners', 'partners.id', '=', 'contracts.partner_id' )
+                     ->select('contracts.id as id',
+                        'partners.name as partner',
+                        'contracts.description as description',
+                        'contracts.date_from as date_from',
+                        'contracts.date_to as date_to',
+                        'contracts.price as price',
+                        'contracts.real_price as real_price',
+                        'contracts.group as group'
+                        )
+                     ->get();
         $assignments = Maintenance::where('council_id', '=', $id)
                 ->whereIn('type', ['assignment', 'intervention'])
                 ->get();
@@ -43,7 +58,7 @@ class CouncilsController extends Controller
         $bills = Bill::where('council_id', '=', $id)->get();
         $transactions = Transaction::where('council_id', '=', $id)->get();
         $spaces = Space::where('council_id', '=', $id)->get();
-        
+
         if(Session::has('acttab')){
             $acttab = Session::get('acttab');
             //dd($acttab);
@@ -51,11 +66,11 @@ class CouncilsController extends Controller
         else{
             $acttab = 'addresses';
         }
-        
-        return view('admin.councils.show', ['active' => 'allCouncils', 'acttab' => $acttab, 'council' => $council, 'addresses' => $addresses, 'assignments' => $assignments,
+
+        return view('admin.councils.show', ['active' => 'allCouncils', 'acttab' => $acttab, 'council' => $council, 'addresses' => $addresses, 'contracts' => $contracts,'assignments' => $assignments,
             'meetings' => $meetings, 'announcements' => $announcements, 'bills' => $bills, 'transactions' => $transactions, 'spaces' => $spaces]);
     }
-    
+
     /**
      * Shows form for inserting new council.
      *
@@ -65,14 +80,14 @@ class CouncilsController extends Controller
     {
         return view('admin.councils.create', ['active' => 'addCouncil']);
     }
-    
+
     /**
      * Stores data from councils form
      *
      * @param Request $request
      * @return redirect(admin/councils)
      */
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $council = Council::create(['user_id' => Auth::user()->id,'name' => $request->name, 'short_name' => $request->short_name, 'city' => $request->city, 'area' => $request->area,
             'account' => $request->account, 'maticni' => $request->maticni, 'latitude' => $request->latitude, 'longitude' => $request->longitude, 'pib' => $request->pib,
@@ -80,15 +95,15 @@ class CouncilsController extends Controller
         $council->save();
         $address = CouncilAddress::create(['council_id' => $council->id,'address' => $request->ca_address, 'protection_status' => $request->protection_status,
             'area_size' => $request->area_size, 'built_year' => $request->built_year, 'short_name' => $request->ca_short_name, 'floors_number' => $request->floors_number,
-            'elevators_number' => $request->elevators_number, 'roof_type' => $request->roof_type, 'lightning_rod' => $request->lightning_rod, 
+            'elevators_number' => $request->elevators_number, 'roof_type' => $request->roof_type, 'lightning_rod' => $request->lightning_rod,
             'district_heating' => $request->district_heating, 'cellar' => $request->cellar, 'attic' => $request->attic, 'shelter' => $request->shelter,
             'energy_passport' => $request->energy_passport]);
-        
+
         Session::flash('message', 'success_'.__('Skupština je dodata!'));
-        
+
         return redirect('admin/councils');
     }
-    
+
     /**
      * Shows form for editing council.
      *
@@ -101,26 +116,26 @@ class CouncilsController extends Controller
 
         return view ('admin.councils.edit', ['active' => 'addCouncil', 'council' => $council]);
     }
-    
+
     /**
      * Stores data from councils form
      *
      * @param Request $request
      * @return redirect(admin/councils)
      */
-    public function update(Request $request) 
-    {   
+    public function update(Request $request)
+    {
         //dd($request);
         $id = $request->council_id;
         $council = Council::find($id);
         $council->update($request->all());
-        
+
         Session::flash('message', 'success_'.__('Skupština je uređena!'));
 
         return redirect('admin/councils');
-        
+
     }
-    
+
     /**
      * Deletes role =!!!! INACTIVE FUNCTION !!!!=
      *
@@ -131,51 +146,51 @@ class CouncilsController extends Controller
     {
         $council = Council::find($id);
         $council->delete();
-        
+
         Session::flash('message', 'info_'.__('Skupština je obrisana!'));
-        
+
         return redirect('admin/councils');
     }
-    
-    
+
+
     //----- ADDRESSES - ADRESE -----------------------------------------------//
-    
+
     public function addAddress($id)
     {
         $council = Council::find($id);
-        
+
         return view('admin.councils.addAddress', ['active' => 'allCouncils', 'council' => $council]);
     }
-    
+
     public function storeAddress(Request $request)
     {
         $address = CouncilAddress::create($request->all());
-        
+
         Session::flash('acttab', 'addresses');
         Session::flash('message', 'info_'.__('Adresa je dodata!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function editAddress($id)
     {
         $address = CouncilAddress::find($id);
         $council = Council::find($address->council_id);
-        
+
         return view('admin.councils.editAddress', ['active' => 'allCouncils', 'council' => $council, 'address' => $address]);
     }
-    
+
     public function updateAddress(Request $request)
     {
         $address = CouncilAddress::find($request->council_address_id);
         $address->update($request->all());
-        
+
         Session::flash('acttab', 'addresses');
         Session::flash('message', 'info_'.__('Adresa je uredjena!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function deleteAddress($id)
     {
         $address = CouncilAddress::find($id);
@@ -190,20 +205,20 @@ class CouncilsController extends Controller
             Session::flash('acttab', 'addresses');
             Session::flash('message', 'info_'.__('Brisanje nije dozvoljeno, mora postojati bar jedna adresa!'));
         }
-        
+
         return redirect('admin/councils/show/'.$council_id);
     }
-    
-    
+
+
     //----- MEETINGS - SEDNICE -----------------------------------------------//
-    
+
     public function addMeeting($id)
     {
         $council = Council::find($id);
-        
+
         return view('admin.councils.addMeeting', ['active' => 'allCouncils', 'council' => $council]);
     }
-    
+
     public function storeMeeting(Request $request)
     {
         //dd($request);
@@ -242,21 +257,21 @@ class CouncilsController extends Controller
                 'email_sent' => $email_sent
             ]);
         }
-        
+
         Session::flash('acttab', 'meetings');
         Session::flash('message', 'info_'.__('Sastanak je dodat!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function editMeeting($id)
     {
         $meeting = Meeting::find($id);
         $council = Council::find($meeting->council_id);
-        
+
         return view('admin.councils.editMeeting', ['active' => 'allCouncils', 'council' => $council, 'meeting' => $meeting]);
     }
-    
+
     public function updateMeeting(Request $request)
     {
         //dd($request);
@@ -264,13 +279,13 @@ class CouncilsController extends Controller
         $meeting->date = $request->date;
         $meeting->time = $request->time;
         $meeting->save();
-        
+
         Session::flash('acttab', 'meetings');
         Session::flash('message', 'info_'.__('Sastanak je uredjen!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function deleteMeeting($id)
     {
         $meeting = Meeting::find($id);
@@ -278,20 +293,20 @@ class CouncilsController extends Controller
         $meeting->delete();
         Session::flash('acttab', 'meetings');
         Session::flash('message', 'info_'.__('Sastanak je obrisan!'));
-        
+
         return redirect('admin/councils/show/'.$council_id);
     }
-    
-    
+
+
     //----- ANNOUNCEMENTS - OBAVESTENJA --------------------------------------//
-    
+
     public function addAnnouncement($id)
     {
         $council = Council::find($id);
-        
+
         return view('admin.councils.addAnnouncement', ['active' => 'allCouncils', 'council' => $council]);
     }
-    
+
     public function storeAnnouncement(Request $request)
     {
         //dd($request);
@@ -305,32 +320,32 @@ class CouncilsController extends Controller
             'signature' => $request->signature,
             'email_sent' => 0
         ]);
-        
+
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je dodato!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function editAnnouncement($id)
     {
         $announcement = Announcement::find($id);
         $council = Council::find($announcement->council_id);
-        
+
         return view('admin.councils.editAnnouncement', ['active' => 'allCouncils', 'council' => $council, 'announcement' => $announcement]);
     }
-    
+
     public function updateAnnouncement(Request $request)
     {
         $announcement = Announcement::find($request->announcement_id);
         $announcement->update($request->all());
-        
+
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je uredjeno!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function deleteAnnouncement($id)
     {
         $announcement = Announcement::find($id);
@@ -338,10 +353,10 @@ class CouncilsController extends Controller
         $meeting->delete();
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je obrisano!'));
-        
+
         return redirect('admin/councils/show/'.$council_id);
     }
-    
+
     public function announcementToPDF($id)
     {
         $announcement = Announcement::find($id);
@@ -360,16 +375,16 @@ class CouncilsController extends Controller
         $mpdf->WriteHTML($compiled);
         $mpdf->Output();
     }
-    
+
     //----- BILLS - FAKTURISANJE ---------------------------------------------//
-    
+
     public function addBill($id)
     {
         $council = Council::find($id);
-        
+
         return view('admin.councils.addBill', ['active' => 'allCouncils', 'council' => $council]);
     }
-    
+
     public function storeBill(Request $request)
     {
         $bill = Bill::create([
@@ -377,37 +392,37 @@ class CouncilsController extends Controller
             'date' => $request->date,
             'partner' => $request->partner,
             'amount' => $request->amount,
-            'type' => $request->type, 
+            'type' => $request->type,
             'state' => 'unpaied',
             'realised' => 0,
             'rest' => $request->amount
         ]);
-        
+
         Session::flash('acttab', 'bills');
         Session::flash('message', 'info_'.__('Racun je dodat!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function editBill($id)
     {
         $bill = Bill::find($id);
         $council = Council::find($bill->council_id);
-        
+
         return view('admin.councils.editBill', ['active' => 'allCouncils', 'council' => $council, 'bill' => $bill]);
     }
-    
+
     public function updateBill(Request $request)
     {
         $bill = Bill::find($request->bill_id);
         $bill->update($request->all());
-        
+
         Session::flash('acttab', 'meetings');
         Session::flash('message', 'info_'.__('Racun je uredjen!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function deleteBill($id)
     {
         $bill = Bill::find($id);
@@ -415,48 +430,48 @@ class CouncilsController extends Controller
         $bill->delete();
         Session::flash('acttab', 'bills');
         Session::flash('message', 'info_'.__('Racun je obrisan!'));
-        
+
         return redirect('admin/councils/show/'.$council_id);
     }
-    
+
     //----- TRANSACTIONS - TRANSAKCIJE ---------------------------------------//
-    
+
     public function addTransaction($id)
     {
         $council = Council::find($id);
-        
+
         return view('admin.councils.addTransaction', ['active' => 'allCouncils', 'council' => $council]);
     }
-    
+
     public function storeTransaction(Request $request)
     {
         $transaction = Transaction::create($request->all());
-        
+
         Session::flash('acttab', 'transactions');
         Session::flash('message', 'info_'.__('Transfer je dodat!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function editTransaction($id)
     {
         $transaction = Transaction::find($id);
         $council = Council::find($transaction->council_id);
-        
+
         return view('admin.councils.editTransaction', ['active' => 'allCouncils', 'council' => $council, 'transaction' => $transaction]);
     }
-    
+
     public function updateTransaction(Request $request)
     {
         $transaction = Transaction::find($request->transaction_id);
         $transaction->update($request->all());
-        
+
         Session::flash('acttab', 'transactions');
         Session::flash('message', 'info_'.__('Transfer je uredjen!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function deleteTransaction($id)
     {
         $transaction = Transaction::find($id);
@@ -464,21 +479,21 @@ class CouncilsController extends Controller
         $transaction->delete();
         Session::flash('acttab', 'transactions');
         Session::flash('message', 'info_'.__('Transfer je obrisan!'));
-        
+
         return redirect('admin/councils/show/'.$council_id);
     }
-    
-    
+
+
     //----- SPACES - PROSTORI ------------------------------------------------//
-     
+
     public function addSpace($id)
     {
         $council = Council::find($id);
         $councilAddresses = CouncilAddress::where('council_id', '=', $id)->get();
-        
+
         return view('admin.councils.addSpace', ['active' => 'allCouncils', 'council' => $council, 'council_addresses' => $councilAddresses]);
     }
-    
+
     public function storeSpace(Request $request)
     {
         $space = Space::create([
@@ -495,33 +510,33 @@ class CouncilsController extends Controller
             'type' => $request->type,
             'status' => $request->status
         ]);
-        
+
         Session::flash('acttab', 'units');
         Session::flash('message', 'info_'.__('Prostor je dodat!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function editSpace($id)
     {
         $space = Space::find($id);
         $council = Council::find($space->council_id);
         $councilAddresses = CouncilAddress::where('council_id', '=', $council->id)->get();
-        
+
         return view('admin.councils.editSpace', ['active' => 'allCouncils', 'council' => $council, 'space' => $space, 'council_addresses' => $councilAddresses]);
     }
-    
+
     public function updateSpace(Request $request)
     {
         $space = Space::find($request->space_id);
         $space->update($request->all());
-        
+
         Session::flash('acttab', 'units');
         Session::flash('message', 'info_'.__('Prostor je uredjen!'));
-        
+
         return redirect('admin/councils/show/'.$request->council_id);
     }
-    
+
     public function deleteSpace($id)
     {
         $space = Space::find($id);
@@ -530,7 +545,74 @@ class CouncilsController extends Controller
         $space->delete();
         Session::flash('acttab', 'units');
         Session::flash('message', 'info_'.__('Prostor je obrisan!'));
-        
+
+        return redirect('admin/councils/show/'.$council_id);
+    }
+
+
+    //----- CONTRACTS - UGOVORI ------------------------------------------------//
+
+
+    public function addContract ($id) {
+
+        $council = Council::find($id);
+        $partners = Partner::all()
+                    ->join('firms', 'firms.id', '=', 'partners.firm_id' )
+                    ->select(
+                        'partners.id as id',
+                        'partners.name as name',
+                        'firms.percentage as percentage')
+                    ->get();
+
+
+        return view('admin.councils.addContract', ['active' => 'allCouncils', 'council' => $council, 'partners' => $partners ]);
+    }
+
+    public function storeContract (Request $request) {
+
+        $contract = Contract::create([
+            'user_id' => Auth::user()->id,
+            'council_id' => $request->council_id,
+            'partner_id' => $request->partner_id,
+            'description' => $request->description,
+            'date_from' => $request->date_from,
+            'date_to' => $request->date_to,
+            'price' => $request->price,
+            'real_price' => $request->real_price,
+            'group' => $request->group
+        ]);
+
+        Session::flash('message', 'info_'.__('Ugovor je dodat!'));
+
+        return redirect('admin/councils/show/'.$request->council_id);
+    }
+
+    public function editContract ($id) {
+
+        $contract = Contract::find($id);
+        $council = Council::find($contract->council_id);
+        $partners = Partner::all();
+
+        return view('admin.councils.editContract', ['active' => 'allCouncils', 'contract' => $contract, 'council' => $council, 'partners' => $partners]);
+    }
+
+    public function updateContract (Request $request) {
+
+        $contract = Contract::find($request->contract_id);
+        $contract->update($request->all());
+
+        Session::flash('message', 'info_'.__('Ugovor je izmenjen!'));
+
+        return redirect('admin/councils/show/'.$request->council_id);
+    }
+
+    public function deleteContract ($id) {
+
+        $contract = Contract::find($id);
+        $contract->delete();
+
+        Session::flash('message', 'info_'.__('Ugovor je obrisan!'));
+
         return redirect('admin/councils/show/'.$council_id);
     }
 }
