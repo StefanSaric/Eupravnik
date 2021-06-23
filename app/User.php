@@ -36,12 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function roles()
     {
         return $this->belongsToMany('App\Role', 'user_roles');
     }
-    
+
     public function hasRole($roleName)
     {
         foreach ($this->roles()->get() as $role)

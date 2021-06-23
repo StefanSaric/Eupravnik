@@ -55,15 +55,16 @@
                                 <div id="datatablolder">
                                     {!! Form::open(array('method' => 'DELETE', 'id' => 'userForm', 'role' => 'form')) !!}
                                     {!! Form::submit(null, ['id' => 'userButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
-                                    {!! Form::close() !!} 
+                                    {!! Form::close() !!}
                                     <div class="row">
                                         <div class="col s12">
-                                            <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovog korisnika?')}}'/> 
+                                            <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovog korisnika?')}}'/>
                                             <table id="datatable" class="display table-responsive">
                                                 <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Ime')}}</th>
+                                                    <th>{{__('Rola')}}</th>
                                                     <th>{{__('E-mail')}}</th>
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
@@ -73,12 +74,15 @@
                                                    <tr id="{{ $user->id }}" class="gradeX">
                                                     <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                     <td>{{ $user->name }}</td>
+                                                    <td>@foreach($user->roles as $key => $role){{ $role->name }}@endforeach</td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>
                                                         <a href="{{url('/admin/users/'.$user->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi korisnika')}}">
                                                             <i class="material-icons">create</i></a>
+                                                        <a href="{{url('/admin/users/'.$user->id.'/delete')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši korisnika')}}">
+                                                            <i class="material-icons">delete</i></a>
                                                     </td>
-                                                </tr> 
+                                                </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>

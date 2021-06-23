@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::post('/users/store', 'Admin\UsersController@store');
     Route::get('/users/{id}/edit', 'Admin\UsersController@edit');
     Route::post('/users/update', 'Admin\UsersController@update');
-    //Route::get('/users/delete/{id}', 'Admin\UsersController@delete');
+    Route::get('/users/{id}/delete', 'Admin\UsersController@delete');
     Route::get('/roles', 'Admin\RolesController@index');
     Route::get('/roles/create', 'Admin\RolesController@create');
     Route::post('/roles/store', 'Admin\RolesController@store');

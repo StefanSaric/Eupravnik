@@ -29,7 +29,10 @@ class CouncilsController extends Controller
      */
     public function index()
     {
-        $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+        if(Auth::user()->hasRole('Super Admin'))
+            $councils = Council::all();
+        else
+            $councils = Council::where('user_id', '=', Auth::user()->id)->get();
 
         return view('admin.councils.allcouncils', ['active' => 'allCouncils', 'councils' => $councils]);
     }

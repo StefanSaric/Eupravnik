@@ -21,26 +21,29 @@
                 <i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
             </a>
         </li><!--end /menu-item -->
+        @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Firma'))
         <!-- Menu Users -->
         <li class="bold @if($active == 'allUsers' || $active == 'addUser')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">person_outline</i><span class="menu-title" data-i18n="{{__('Administratori')}}">{{__('Administratori')}}</span>
+                <i class="material-icons">person_outline</i><span class="menu-title" data-i18n="{{__('Korisnici')}}">{{__('Korisnici')}}</span>
             </a>
             <div class="collapsible-body" @if($active == 'allUsers' || $active == 'addUser')style="display: block" @endif>
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li @if($active == 'allUsers')class="active" @endif>
                         <a @if($active == 'allUsers')class="active" @endif href="{{ url('admin/users') }}">
-                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Administratori')}}">{{__('Svi Administratori')}}</span></a>
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Korisnici')}}">{{__('Svi korisnici')}}</span></a>
                         </a>
                     </li>
                     <li @if($active == 'addUser')class="active" @endif>
                         <a @if($active == 'addUser')class="active" @endif href="{{ url('admin/users/create') }}">
-                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Administratora')}}">{{__('Dodaj Administratora')}}</span></a>
+                            <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Korsinika')}}">{{__('Dodaj Korisnika')}}</span></a>
                         </a>
                     </li>
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Super Admin'))
         <!-- Menu Roles -->
         <li class="bold @if($active == 'allRoles' || $active == 'addRole')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -61,6 +64,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Super Admin'))
         <!-- Menu Firm -->
         <li class="bold @if($active == 'allFirms' || $active == 'addFirm')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -81,6 +86,7 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
         <!-- Menu Councils -->
         <li class="bold @if($active == 'allCouncils' || $active == 'addCouncil')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -101,6 +107,7 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Workers -->
         <li class="bold @if($active == 'allWorkers' || $active == 'addWorker')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -121,7 +128,9 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
-        <!-- Menu Codebooks -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
+            <!-- Menu Codebooks -->
         <li class="bold @if($active == 'allEnforcers' || $active == 'addEnforcer' || $active == 'allPartners' || $active == 'addPartner')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
                 <i class="material-icons">storage</i><span class="menu-title" data-i18n="{{__('Šifarnici')}}">{{__('Šifarnici')}}</span>
@@ -169,6 +178,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Maintenance -->
         <li class="bold @if($active == 'allMaintenances' || $active == 'addMaintenance')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -189,6 +200,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Program -->
         <li class="bold @if($active == 'allPrograms' || $active == 'addProgram')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -204,6 +217,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Documents -->
         <li class="bold @if($active == 'allDocuments')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -219,6 +234,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Duties -->
         <li class="bold @if($active == 'allDuties' || $active == 'addDuty')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -239,6 +256,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Warning -->
         <li class="bold @if($active == 'allWarnings' || $active == 'addWarning')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -259,6 +278,8 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Warning -->
         <li class="bold @if($active == 'allLawsuits' || $active == 'addLawsuit')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -279,6 +300,7 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
     </ul>
     <div class="navigation-background"></div>
     <a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out">

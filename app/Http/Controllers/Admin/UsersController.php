@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\UserRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\User;
@@ -20,14 +21,22 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-                ->where('user_roles.role_id', '=', 1)
-                ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
-                ->get();
+
+        if(Auth::user()->hasRole('Super Admin'))
+            $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+                    ->whereIn('user_roles.role_id', [2,3])
+                    ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
+                    ->get();
+        elseif(Auth::user()->hasRole('Firma'))
+            $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+                    ->whereIn('user_roles.role_id', [1])
+                    ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
+                    ->get();
+
 
         return view('admin.users.allusers', ['active' => 'allUsers', 'users' => $users]);
     }
-    
+
     /**
      * Shows form for inserting new user.
      *
@@ -35,17 +44,22 @@ class UsersController extends Controller
      */
     public function create ()
     {
-        
-        return view('admin.users.create', ['active' => 'addUser']);
+
+        if(Auth::user()->hasRole('Super Admin'))
+            $roles = Role::whereIn('id',[2,3])->get();
+        elseif(Auth::user()->hasRole('Firma'))
+            $roles = Role::whereIn('id',[1])->get();
+
+        return view('admin.users.create', ['active' => 'addUser', 'roles' => $roles]);
     }
-    
+
     /**
      * Stores data from users form
      *
      * @param Request $request
      * @return redirect(admin/users)
      */
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required',
@@ -60,14 +74,14 @@ class UsersController extends Controller
         //setting encription for password
         $request->merge(array('password' => bcrypt($request->input('password'))));
         $user = User::create($request->all());
-        $user->roles()->attach(1);
+        $user->roles()->attach($request->get('role_id'));
         $user->save();
-        
+
         Session::flash('message', 'success_'.__('Korisnik je dodat!'));
-        
+
         return redirect('admin/users');
     }
-    
+
     /**
      * Shows form for editing user.
      *
@@ -78,17 +92,24 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        return view ('admin.users.edit', ['active' => 'addUser', 'user' => $user]);
+        if(Auth::user()->hasRole('Super Admin'))
+            $roles = Role::whereIn('id',[2,3])->get();
+        elseif(Auth::user()->hasRole('Firma'))
+            $roles = Role::whereIn('id',[1])->get();
+
+        $userRoles = $user->roles;
+
+        return view ('admin.users.edit', ['active' => 'addUser', 'user' => $user, 'roles' => $roles, 'userRoles' => $userRoles]);
     }
-    
+
     /**
      * Stores data from users form
      *
      * @param Request $request
      * @return redirect(admin/users)
      */
-    public function update(Request $request) 
-    {   
+    public function update(Request $request)
+    {
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'email' => ['required', 'unique:users,email,'.$request->user_id],
@@ -105,13 +126,16 @@ class UsersController extends Controller
             $user->password = bcrypt($request->input('password'));
             $user->save();
         }
+        if (isset($request->role_id)) {
+            $user->roles()->sync($request->role_id);
+        }
 
         Session::flash('message', 'success_'.__('Korisnik je uređen!'));
 
         return redirect('admin/users');
-        
+
     }
-    
+
     /**
      * Deletes user =!!!! INACTIVE FUNCTION !!!!=
      *
@@ -122,9 +146,9 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        
+
         Session::flash('message', 'info_'.__('Korisnik je obrisan!'));
-        
+
         return redirect('admin/users');
     }
 }
