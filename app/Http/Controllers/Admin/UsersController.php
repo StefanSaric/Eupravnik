@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\UserFirms;
 use App\UserRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -29,7 +30,9 @@ class UsersController extends Controller
                     ->get();
         elseif(Auth::user()->hasRole('Firma'))
             $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+                    ->join('user_firms', 'user_firms.user_id', '=', 'users.id')
                     ->whereIn('user_roles.role_id', [1])
+                    ->where('user_firms.firm_id', '=', Auth::user()->id)
                     ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
                     ->get();
 
@@ -76,6 +79,9 @@ class UsersController extends Controller
         $user = User::create($request->all());
         $user->roles()->attach($request->get('role_id'));
         $user->save();
+
+        if(Auth::user()->hasRole('Firma'))
+            $user_firms = UserFirms::create(['user_id' =>$user->id, 'firm_id' => Auth::user()->id ]);
 
         Session::flash('message', 'success_'.__('Korisnik je dodat!'));
 

@@ -7,6 +7,7 @@ use App\Firm;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Partner;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Council;
@@ -31,6 +32,8 @@ class CouncilsController extends Controller
     {
         if(Auth::user()->hasRole('Super Admin'))
             $councils = Council::all();
+        elseif(Auth::user()->hasRole('Firma'))
+            $councils = Council::where('firm_id', '=', Auth::user()->id)->get();
         else
             $councils = Council::where('user_id', '=', Auth::user()->id)->get();
 
@@ -81,7 +84,12 @@ class CouncilsController extends Controller
      */
     public function create ()
     {
-        return view('admin.councils.create', ['active' => 'addCouncil']);
+        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+            ->whereIn('user_roles.role_id', [1])
+            ->select('users.id as id', 'users.name as name')
+            ->get();
+
+        return view('admin.councils.create', ['active' => 'addCouncil', 'users' => $users]);
     }
 
     /**
@@ -92,9 +100,12 @@ class CouncilsController extends Controller
      */
     public function store(Request $request)
     {
-        $council = Council::create(['user_id' => Auth::user()->id,'name' => $request->name, 'short_name' => $request->short_name, 'city' => $request->city, 'area' => $request->area,
-            'account' => $request->account, 'maticni' => $request->maticni, 'latitude' => $request->latitude, 'longitude' => $request->longitude, 'pib' => $request->pib,
-            'phone' => $request->phone]);
+        $council = Council::create([
+            'firm_id' => Auth::user()->id, 'user_id' => $request->user_id, 'reserve_id' => $request->reserve_id,
+            'name' => $request->name, 'short_name' => $request->short_name, 'city' => $request->city, 'area' => $request->area,
+            'account' => $request->account, 'maticni' => $request->maticni, 'latitude' => $request->latitude,
+            'longitude' => $request->longitude, 'pib' => $request->pib, 'phone' => $request->phone
+        ]);
         $council->save();
         $address = CouncilAddress::create(['council_id' => $council->id,'address' => $request->ca_address, 'protection_status' => $request->protection_status,
             'area_size' => $request->area_size, 'built_year' => $request->built_year, 'short_name' => $request->ca_short_name, 'floors_number' => $request->floors_number,
@@ -116,8 +127,13 @@ class CouncilsController extends Controller
     public function edit($id)
     {
         $council = Council::find($id);
+        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+            ->whereIn('user_roles.role_id', [1])
+            ->select('users.id as id', 'users.name as name')
+            ->get();
 
-        return view ('admin.councils.edit', ['active' => 'addCouncil', 'council' => $council]);
+
+        return view ('admin.councils.edit', ['active' => 'addCouncil', 'council' => $council, 'users' => $users]);
     }
 
     /**
@@ -128,7 +144,6 @@ class CouncilsController extends Controller
      */
     public function update(Request $request)
     {
-        //dd($request);
         $id = $request->council_id;
         $council = Council::find($id);
         $council->update($request->all());
