@@ -130,10 +130,15 @@ class CouncilsController extends Controller
     public function edit($id)
     {
         $council = Council::find($id);
+
+        if(Auth::user()->hasRole('Firma'))
         $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+            ->join('user_firms', 'user_firms.user_id', '=', 'users.id')
             ->whereIn('user_roles.role_id', [1])
+            ->where('user_firms.firm_id', '=', Auth::user()->id)
             ->select('users.id as id', 'users.name as name')
             ->get();
+
 
 
         return view ('admin.councils.edit', ['active' => 'addCouncil', 'council' => $council, 'users' => $users]);

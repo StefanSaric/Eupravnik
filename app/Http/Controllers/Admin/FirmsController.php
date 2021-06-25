@@ -26,6 +26,17 @@ class FirmsController extends Controller
 
     public function store (Request $request) {
 
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'unique:firms'],
+            'email' => ['required', 'unique:firms'],
+            'password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $user = User::create(['name' => $request->name, 'email' => $request->email, 'password' => bcrypt($request->input('password'))]);
         $user->roles()->attach(2);
         $user->save();
@@ -58,11 +69,22 @@ class FirmsController extends Controller
 
     public function update (Request $request) {
 
+        //dd($request->all());
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'unique:users,name,'.$request->id],
+            'email' => ['required', 'unique:users,email,'.$request->id],
+            'password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $firm = Firm::find($request->id);
         $firm->update($request->all());
 
         $user = User::find($request->user_id);
-        //dd($user);
         $user->update($request->except(['password']));
         if(isset($request->password) && $request->password != ''){
             $user->password = bcrypt($request->input('password'));
