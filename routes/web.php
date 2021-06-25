@@ -19,21 +19,39 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
-    Route::get('/', 'Admin\AdminController@index');
-    Route::get('/getAppointments/{id}', 'Admin\AdminController@getAppointments');
-    Route::get('/users', 'Admin\UsersController@index');
-    Route::get('/users/create', 'Admin\UsersController@create');
-    Route::post('/users/store', 'Admin\UsersController@store');
-    Route::get('/users/{id}/edit', 'Admin\UsersController@edit');
-    Route::post('/users/update', 'Admin\UsersController@update');
-    Route::get('/users/{id}/delete', 'Admin\UsersController@delete');
+Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin']], function () {
+
     Route::get('/roles', 'Admin\RolesController@index');
     Route::get('/roles/create', 'Admin\RolesController@create');
     Route::post('/roles/store', 'Admin\RolesController@store');
     Route::get('/roles/{id}/edit', 'Admin\RolesController@edit');
     Route::post('/roles/update', 'Admin\RolesController@update');
     //Route::get('/roles/delete/{id}', 'Admin\RolesController@delete');
+
+    Route::get('/firms', 'Admin\FirmsController@index');
+    Route::get('/firms/create', 'Admin\FirmsController@create');
+    Route::post('/firms/store', 'Admin\FirmsController@store');
+    Route::get('/firms/{id}/edit', 'Admin\FirmsController@edit');
+    Route::post('/firms/update', 'Admin\FirmsController@update');
+    Route::get('/firms/{id}/{user_id}/delete', 'Admin\FirmsController@delete');
+
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin|Firma']], function () {
+
+    Route::get('/users', 'Admin\UsersController@index');
+    Route::get('/users/create', 'Admin\UsersController@create');
+    Route::post('/users/store', 'Admin\UsersController@store');
+    Route::get('/users/{id}/edit', 'Admin\UsersController@edit');
+    Route::post('/users/update', 'Admin\UsersController@update');
+    Route::get('/users/{id}/delete', 'Admin\UsersController@delete');
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
+
+    Route::get('/', 'Admin\AdminController@index');
+    Route::get('/getAppointments/{id}', 'Admin\AdminController@getAppointments');
+
     Route::get('/councils', 'Admin\CouncilsController@index');
     Route::get('/councils/show/{id}', 'Admin\CouncilsController@show');
     Route::get('/councils/create', 'Admin\CouncilsController@create');
@@ -77,6 +95,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editSpace/{id}', 'Admin\CouncilsController@editSpace');
     Route::post('/councils/updateSpace', 'Admin\CouncilsController@updateSpace');
     Route::get('/councils/deleteSpace/{id}', 'Admin\CouncilsController@deleteSpace');
+    Route::get('/councils/{id}/show', 'Admin\CouncilsController@oneSpace');
+
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
 
     Route::get('/councils/addContract/{id}', 'Admin\CouncilsController@addContract');
@@ -84,6 +104,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editContract/{id}', 'Admin\CouncilsController@editContract');
     Route::post('/councils/updateContract', 'Admin\CouncilsController@updateContract');
     Route::get('/councils/deleteContract/{id}', 'Admin\CouncilsController@deleteContract');
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function () {
 
     Route::get('/workers', 'Admin\WorkersController@index');
     Route::get('/workers/create', 'Admin\WorkersController@create');
@@ -154,12 +177,5 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/lawsuits/{id}/edit', 'Admin\LawsuitsController@edit');
     Route::post('/lawsuits/update', 'Admin\LawsuitsController@update');
     Route::get('/lawsuits/{id}/delete', 'Admin\LawsuitsController@delete');
-
-    Route::get('/firms', 'Admin\FirmsController@index');
-    Route::get('/firms/create', 'Admin\FirmsController@create');
-    Route::post('/firms/store', 'Admin\FirmsController@store');
-    Route::get('/firms/{id}/edit', 'Admin\FirmsController@edit');
-    Route::post('/firms/update', 'Admin\FirmsController@update');
-    Route::get('/firms/{id}/{user_id}/delete', 'Admin\FirmsController@delete');
 
 });

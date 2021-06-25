@@ -575,6 +575,15 @@ class CouncilsController extends Controller
         return redirect('admin/councils/show/'.$council_id);
     }
 
+    public function oneSpace($id)
+    {
+        $space = Space::find($id);
+        $council_address = CouncilAddress::find($space->council_address_id);
+        //dd($council_address);
+
+        return view('admin.councils.showSpace', ['active' => 'allCouncils', 'space' => $space, 'council_address' => $council_address]);
+    }
+
 
     //----- CONTRACTS - UGOVORI ------------------------------------------------//
 

@@ -266,6 +266,8 @@
                                                     <td>{{ $space->type }}</td>
                                                     <td>{{ $space->status }}</td>
                                                     <td>
+                                                        <a href="{{url('/admin/councils/'.$space->id.'/show')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Pogledaj prostor')}}">
+                                                            <i class="material-icons">search</i></a>
                                                         <a href="{{url('/admin/councils/editSpace/'.$space->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
                                                             <i class="material-icons">create</i></a>
                                                         <a href='{{url('/admin/councils/deleteSpace/'.$space->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši prostor')}}">
