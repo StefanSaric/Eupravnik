@@ -21,7 +21,7 @@
 <div class="row"><!--Start 'password' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>vpn_key</i>
-        <input type="text" name="password" id="password" class="validate @error('email') invalid @enderror"
+        <input type="password" name="password" id="password" class="validate @error('email') invalid @enderror"
                value="@if(!isset($user)){{old('password')}}@endif" @if(isset($user) || old('password') != null) placeholder="" @endif required></input>
         <label for="password" class="">{{__('Lozinka')}}</label>
     </div>

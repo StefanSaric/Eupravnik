@@ -1,6 +1,7 @@
 @csrf
 @if(isset($firm))
     <input type="hidden" id="id" name="id" value="{{$firm->id}}">
+    <input type="hidden" id="user_id" name="user_id" value="{{$firm->user_id}}">
 @endif
 <div class="row"><!--Start 'Name' form field-->
     <div class="input-field col s12">
@@ -77,9 +78,9 @@
 <div class="row"><!--Start 'account' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>vpn_key</i>
-        <input type="text" name="code" id="code" class="validate @error('code') invalid @enderror"
-               value="@if(isset($firm)){{$firm->code}}@else{{old('code')}}@endif" @if(isset($firm) || old('code') != null) placeholder="" @endif required></input>
-        <label for="code" class="">{{__('Šifra')}}</label>
+        <input type="password" name="password" id="password" class="validate @error('password') invalid @enderror"
+               value="@if(isset($firm)){{$firm->password}}@else{{old('password')}}@endif" @if(isset($firm) || old('password') != null) placeholder="" @endif required></input>
+        <label for="password" class="">{{__('Šifra')}}</label>
     </div>
 </div>
 <div class="row"><!--Start 'account' form field-->

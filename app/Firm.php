@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Firm extends Model
 {
     protected $fillable = [
-        'name', 'address', 'city', 'post', 'phone', 'email', 'pib', 'id_number', 'account', 'code', 'percentage'
+        'user_id', 'name', 'address', 'city', 'post', 'phone', 'email', 'pib', 'id_number', 'account', 'password', 'percentage'
     ];
 }

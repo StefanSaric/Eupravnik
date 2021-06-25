@@ -87,6 +87,7 @@
             </div>
         </li><!--end /menu-item -->
         @endif
+        @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Firma') || Auth::user()->hasRole('Upravnik'))
         <!-- Menu Councils -->
         <li class="bold @if($active == 'allCouncils' || $active == 'addCouncil')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -99,14 +100,17 @@
                             <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Sve skupštine')}}">{{__('Sve skupštine')}}</span></a>
                         </a>
                     </li>
+                    @if(Auth::user()->hasRole('Firma'))
                     <li @if($active == 'addCouncil')class="active" @endif>
                         <a @if($active == 'addCouncil')class="active" @endif href="{{ url('admin/councils/create') }}">
                             <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj skupštinu')}}">{{__('Dodaj skupštinu')}}</span></a>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
         @if(Auth::user()->hasRole('Upravnik'))
         <!-- Menu Workers -->
         <li class="bold @if($active == 'allWorkers' || $active == 'addWorker')active open @endif">

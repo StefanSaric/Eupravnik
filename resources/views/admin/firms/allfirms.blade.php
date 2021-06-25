@@ -72,7 +72,6 @@
                                                         <th>{{__('PIB')}}</th>
                                                         <th>{{__('Matični broj')}}</th>
                                                         <th>{{__('Račun')}}</th>
-                                                        <th>{{__('Šifra')}}</th>
                                                         <th>{{__('Procenat')}}</th>
                                                         <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                     </tr>
@@ -90,12 +89,11 @@
                                                             <td>{{ $firm->pib }}</td>
                                                             <td>{{ $firm->id_number }}</td>
                                                             <td>{{ $firm->account }}</td>
-                                                            <td>{{ $firm->code }}</td>
                                                             <td>{{ $firm->percentage }}%</td>
                                                             <td>
                                                                 <a href="{{url('/admin/firms/'.$firm->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi firmu')}}">
                                                                     <i class="material-icons">create</i></a>
-                                                                <a href="{{url('/admin/firms/'.$firm->id.'/delete')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši firmu')}}">
+                                                                <a href="{{url('/admin/firms/'.$firm->id.'/'.$firm->user_id.'/delete')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši firmu')}}">
                                                                     <i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>

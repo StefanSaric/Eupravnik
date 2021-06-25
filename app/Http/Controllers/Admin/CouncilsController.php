@@ -84,8 +84,11 @@ class CouncilsController extends Controller
      */
     public function create ()
     {
+        if(Auth::user()->hasRole('Firma'))
         $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+            ->join('user_firms', 'user_firms.user_id', '=', 'users.id')
             ->whereIn('user_roles.role_id', [1])
+            ->where('user_firms.firm_id', '=', Auth::user()->id)
             ->select('users.id as id', 'users.name as name')
             ->get();
 

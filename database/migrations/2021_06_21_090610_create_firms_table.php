@@ -15,6 +15,7 @@ class CreateFirmsTable extends Migration
     {
         Schema::create('firms', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('name');
             $table->string('address');
             $table->string('city');
@@ -24,7 +25,7 @@ class CreateFirmsTable extends Migration
             $table->string('pib');
             $table->string('id_number');
             $table->string('account');
-            $table->string('code');
+            $table->string('password');
             $table->float('percentage');
             $table->timestamps();
         });

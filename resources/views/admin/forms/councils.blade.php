@@ -20,6 +20,7 @@
         <i class='material-icons prefix'>group</i>
         <select name="reserve_id" id="reserve_id" class="form-control" required>
             <option value="" disabled selected>{{__('Izaberite')}}</option>
+            <option value="" >{{__('Trenutno nema Zamenika')}}</option>
             @foreach($users as $user)
                 <option id="reserve_id" value="{{ $user->id }}" @if(isset($council))@if($council->reserve_id == $user->id) selected="selected" @endif @endif>{{ $user->name }}</option>
             @endforeach

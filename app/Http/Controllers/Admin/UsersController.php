@@ -25,7 +25,7 @@ class UsersController extends Controller
 
         if(Auth::user()->hasRole('Super Admin'))
             $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-                    ->whereIn('user_roles.role_id', [2,3])
+                    ->whereIn('user_roles.role_id', [3])
                     ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
                     ->get();
         elseif(Auth::user()->hasRole('Firma'))
@@ -49,7 +49,7 @@ class UsersController extends Controller
     {
 
         if(Auth::user()->hasRole('Super Admin'))
-            $roles = Role::whereIn('id',[2,3])->get();
+            $roles = Role::whereIn('id',[3])->get();
         elseif(Auth::user()->hasRole('Firma'))
             $roles = Role::whereIn('id',[1])->get();
 
@@ -99,7 +99,7 @@ class UsersController extends Controller
         $user = User::find($id);
 
         if(Auth::user()->hasRole('Super Admin'))
-            $roles = Role::whereIn('id',[2,3])->get();
+            $roles = Role::whereIn('id',[3])->get();
         elseif(Auth::user()->hasRole('Firma'))
             $roles = Role::whereIn('id',[1])->get();
 
