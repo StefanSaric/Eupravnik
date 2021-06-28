@@ -75,7 +75,7 @@
         <label for="account" class="">{{__('Račun')}}</label>
     </div>
 </div>
-<div class="row"><!--Start 'account' form field-->
+<div class="row"><!--Start 'password' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>vpn_key</i>
         <input type="password" name="password" id="password" class="validate @error('password') invalid @enderror"

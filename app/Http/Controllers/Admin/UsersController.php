@@ -22,20 +22,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-
-        if(Auth::user()->hasRole('Super Admin'))
-            $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-                    ->whereIn('user_roles.role_id', [3])
-                    ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
-                    ->get();
-        elseif(Auth::user()->hasRole('Firma'))
-            $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-                    ->join('user_firms', 'user_firms.user_id', '=', 'users.id')
-                    ->whereIn('user_roles.role_id', [1])
-                    ->where('user_firms.firm_id', '=', Auth::user()->id)
-                    ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
-                    ->get();
-
+        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+                ->whereIn('user_roles.role_id', [3])
+                ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.password as password')
+                ->get();
 
         return view('admin.users.allusers', ['active' => 'allUsers', 'users' => $users]);
     }

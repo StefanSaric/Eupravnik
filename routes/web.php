@@ -21,6 +21,13 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin']], function () {
 
+    Route::get('/users', 'Admin\UsersController@index');
+    Route::get('/users/create', 'Admin\UsersController@create');
+    Route::post('/users/store', 'Admin\UsersController@store');
+    Route::get('/users/{id}/edit', 'Admin\UsersController@edit');
+    Route::post('/users/update', 'Admin\UsersController@update');
+    Route::get('/users/{id}/delete', 'Admin\UsersController@delete');
+
     Route::get('/roles', 'Admin\RolesController@index');
     Route::get('/roles/create', 'Admin\RolesController@create');
     Route::post('/roles/store', 'Admin\RolesController@store');
@@ -37,14 +44,14 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin']], functio
 
 });
 
-Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin|Firma']], function () {
+Route::group(['prefix' => 'admin','middleware' => ['role:Firma']], function () {
 
-    Route::get('/users', 'Admin\UsersController@index');
-    Route::get('/users/create', 'Admin\UsersController@create');
-    Route::post('/users/store', 'Admin\UsersController@store');
-    Route::get('/users/{id}/edit', 'Admin\UsersController@edit');
-    Route::post('/users/update', 'Admin\UsersController@update');
-    Route::get('/users/{id}/delete', 'Admin\UsersController@delete');
+    Route::get('/stewards', 'Admin\StewardsController@index');
+    Route::get('/stewards/create', 'Admin\StewardsController@create');
+    Route::post('/stewards/store', 'Admin\StewardsController@store');
+    Route::get('/stewards/{id}/edit', 'Admin\StewardsController@edit');
+    Route::post('/stewards/update', 'Admin\StewardsController@update');
+    Route::get('/stewards/{id}/delete', 'Admin\StewardsController@delete');
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {

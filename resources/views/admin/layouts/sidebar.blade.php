@@ -21,7 +21,7 @@
                 <i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
             </a>
         </li><!--end /menu-item -->
-        @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Firma'))
+        @if(Auth::user()->hasRole('Super Admin'))
         <!-- Menu Users -->
         <li class="bold @if($active == 'allUsers' || $active == 'addUser')active open @endif">
             <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
@@ -86,6 +86,28 @@
                 </ul>
             </div>
         </li><!--end /menu-item -->
+        @endif
+        @if(Auth::user()->hasRole('Firma'))
+            <!-- Menu Stewards -->
+                <li class="bold @if($active == 'allStewards' || $active == 'addSteward')active open @endif">
+                    <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+                        <i class="material-icons">person_outline</i><span class="menu-title" data-i18n="{{__('Upravnici')}}">{{__('Upravnici')}}</span>
+                    </a>
+                    <div class="collapsible-body" @if($active == 'allStewards' || $active == 'addSteward')style="display: block" @endif>
+                        <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                            <li @if($active == 'allStewards')class="active" @endif>
+                                <a @if($active == 'allStewards')class="active" @endif href="{{ url('admin/stewards') }}">
+                                    <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Svi Upravnici')}}">{{__('Svi Upravnici')}}</span></a>
+                                </a>
+                            </li>
+                            <li @if($active == 'addSteward')class="active" @endif>
+                                <a @if($active == 'addSteward')class="active" @endif href="{{ url('admin/stewards/create') }}">
+                                    <i class="material-icons">radio_button_unchecked</i><span data-i18n="{{__('Dodaj Upravnika')}}">{{__('Dodaj Upravnika')}}</span></a>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li><!--end /menu-item -->
         @endif
         @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Firma') || Auth::user()->hasRole('Upravnik'))
         <!-- Menu Councils -->
