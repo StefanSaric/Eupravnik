@@ -31,11 +31,33 @@ class CouncilsController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('Super Admin'))
-            $councils = Council::all();
+            $councils = Council::join('users', 'councils.user_id', '=', 'users.id')
+                        ->select(
+                            'councils.id as id', 'councils.name as name', 'councils.city as city',
+                            'councils.account as account', 'councils.maticni as maticni',
+                            'councils.latitude as latitude', 'councils.longitude as longitude',
+                            'councils.pib as pib', 'councils.phone as phone', 'users.name as user_name')
+                        ->get();
         elseif(Auth::user()->hasRole('Firma'))
-            $councils = Council::where('firm_id', '=', Auth::user()->id)->get();
+            $councils = Council::join('users as u1', 'councils.user_id', '=', 'u1.id')
+                        ->join('users as u2', 'councils.reserve_id', '=', 'u2.id')
+                        ->where('firm_id', '=', Auth::user()->id)
+                        ->select(
+                            'councils.id as id', 'councils.name as name', 'councils.city as city',
+                            'councils.account as account', 'councils.maticni as maticni',
+                            'councils.latitude as latitude', 'councils.longitude as longitude',
+                            'councils.pib as pib', 'councils.phone as phone', 'u1.name as user_name',
+                            'u2.name as reserve_name')
+                        ->get();
         else
-            $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+            $councils = Council::join('users', 'councils.user_id', '=', 'users.id')
+                        ->where('user_id', '=', Auth::user()->id)
+                        ->select(
+                            'councils.id as id', 'councils.name as name', 'councils.city as city',
+                            'councils.account as account', 'councils.maticni as maticni',
+                            'councils.latitude as latitude', 'councils.longitude as longitude',
+                            'councils.pib as pib', 'councils.phone as phone', 'users.name as user_name')
+                        ->get();
 
         return view('admin.councils.allcouncils', ['active' => 'allCouncils', 'councils' => $councils]);
     }

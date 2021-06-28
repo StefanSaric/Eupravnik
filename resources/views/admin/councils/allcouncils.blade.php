@@ -55,36 +55,54 @@
                                 <div id="datatablolder">
                                     {!! Form::open(array('method' => 'DELETE', 'id' => 'councilForm', 'role' => 'form')) !!}
                                     {!! Form::submit(null, ['id' => 'councilButton', 'class' => 'btn btn-primary createEditButton', 'style' => 'display: none;']) !!}
-                                    {!! Form::close() !!} 
+                                    {!! Form::close() !!}
                                     <div class="row">
                                         <div class="col s12">
-                                            <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovu skupštinu?')}}'/> 
+                                            <input type='hidden' id='confirmQuestion' value='{{__('Da li ste sigurni da želite da obrišete ovu skupštinu?')}}'/>
                                             <table id="datatable" class="display table-responsive">
                                                 <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Naziv')}}</th>
-                                                    <th>{{__('Oznaka')}}</th>
                                                     <th>{{__('Mesto')}}</th>
-                                                    <th>{{__('Naselje')}}</th>
+                                                    <th>{{__('Račun')}}</th>
+                                                    <th>{{__('Matični broj')}}
+                                                    @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Upravnik'))
+                                                        <th>{{__('Geo X')}}</th>
+                                                        <th>{{__('Geo Y')}}</th>
+                                                    @endif
+                                                    <th>{{__('PIB')}}</th>
                                                     <th>{{__('Telefon')}}</th>
+                                                    <th>{{__('Upravnik')}}</th>
+                                                    @if(Auth::user()->hasRole('Firma'))
+                                                        <th>{{__('Zamenik')}}</th>
+                                                    @endif
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($councils as $num => $council)
-                                                   <tr id="{{ $council->id }}" class="gradeX">
+                                                <tr id="{{ $council->id }}" class="gradeX">
                                                     <td data-order="{{ $num + 1 }}">&nbsp;&nbsp;&nbsp;{{ $num + 1 }}</td>
                                                     <td><a href='{{url('/admin/councils/show/'.$council->id)}}'>{{ $council->name }}</a></td>
-                                                    <td>{{ $council->short_name }}</td>
                                                     <td>{{ $council->city }}</td>
-                                                    <td>{{ $council->area }}</td>
+                                                    <td>{{ $council->account }}</td>
+                                                    <td>{{ $council->maticni }}</td>
+                                                    @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Upravnik'))
+                                                       <th>{{ $council->latitude }}</th>
+                                                       <th>{{ $council->longitude }}</th>
+                                                    @endif
+                                                    <td>{{ $council->pib }}</td>
                                                     <td>{{ $council->phone }}</td>
+                                                    <td>{{ $council->user_name }}</td>
+                                                    @if(Auth::user()->hasRole('Firma'))
+                                                        <td>{{ $council->reserve_name}}</td>
+                                                    @endif
                                                     <td>
                                                         <a href="{{url('/admin/councils/'.$council->id.'/edit')}}" class="btn tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi skupštinu')}}">
                                                             <i class="material-icons">create</i></a>
                                                     </td>
-                                                </tr> 
+                                                </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>
