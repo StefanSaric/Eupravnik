@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contract;
+use App\Document;
 use App\Firm;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -398,7 +399,10 @@ class CouncilsController extends Controller
     {
         $announcement = Announcement::find($id);
         $council_id = $announcement->council_id;
-        $meeting->delete();
+
+        $announcement->delete();
+        $document = Document::where('type_id', '=' , $announcement->id)->delete();
+
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je obrisano!'));
 

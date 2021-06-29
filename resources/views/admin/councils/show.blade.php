@@ -541,11 +541,14 @@
                                                             <i class="material-icons">create</i></a>
                                                         <a href="{{url('/admin/councils/announcementToPDF/'.$announcement->id)}}" target="__blank" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Prikazi PDF')}}">
                                                             <i class="material-icons">picture_as_pdf</i></a>
+                                                        <a href="{{url('/admin/documents/announcement/'.$announcement->id.'/create')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Dodaj dokument')}}">
+                                                            <i class="material-icons">add_to_photos</i></a>
+                                                        <a href="{{url('/admin/councils/deleteAnnouncement/'.$announcement->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši Obaveštenje')}}">
+                                                            <i class="material-icons">delete</i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
-                                        </table>
                                         </table>
                                     </div>
                                 </div>

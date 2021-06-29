@@ -86,14 +86,11 @@
                                                                     <i class="material-icons">assignment_turned_in</i></a>
                                                             </td>-->
                                                             <td style='white-space: nowrap; vertical-align: middle'>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/show')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan
-" data-position="top" data-tooltip="{{__('Pogledaj analizu')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/show')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Pogledaj analizu')}}">
                                                                     <i class="material-icons">search</i></a>
-                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan
-" data-position="top" data-tooltip="{{__('Izvezi analizu u PDF-u')}}">
+                                                                <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Izvezi analizu u PDF-u')}}">
                                                                     <i class="material-icons">picture_as_pdf</i></a>
-                                                                <a href="{{url('/admin/documents/maintenance/'.$maintenance->group_id.'/create')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan
-" data-position="top" data-tooltip="{{__('Dodaj dokument')}}">
+                                                                <a href="{{url('/admin/documents/maintenance/'.$maintenance->group_id.'/create')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Dodaj dokument')}}">
                                                                     <i class="material-icons">add_to_photos</i></a>
                                                                 <a href="{{url('/admin/maintenance/'.$maintenance->group_id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Izmeni analizu')}}">
                                                                     <i class="material-icons">create</i></a>
