@@ -52,15 +52,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Firma']], function () {
     Route::get('/stewards/{id}/edit', 'Admin\StewardsController@edit');
     Route::post('/stewards/update', 'Admin\StewardsController@update');
     Route::get('/stewards/{id}/delete', 'Admin\StewardsController@delete');
-});
 
-Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
-
-    Route::get('/', 'Admin\AdminController@index');
-    Route::get('/getAppointments/{id}', 'Admin\AdminController@getAppointments');
-
-    Route::get('/councils', 'Admin\CouncilsController@index');
-    Route::get('/councils/show/{id}', 'Admin\CouncilsController@show');
     Route::get('/councils/create', 'Admin\CouncilsController@create');
     Route::post('/councils/store', 'Admin\CouncilsController@store');
     Route::get('/councils/{id}/edit', 'Admin\CouncilsController@edit');
@@ -71,6 +63,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editAddress/{id}', 'Admin\CouncilsController@editAddress');
     Route::post('/councils/updateAddress', 'Admin\CouncilsController@updateAddress');
     Route::get('/councils/deleteAddress/{id}', 'Admin\CouncilsController@deleteAddress');
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
+
+    Route::get('/', 'Admin\AdminController@index');
+    Route::get('/getAppointments/{id}', 'Admin\AdminController@getAppointments');
+
+    Route::get('/councils', 'Admin\CouncilsController@index');
+    Route::get('/councils/show/{id}', 'Admin\CouncilsController@show');
+
 
     Route::get('/councils/addBill/{id}', 'Admin\CouncilsController@addBill');
     Route::post('/councils/storeBill', 'Admin\CouncilsController@storeBill');
