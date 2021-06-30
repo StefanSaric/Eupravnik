@@ -123,7 +123,7 @@ class CouncilsController extends Controller
     public function store(Request $request)
     {
         $council = Council::create([
-            'firm_id' => Auth::user()->id, 'user_id' => $request->user_id, 'reserve_id' => $request->reserve_id,
+            'firm_id' => Auth::user()->id, 'steward_id' => $request->steward_id, 'reserve_id' => $request->reserve_id,
             'name' => $request->name, 'short_name' => $request->short_name, 'city' => $request->city, 'area' => $request->area,
             'account' => $request->account, 'maticni' => $request->maticni, 'latitude' => $request->latitude,
             'longitude' => $request->longitude, 'pib' => $request->pib, 'phone' => $request->phone
