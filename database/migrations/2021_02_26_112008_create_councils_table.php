@@ -17,7 +17,7 @@ class CreateCouncilsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('firm_id');
-            $table->integer('steward_id');
+            $table->integer('user_id');
             $table->integer('reserve_id');
             $table->string('short_name');
             $table->string('city');

@@ -6,13 +6,13 @@
 <div class="row"><!--Start 'Upravnik' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="steward_id" id="steward_id" class="form-control" required>
+        <select name="user_id" id="user_id" class="form-control" required>
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($stewards as $steward)
-                <option id="steward_id" value="{{ $steward->id }}" @if(isset($council))@if($council->steward_id == $steward->id) selected="selected" @endif @endif>{{ $steward->name }}</option>
+                <option id="user_id" value="{{ $steward->user_id }}" @if(isset($council))@if($council->user_id == $steward->user_id) selected="selected" @endif @endif>{{ $steward->name }}</option>
             @endforeach
         </select>
-        <label for="steward_id" class="">{{__('Upravnik')}}</label>
+        <label for="user_id" class="">{{__('Upravnik')}}</label>
     </div>
 </div>
 <div class="row"><!--Start 'Zamenik' form field-->
@@ -22,7 +22,7 @@
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             <option value="" >{{__('Trenutno nema Zamenika')}}</option>
             @foreach($stewards as $steward)
-                <option id="reserve_id" value="{{ $steward->id }}" @if(isset($council))@if($council->reserve_id == $steward->id) selected="selected" @endif @endif>{{ $steward->name }}</option>
+                <option id="reserve_id" value="{{ $steward->user_id }}" @if(isset($council))@if($council->reserve_id == $steward->user_id) selected="selected" @endif @endif>{{ $steward->name }}</option>
             @endforeach
         </select>
         <label for="reserve_id" class="">{{__('Zamenik')}}</label>

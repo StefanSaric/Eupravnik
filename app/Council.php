@@ -12,6 +12,6 @@ class Council extends Model
      * @var array
      */
     protected $fillable = [
-        'firm_id' ,'steward_id', 'reserve_id', 'name', 'short_name', 'city', 'area', 'account', 'maticni', 'latitude', 'longitude', 'pib', 'phone'
+        'firm_id' ,'user_id', 'reserve_id', 'name', 'short_name', 'city', 'area', 'account', 'maticni', 'latitude', 'longitude', 'pib', 'phone'
     ];
 }

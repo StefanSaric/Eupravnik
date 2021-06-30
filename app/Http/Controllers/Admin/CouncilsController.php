@@ -34,7 +34,7 @@ class CouncilsController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('Super Admin'))
-            $councils = Council::join('users', 'councils.steward_id', '=', 'users.id')
+            $councils = Council::join('users', 'councils.user_id', '=', 'users.id')
                         ->select(
                             'councils.id as id', 'councils.name as name', 'councils.city as city',
                             'councils.account as account', 'councils.maticni as maticni',
@@ -42,7 +42,7 @@ class CouncilsController extends Controller
                             'councils.pib as pib', 'councils.phone as phone', 'users.name as user_name')
                         ->get();
         elseif(Auth::user()->hasRole('Firma'))
-            $councils = Council::join('users as u1', 'councils.steward_id', '=', 'u1.id')
+            $councils = Council::join('users as u1', 'councils.user_id', '=', 'u1.id')
                         ->join('users as u2', 'councils.reserve_id', '=', 'u2.id')
                         ->where('firm_id', '=', Auth::user()->id)
                         ->select(
@@ -53,7 +53,7 @@ class CouncilsController extends Controller
                             'u2.name as reserve_name')
                         ->get();
         else
-            $councils = Council::join('users', 'councils.steward_id', '=', 'users.id')
+            $councils = Council::join('users', 'councils.user_id', '=', 'users.id')
                         ->where('user_id', '=', Auth::user()->id)
                         ->select(
                             'councils.id as id', 'councils.name as name', 'councils.city as city',
@@ -123,7 +123,7 @@ class CouncilsController extends Controller
     public function store(Request $request)
     {
         $council = Council::create([
-            'firm_id' => Auth::user()->id, 'steward_id' => $request->steward_id, 'reserve_id' => $request->reserve_id,
+            'firm_id' => Auth::user()->id, 'user_id' => $request->user_id, 'reserve_id' => $request->reserve_id,
             'name' => $request->name, 'short_name' => $request->short_name, 'city' => $request->city, 'area' => $request->area,
             'account' => $request->account, 'maticni' => $request->maticni, 'latitude' => $request->latitude,
             'longitude' => $request->longitude, 'pib' => $request->pib, 'phone' => $request->phone
@@ -150,17 +150,11 @@ class CouncilsController extends Controller
     {
         $council = Council::find($id);
 
-        if(Auth::user()->hasRole('Firma'))
-        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-            ->join('user_firms', 'user_firms.user_id', '=', 'users.id')
-            ->whereIn('user_roles.role_id', [1])
-            ->where('user_firms.firm_id', '=', Auth::user()->id)
-            ->select('users.id as id', 'users.name as name')
-            ->get();
+        $stewards = Steward::where('firm_id', '=' ,Auth::user()->id)->get();
 
 
 
-        return view ('admin.councils.edit', ['active' => 'addCouncil', 'council' => $council, 'users' => $users]);
+        return view ('admin.councils.edit', ['active' => 'addCouncil', 'council' => $council, 'stewards' => $stewards]);
     }
 
     /**
