@@ -8,6 +8,7 @@ use App\Firm;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Partner;
+use App\Steward;
 use App\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -108,15 +109,9 @@ class CouncilsController extends Controller
      */
     public function create ()
     {
-        if(Auth::user()->hasRole('Firma'))
-        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
-            ->join('user_firms', 'user_firms.user_id', '=', 'users.id')
-            ->whereIn('user_roles.role_id', [1])
-            ->where('user_firms.firm_id', '=', Auth::user()->id)
-            ->select('users.id as id', 'users.name as name')
-            ->get();
+        $stewards = Steward::where('firm_id', '=' ,Auth::user()->id);
 
-        return view('admin.councils.create', ['active' => 'addCouncil', 'users' => $users]);
+        return view('admin.councils.create', ['active' => 'addCouncil', 'stewards' => $stewards]);
     }
 
     /**
