@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Partner;
 use App\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Council;
@@ -400,8 +401,11 @@ class CouncilsController extends Controller
         $announcement = Announcement::find($id);
         $council_id = $announcement->council_id;
 
+
+        $document = Document::where('type_id', '=' , $announcement->id)->first();
+        File::delete(public_path('documents/'.$document->name));
+        $document->delete();
         $announcement->delete();
-        $document = Document::where('type_id', '=' , $announcement->id)->delete();
 
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je obrisano!'));
