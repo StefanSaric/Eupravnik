@@ -52,7 +52,7 @@ class OffersController extends Controller
                 $document_path = public_path($path) . $document->getClientOriginalName();
                 move_uploaded_file($document, $document_path);
                 $url = $path . $document->getClientOriginalName();
-                $one_document = Document::create(['url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $type, 'type_id' => $offer->id]);
+                $one_document = Document::create(['user_id' => Auth::user()->id , 'url' => $url, 'name' => $document->getClientOriginalName(), 'type' => $type, 'type_id' => $offer->id]);
             }
         }
         Session::flash('message', 'success_'.__('Ponuda je uspešno dodata!'));
