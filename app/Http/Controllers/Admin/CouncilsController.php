@@ -109,10 +109,7 @@ class CouncilsController extends Controller
      */
     public function create ()
     {
-        $stewards = Steward::where('firm_id', '=' ,Auth::user()->id)
-                    ->join('users', 'users.id', '=', 'stewards.id')
-                    ->select( 'stewards.id as id', 'users.name as name')
-                    ->get();
+        $stewards = Steward::where('firm_id', '=' ,Auth::user()->id)->get();
 
         return view('admin.councils.create', ['active' => 'addCouncil', 'stewards' => $stewards]);
     }

@@ -9,7 +9,7 @@
         <select name="steward_id" id="steward_id" class="form-control" required>
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($stewards as $steward)
-                <option id="user_id" value="{{ $steward->id }}" @if(isset($council))@if($council->steward_id == $steward->id) selected="selected" @endif @endif>{{ $steward->name }}</option>
+                <option id="steward_id" value="{{ $steward->id }}" @if(isset($council))@if($council->steward_id == $steward->id) selected="selected" @endif @endif>{{ $steward->name }}</option>
             @endforeach
         </select>
         <label for="steward_id" class="">{{__('Upravnik')}}</label>
