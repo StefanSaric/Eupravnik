@@ -74,7 +74,7 @@
                                                     <th>{{__('PIB')}}</th>
                                                     <th>{{__('Telefon')}}</th>
                                                     <th>{{__('Upravnik')}}</th>
-                                                    @if(Auth::user()->hasRole('Firma'))
+                                                    @if(Auth::user()->hasRole('Firma') || Auth::user()->hasRole('Upravnik'))
                                                         <th>{{__('Zamenik')}}</th>
                                                     @endif
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
@@ -95,7 +95,7 @@
                                                     <td>{{ $council->pib }}</td>
                                                     <td>{{ $council->phone }}</td>
                                                     <td>{{ $council->user_name }}</td>
-                                                    @if(Auth::user()->hasRole('Firma'))
+                                                    @if(Auth::user()->hasRole('Firma') || Auth::user()->hasRole('Upravnik'))
                                                         <td>{{ $council->reserve_name}}</td>
                                                     @endif
                                                     <td>
