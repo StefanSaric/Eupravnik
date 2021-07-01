@@ -53,10 +53,10 @@ class CouncilsController extends Controller
                             'u2.name as reserve_name')
                         ->get();
         else
-            $councils = Council::join('users as u1', 'councils.user_id', '=', 'u1.id')
-                        ->join('users as u2', 'councils.reserve_id', '=', 'u2.id')
-                        ->where('user_id', '=', Auth::user()->id)
+            $councils = Council::where('user_id', '=', Auth::user()->id)
                         ->orWhere('reserve_id', '=', Auth::user()->id)
+                        ->join('users as u1', 'councils.user_id', '=', 'u1.id')
+                        ->leftjoin('users as u2', 'councils.reserve_id', '=', 'u2.id')
                         ->select(
                             'councils.id as id', 'councils.name as name', 'councils.city as city',
                             'councils.account as account', 'councils.maticni as maticni',
