@@ -538,9 +538,13 @@
                                                         @endif
                                                     </td>
                                                     <td class="show-on-small show-on-medium">
-                                                        <a href="{{url('/'.$documents->where('type', '=', 'announcement')->where('type_id', '=', $announcement->id)->first()->url)}}" target="_blank">
-                                                            {{$documents->where('type', '=', 'announcement')->where('type_id', '=', $announcement->id)->first()->name}}
-                                                        </a>
+                                                        @foreach($documents->where('type', '=', 'announcement')->where('type_id', '=', $announcement->id) as $document)
+                                                            @if($documents != null)
+                                                                <a href="{{url('/'.$document->url)}}" target="_blank">
+                                                                    {{$document->name}}
+                                                                </a>
+                                                            @endif
+                                                        @endforeach
                                                     </td>
                                                     <td>
                                                         <a href="{{url('/admin/councils/editAnnouncement/'.$announcement->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi obaveštenje')}}">
