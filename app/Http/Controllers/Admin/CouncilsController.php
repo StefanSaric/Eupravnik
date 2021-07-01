@@ -43,7 +43,7 @@ class CouncilsController extends Controller
                         ->get();
         elseif(Auth::user()->hasRole('Firma'))
             $councils = Council::join('users as u1', 'councils.user_id', '=', 'u1.id')
-                        ->join('users as u2', 'councils.reserve_id', '=', 'u2.id')
+                        ->leftjoin('users as u2', 'councils.reserve_id', '=', 'u2.id')
                         ->where('firm_id', '=', Auth::user()->id)
                         ->select(
                             'councils.id as id', 'councils.name as name', 'councils.city as city',
