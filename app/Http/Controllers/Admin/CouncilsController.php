@@ -92,6 +92,7 @@ class CouncilsController extends Controller
         $bills = Bill::where('council_id', '=', $id)->get();
         $transactions = Transaction::where('council_id', '=', $id)->get();
         $spaces = Space::where('council_id', '=', $id)->get();
+        $documents = Document::all();
 
         if(Session::has('acttab')){
             $acttab = Session::get('acttab');
@@ -102,7 +103,7 @@ class CouncilsController extends Controller
         }
 
         return view('admin.councils.show', ['active' => 'allCouncils', 'acttab' => $acttab, 'council' => $council, 'addresses' => $addresses, 'contracts' => $contracts,'assignments' => $assignments,
-            'meetings' => $meetings, 'announcements' => $announcements, 'bills' => $bills, 'transactions' => $transactions, 'spaces' => $spaces]);
+            'meetings' => $meetings, 'announcements' => $announcements, 'bills' => $bills, 'transactions' => $transactions, 'spaces' => $spaces, 'documents' => $documents]);
     }
 
     /**

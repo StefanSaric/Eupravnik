@@ -523,6 +523,7 @@
                                                     <th>{{__('Naslov')}}</th>
                                                     <th>{{__('Datum')}}</th>
                                                     <th>{{__('Poslat email')}}</th>
+                                                    <th>{{__('Dokument')}}</th>
                                                     <th style="min-width: 85px">{{__('Akcije')}}</th>
                                                 </tr>
                                             </thead>
@@ -535,6 +536,11 @@
                                                     <td>@if($announcement->email_sent == 1){{__('Da')}}
                                                         @else{{__('Ne')}}
                                                         @endif
+                                                    </td>
+                                                    <td class="show-on-small show-on-medium">
+                                                        <a href="{{url('/'.$documents->where('type', '=', 'announcement')->where('type_id', '=', $announcement->id)->first()->url)}}" target="_blank">
+                                                            {{$documents->where('type', '=', 'announcement')->where('type_id', '=', $announcement->id)->first()->name}}
+                                                        </a>
                                                     </td>
                                                     <td>
                                                         <a href="{{url('/admin/councils/editAnnouncement/'.$announcement->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi obaveštenje')}}">
