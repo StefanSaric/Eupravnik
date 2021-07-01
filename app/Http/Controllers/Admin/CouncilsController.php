@@ -395,11 +395,13 @@ class CouncilsController extends Controller
         $council_id = $announcement->council_id;
 
 
-        $document = Document::where('type_id', '=' , $announcement->id)->first();
+        $documents = Document::where('type_id', '=' , $announcement->id)->get();
 
-        if($document != null) {
-            File::delete(public_path('documents/' . $document->name));
-            $document->delete();
+        if($documents != null) {
+            foreach ($documents as $document) {
+                File::delete(public_path('documents/' . $document->name));
+                $document->delete();
+            }
         }
 
         $announcement->delete();
