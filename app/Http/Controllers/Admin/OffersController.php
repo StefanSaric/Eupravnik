@@ -70,7 +70,7 @@ class OffersController extends Controller
 
     public function update(Request $request)
     {
-        // dd($request->all());
+        //dd($request->all());
         $id = $request->offer_id;
         $offer = Offer::find($id);
         $offer->update($request->all());
@@ -78,8 +78,6 @@ class OffersController extends Controller
         Session::flash('message', 'success_'.__('Ponuda je izmenjena!'));
 
         return redirect('admin/programs');
-        // trebalo bi da se vraca na stranicu Maintenance->id
-        // return redirect('admin/');
 
     }
 
@@ -90,12 +88,12 @@ class OffersController extends Controller
 
         Session::flash('message', 'info_'.__('Ponuda je obrisana!'));
 
-        // trebalo bi da se vraca na stranicu Maintenance->id
-        // return redirect('admin/');
+        return redirect('admin/programs');
     }
 
     public function accept($id)
     {
+
         $offer = Offer::find($id);
         $offer->status = 'assigned';
         $offer->save();
@@ -113,6 +111,7 @@ class OffersController extends Controller
                 'status' => 1
             ]);
         Session::flash('acttab', 'assignments');
+
 
         return redirect('/admin/councils/show/'.$programme->council_id);
     }

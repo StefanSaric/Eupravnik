@@ -38,7 +38,7 @@ class ProgramsController extends Controller
     }
 
     public function grabOffers($programId) {
-        
+
         $offers = Offer::join('partners', 'partners.id', '=', 'offers.partner_id')
                 ->where('program_id', '=', $programId)
                 ->select('offers.description as description',
@@ -48,7 +48,7 @@ class ProgramsController extends Controller
                         'partners.name as partner_name')
                 ->get();
         $program = Maintenance::find($programId);
-        
+
         $html = '<div style="background-color: #f4f5f7"><div style="margin-left: 30px; margin-right: 30px">';
 
         if (count($offers) > 0) {
@@ -69,7 +69,7 @@ class ProgramsController extends Controller
                                 <tbody>';
 
             foreach ($offers as $num => $offer) {
-                
+
                 $documents = Document::where('type_id', '=', $offer->id)->where('type', '=', 'offer')->get();
                 $num += 1;
                 $html = $html . '<tr id="' . $offer->id . '" class="gradeX">
@@ -78,19 +78,22 @@ class ProgramsController extends Controller
                                     <td>' . $offer->description . '</td>
                                     <td>' . date("d.m.Y", strtotime($offer->date)) . '</td>
                                     <td>';
-                
+
                 if($documents != null){
                     foreach ($documents as $num => $document){
                         $num += 1;
                         $html = $html . ' <a href="' . url($document->url) . '" target="_blank">&nbsp;'. $document->name .'&nbsp;</a>';
                     }
                 }
-                                    
+
                 $html = $html    . '</td>
                                     <td>' . $offer->price . '</td>
                                     <td>';
                 if(!$program->is_checked){
-                    $html = $html    . '<a href="' . url('/admin/offers/' . $offer->id . '/accept') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Prihvati ponudu') . '">
+                    $html = $html    . '<a href="' . url('/admin/offers/' . $offer->id . '/accept') . '"
+                                        onclick="return confirm(\'Da li ste sigurni da želite odabrati ovu ponudu?\n Partner: '.$offer->partner_name.' \n Cena: '.$offer->price.'\')"
+                                        class="tooltipped waves-effect waves-light"
+                                        data-position="top" data-tooltip="' . __('Prihvati ponudu') . '">
                                             <i class="material-icons">check_circle</i></a>';
                 }
                 $html = $html    . '</td>'
@@ -98,7 +101,7 @@ class ProgramsController extends Controller
                                             <i class="material-icons">edit</i></a>
                                         <a href="' . url('/admin/offers/' . $offer->id . '/delete') . '" class="tooltipped waves-effect waves-light" data-position="top" data-tooltip="' . __('Obriši ponudu') . '">
                                             <i class="material-icons">delete</i></a>
-                                    </td>    
+                                    </td>
                                 </tr>
                                 <tr style="background-color: #f4f5f7; border-bottom: none">
                                     <td colspan="8">
@@ -106,9 +109,9 @@ class ProgramsController extends Controller
                                 </tr>';
             }
             $html = $html . '</tbody></table><br>';
-                  
+
         } else {
-            
+
             $html = $html . '<table "offers_'.$programId.'_empty" class="display table-responsive nowrap striped appended-data-table">
                                 <thead>
                                     <tr style="background-color: #f4f5f7>
@@ -123,16 +126,16 @@ class ProgramsController extends Controller
                             </table><br>';
         }
         $html = $html . '</div></div>';
-        
+
         return compact('html');
     }
 
 }
 //foreach ($offers as $offer) {
-//                $html = $html . "<i class='material-icons prefix'>contacts</i>" . __('Partner') . ': ' . $offer->partner_name . ' ' 
-//                                . "<i class='material-icons prefix'>event_note</i>" . __('Opis') . ': ' . $offer->description . ' ' 
-//                                . "<i class='material-icons prefix'>event</i>" . __('Datum') . ': ' . $offer->date . ' ' 
+//                $html = $html . "<i class='material-icons prefix'>contacts</i>" . __('Partner') . ': ' . $offer->partner_name . ' '
+//                                . "<i class='material-icons prefix'>event_note</i>" . __('Opis') . ': ' . $offer->description . ' '
+//                                . "<i class='material-icons prefix'>event</i>" . __('Datum') . ': ' . $offer->date . ' '
 //                                . "<i class='material-icons prefix'>attach_money</i>" . __('Cena') . ': ' . $offer->price;
-//                
+//
 //                $html = $html . '<br>';
 //            }
