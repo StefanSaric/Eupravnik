@@ -667,10 +667,21 @@ class CouncilsController extends Controller
     public function deleteContract ($id) {
 
         $contract = Contract::find($id);
+        $council_id = $contract->council_id;
         $contract->delete();
 
         Session::flash('message', 'info_'.__('Ugovor je obrisan!'));
 
         return redirect('admin/councils/show/'.$council_id);
+    }
+
+    public function getRealPrice ($council_id, $price)
+    {
+        $council = Council::find($council_id);
+        $firm = Firm::where('user_id','=', $council->firm_id)->first();
+
+        $real_price = $price*(1 + $firm->percentage/100);
+
+        return $real_price;
     }
 }

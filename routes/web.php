@@ -113,6 +113,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editContract/{id}', 'Admin\CouncilsController@editContract');
     Route::post('/councils/updateContract', 'Admin\CouncilsController@updateContract');
     Route::get('/councils/deleteContract/{id}', 'Admin\CouncilsController@deleteContract');
+
+    Route::get('/councils/get-real-price/{id}/{price}', 'Admin\CouncilsController@getRealPrice');
+
 });
 
 Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function () {

@@ -287,7 +287,7 @@
                                         </div>
                                         <div class='col s2 m2 l2'>
                                             <a href="{{url('/admin/councils/addContract/'.$council->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan c-show-inline-button" data-position="top" data-tooltip="{{__('Dodaj ugovor')}}">
-                                            <i class="material-icons">add</i></a>
+                                                <i class="material-icons">add</i></a>
                                         </div>
                                     </div>
                                     <div class='row' >
@@ -319,6 +319,8 @@
                                                     <td>
                                                         <a href="{{url('/admin/councils/editContract/'.$contract->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi ugovor')}}">
                                                             <i class="material-icons">create</i></a>
+                                                        <a href='{{url('/admin/councils/deleteContract/'.$contract->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši ugovor')}}">
+                                                            <i class="material-icons">delete</i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

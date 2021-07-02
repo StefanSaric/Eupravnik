@@ -3,6 +3,8 @@
     <input type="hidden" id="contract_id" name="contract_id" value="{{$contract->id}}">
 @endif
 <input type="hidden" id="council_id" name="council_id" value="{{$council->id}}">
+<input type="hidden" id="base_url" value="{{url('/')}}"/>
+<input type="hidden" id="real_price" name="real_price" value="">
 <div class="row"><!--Start 'partner' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>

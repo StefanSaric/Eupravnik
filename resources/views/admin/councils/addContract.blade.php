@@ -76,4 +76,5 @@
 @stop
 @section('pageScripts')
     <script src="{{ asset('js/milan_datetime_formats.js') }}"></script>
+    <script src="{{ asset('js/contract-real-price.js') }}"></script>
 @stop
