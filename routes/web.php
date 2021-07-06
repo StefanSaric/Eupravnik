@@ -190,4 +190,5 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function (
     Route::post('/lawsuits/update', 'Admin\LawsuitsController@update');
     Route::get('/lawsuits/{id}/delete', 'Admin\LawsuitsController@delete');
 
+
 });

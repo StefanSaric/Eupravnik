@@ -7,11 +7,13 @@ use App\Document;
 use App\Firm;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Mail\AnnouncementsMail;
 use App\Partner;
 use App\Steward;
 use App\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Council;
 use App\CouncilAddress;
@@ -280,6 +282,7 @@ class CouncilsController extends Controller
             $email_sent = 1;
             $type = 2;
         }
+
         $meeting = Meeting::create([
             'council_id' => $request->council_id,
             'user_id' => Auth::user()->id,
@@ -288,6 +291,7 @@ class CouncilsController extends Controller
             'is_announced' => $is_announced,
             'email_sent' => $email_sent
             ]);
+
         if($type > 0){
             $announce = Announcement::create([
                 'council_id' => $request->council_id,
@@ -299,6 +303,18 @@ class CouncilsController extends Controller
                 'signature' => 'Upravnik zgrade,/n'.Auth::user()->name,
                 'email_sent' => $email_sent
             ]);
+        }
+        if($type = 2) {
+            $data = array(
+                'name' => 'Sednica skupštine '.date('d.m.Y.', strtotime($request->date)),
+                'date' => date('Y-m-d'),
+                'greeting' => 'Poštovane komšije,',
+                'content' => 'dana '.date('d.m.Y.', strtotime($request->date)).' u '.$request->time.' će biti održana sednica skupštine stanara',
+                'signature' => 'Upravnik zgrade,/n'.Auth::user()->name,
+            );
+
+            $space = Space::where('council_id', '=', $request->council_id)->first();
+            Mail::to($space->email)->send(new AnnouncementsMail($data));
         }
 
         Session::flash('acttab', 'meetings');
@@ -363,6 +379,16 @@ class CouncilsController extends Controller
             'signature' => $request->signature,
             'email_sent' => 0
         ]);
+        $data = array(
+            'name' => $request->name,
+            'date' => $request->date,
+            'greeting' => $request->greeting,
+            'content' => $request->content,
+            'signature' => $request->signature,
+        );
+
+        $space = Space::where('council_id', '=', $request->council_id)->first();
+        Mail::to($space->email)->send(new AnnouncementsMail($data));
 
         Session::flash('acttab', 'announcements');
         Session::flash('message', 'info_'.__('Obavestenje je dodato!'));

@@ -18,6 +18,7 @@ class CreateMeetingsTable extends Migration
             $table->integer('council_id');
             $table->integer('user_id');
             $table->string('date');
+            $table->time('time');
             $table->boolean('is_announced');
             $table->boolean('email_sent');
             $table->timestamps();
