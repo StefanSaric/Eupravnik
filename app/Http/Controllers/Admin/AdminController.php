@@ -13,6 +13,7 @@ use App\Patient;
 use App;
 use Illuminate\Support\Facades\Auth;
 use App\Duty;
+use App\Announcement;
 
 class AdminController extends Controller
 {
@@ -27,7 +28,8 @@ class AdminController extends Controller
         return view ('admin.dash', ['active' => 'dash']);
     }
 
-    public function getAppointments($id, Request $request)
+    //Više se ne koristi ova funkcija
+    public function getAppointmentsOld($id, Request $request)
     {
 //        $start = strtotime($request->start);
 //        $end = strtotime($request->end);
@@ -57,6 +59,39 @@ class AdminController extends Controller
 //            $array[$i]['title'] = $labels[$key];
 //            $array[$i]['color'] = '#00bcd4';
 //        }
+        $data = json_encode($array);
+
+        return $data;
+    }
+
+    public function getAppointments ($id, Request $request) {
+
+        $array = [];
+
+        //dodavanje Obaveštenja
+        $announcements = Announcement::where('user_id', '=', Auth::user()->id)->get();
+        foreach ($announcements as $num => $announcement){
+            $key = $num;
+            $array[$num]['date'] = $announcement->date;
+            $array[$num]['title'] = $announcement->name;
+            $array[$num]['color'] = '#00bcd4';
+            $array[$num]['id'] = $announcement->id;
+        }
+
+        //dodavanje Obaveza
+        $duties = Duty::where('user_id', '=', Auth::user()->id)->get();
+        foreach ($duties as $duty){
+            //dd($appointment);
+            $num++;
+            $key = $num;
+            $array[$num]['start'] = $duty->date_from . 'T' . $duty->time_from . ':00';
+            $array[$num]['end'] = $duty->date_to . 'T' . $duty->time_to . ':00';
+            $array[$num]['title'] = $duty->name;
+            $array[$num]['color'] = '#00bcd4';
+            $array[$num]['id'] = $duty->id;
+        }
+
+
         $data = json_encode($array);
 
         return $data;

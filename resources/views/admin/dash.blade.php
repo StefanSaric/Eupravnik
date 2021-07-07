@@ -78,7 +78,8 @@
             eventClick: function(eventInfo){
                 //alert(eventInfo.event.id);
                 window.location = window.location + '/duties/' +eventInfo.event.id + '/show';
-            }
+
+            },
         });
 
         calendar.render();

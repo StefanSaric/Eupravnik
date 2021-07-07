@@ -75,6 +75,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::get('/getAppointments/{id}', 'Admin\AdminController@getAppointments');
 
+
     Route::get('/councils', 'Admin\CouncilsController@index');
     Route::get('/councils/show/{id}', 'Admin\CouncilsController@show');
 
