@@ -19,6 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('/password/sendemail', 'Admin\PasswordController@sendPasswordEmail');
+Route::get('/password/change', 'Admin\PasswordController@PasswordChange');
+Route::post('/password/save', 'Admin\PasswordController@savePassword');
+
+
 Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin']], function () {
 
     Route::get('/users', 'Admin\UsersController@index');
