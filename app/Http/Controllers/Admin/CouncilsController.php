@@ -296,7 +296,7 @@ class CouncilsController extends Controller
             $announce = Announcement::create([
                 'council_id' => $request->council_id,
                 'user_id' => Auth::user()->id,
-                'date' => date('Y-m-d'),
+                'date' => $request->date,
                 'name' => 'Sednica skupštine '.date('d.m.Y.', strtotime($request->date)),
                 'greeting' => 'Poštovane komšije,',
                 'content' => 'dana '.date('d.m.Y.', strtotime($request->date)).' u '.$request->time.' će biti održana sednica skupštine stanara',
