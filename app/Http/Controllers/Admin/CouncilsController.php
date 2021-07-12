@@ -465,8 +465,9 @@ class CouncilsController extends Controller
     {
         $council = Council::find($id);
         $partners = Partner::all();
+        $spaces = Space::where('council_id', '=', $id)->get();
 
-        return view('admin.councils.addBill', ['active' => 'allCouncils', 'council' => $council, 'partners' => $partners]);
+        return view('admin.councils.addBill', ['active' => 'allCouncils', 'council' => $council, 'partners' => $partners, 'spaces' => $spaces]);
     }
 
     public function storeBill(Request $request)
@@ -474,6 +475,7 @@ class CouncilsController extends Controller
         $bill = Bill::create([
             'council_id' => $request->council_id,
             'date' => $request->date,
+            'owner' => $request->owner,
             'partner' => $request->partner,
             'amount' => $request->amount,
             'type' => $request->type,
@@ -493,8 +495,9 @@ class CouncilsController extends Controller
         $bill = Bill::find($id);
         $council = Council::find($bill->council_id);
         $partners = Partner::all();
+        $spaces = Space::where('council_id','=',$bill->council_id)->get();
 
-        return view('admin.councils.editBill', ['active' => 'allCouncils', 'council' => $council, 'bill' => $bill, 'partners' => $partners]);
+        return view('admin.councils.editBill', ['active' => 'allCouncils', 'council' => $council, 'bill' => $bill, 'partners' => $partners, 'spaces' => $spaces]);
     }
 
     public function updateBill(Request $request)
