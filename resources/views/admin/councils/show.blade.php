@@ -417,9 +417,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($bills as $bill)
+                                                @foreach($bills as $num=>$bill)
                                                 <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;{{++$num}}</td>
                                                     <td>{{ date('d.m.Y.', strtotime($bill->date))}}</td>
                                                     <td>{{ $bill->owner }}</td>
                                                     <td>{{ $bill->partner }}</td>
