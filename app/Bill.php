@@ -12,6 +12,6 @@ class Bill extends Model
      * @var array
      */
     protected $fillable = [
-        'council_id', 'date', 'partner', 'amount', 'type', 'state', 'realised', 'rest'
+        'council_id', 'owner', 'date', 'partner', 'amount', 'type', 'state', 'realised', 'rest'
     ];
 }

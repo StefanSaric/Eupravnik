@@ -11,6 +11,8 @@ use App\Mail\AnnouncementsMail;
 use App\Partner;
 use App\Steward;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -462,8 +464,9 @@ class CouncilsController extends Controller
     public function addBill($id)
     {
         $council = Council::find($id);
+        $partners = Partner::all();
 
-        return view('admin.councils.addBill', ['active' => 'allCouncils', 'council' => $council]);
+        return view('admin.councils.addBill', ['active' => 'allCouncils', 'council' => $council, 'partners' => $partners]);
     }
 
     public function storeBill(Request $request)
@@ -489,8 +492,9 @@ class CouncilsController extends Controller
     {
         $bill = Bill::find($id);
         $council = Council::find($bill->council_id);
+        $partners = Partner::all();
 
-        return view('admin.councils.editBill', ['active' => 'allCouncils', 'council' => $council, 'bill' => $bill]);
+        return view('admin.councils.editBill', ['active' => 'allCouncils', 'council' => $council, 'bill' => $bill, 'partners' => $partners]);
     }
 
     public function updateBill(Request $request)
@@ -513,6 +517,67 @@ class CouncilsController extends Controller
         Session::flash('message', 'info_'.__('Racun je obrisan!'));
 
         return redirect('admin/councils/show/'.$council_id);
+    }
+
+    public function monthlyBill ()
+    {
+        $date = Carbon::now();
+
+        // uzimanje za koje skupstine su kreirani ugovori
+        $councils = DB::table('contracts')->groupBy('council_id')->get('council_id');
+        $partners = DB::table('contracts')->groupBy('partner_id')->get('partner_id');
+
+        // svi ugovori toga meseca po skupstinama
+        foreach($councils as $council) {
+            $contracts = DB::table('contracts')
+                ->where('contracts.council_id', '=', $council->council_id)
+                ->join('partners', 'partners.id', '=', 'contracts.partner_id')
+                ->where('date_from', '<=', Carbon::now()->subHour())
+                ->where('date_to', '>=', Carbon::now()->subMonth())
+                ->select('contracts.id as id',
+                    'partners.name as partner',
+                    'contracts.description as description',
+                    'contracts.date_from as date_from',
+                    'contracts.date_to as date_to',
+                    'contracts.real_price as real_price',
+                    'contracts.group as group'
+                )
+                ->get();
+
+            $partner = "";
+            $amount = 0;
+
+            // ukupan iznos za sve ugovore svih stanara toga meseca
+            foreach($contracts as $contract) {
+                $partner .= $contract->partner.", \n";
+
+                //računanje koliko meseci traje ugovor
+                $to = Carbon::createFromFormat('Y-m-d', $contract->date_from);
+                $from = Carbon::createFromFormat('Y-m-d',  $contract->date_to);
+                $difference = $to->diffInMonths($from);
+                if($difference == 0) {
+                    $difference = 1;
+                }
+                $amount += $contract->real_price/$difference;
+            }
+
+            // svi stanari te skupstine
+            $spaces = Space::where('council_id', '=', $council->council_id)->get();
+
+            // za svakog stanara generisanje računa
+            foreach($spaces as $space)
+            $bill = Bill::create([
+                'council_id' => $council->council_id,
+                'owner' => $space->representative,
+                'date' => $date,
+                'partner' => $partner,
+                'amount' => $amount/count($spaces),
+                'type' => "mesečni",
+                'state' => 'unpaied',
+                'realised' => 0,
+                'rest' => $amount
+            ]);
+        }
     }
 
     //----- TRANSACTIONS - TRANSAKCIJE ---------------------------------------//

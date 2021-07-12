@@ -85,6 +85,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editBill/{id}', 'Admin\CouncilsController@editBill');
     Route::post('/councils/updateBill', 'Admin\CouncilsController@updateBill');
     Route::get('/councils/deleteBill/{id}', 'Admin\CouncilsController@deleteBill');
+    Route::get('councils/monthlyBill', 'Admin\CouncilsController@monthlyBill');
 
     Route::get('/councils/addTransaction/{id}', 'Admin\CouncilsController@addTransaction');
     Route::post('/councils/storeTransaction', 'Admin\CouncilsController@storeTransaction');

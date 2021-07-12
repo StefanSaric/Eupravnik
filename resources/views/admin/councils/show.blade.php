@@ -408,7 +408,8 @@
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
                                                     <th>{{__('Datum')}}</th>
-                                                    <th>{{__('Partner')}}</th>
+                                                    <th>{{__('Korisnik Prostora')}}</th>
+                                                    <th>{{__('Partner/Partneri')}}</th>
                                                     <th>{{__('Iznos')}}</th>
                                                     <th>{{__('Tip')}}</th>
                                                     <th>{{__('Status')}}</th>
@@ -420,10 +421,11 @@
                                                 <tr class="gradeX">
                                                     <td>&nbsp;&nbsp;&nbsp;</td>
                                                     <td>{{ date('d.m.Y.', strtotime($bill->date))}}</td>
+                                                    <td>{{ $bill->owner }}</td>
                                                     <td>{{ $bill->partner }}</td>
                                                     <td>{{ $bill->amount }}</td>
-                                                    <td>@if($bill->type == 'income'){{__('Prihod')}}
-                                                        @else{{__('Trošak')}}
+                                                    <td>@if($bill->type == 'pojedinačni'){{__('Pojedinačni')}}
+                                                        @else{{__('Mesečni')}}
                                                         @endif
                                                     </td>
                                                     <td>@if($bill->state == 'unpaied'){{__('Neplaćen')}}
@@ -434,6 +436,8 @@
                                                     <td>
                                                         <a href="{{url('/admin/councils/editBill/'.$bill->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi fakturu')}}">
                                                             <i class="material-icons">create</i></a>
+                                                        <a href='{{url('/admin/councils/deleteBill/'.$bill->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši fakturu')}}">
+                                                            <i class="material-icons">delete</i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
