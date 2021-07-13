@@ -77,7 +77,7 @@
             events: window.location + '/getAppointments/' + docId,
             eventClick: function(eventInfo){
                 //alert(eventInfo.event.id);
-                window.location = window.location + '/duties/' +eventInfo.event.id + '/show';
+                window.location = window.location + '/appointments/' +eventInfo.event.id + '/show';
 
             },
         });

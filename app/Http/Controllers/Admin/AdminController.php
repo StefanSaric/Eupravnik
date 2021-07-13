@@ -86,13 +86,14 @@ class AdminController extends Controller
         $duties = Duty::where('user_id', '=', Auth::user()->id)->get();
         foreach ($duties as $duty){
             //dd($appointment);
-            $num++;
+
             $key = $num;
             $array[$num]['start'] = $duty->date_from . 'T' . $duty->time_from . ':00';
             $array[$num]['end'] = $duty->date_to . 'T' . $duty->time_to . ':00';
             $array[$num]['title'] = $duty->name;
             $array[$num]['color'] = '#00bcd4';
             $array[$num]['id'] = $duty->id;
+            $num++;
         }
 
         $data = json_encode($array);
@@ -100,5 +101,17 @@ class AdminController extends Controller
         return $data;
     }
 
+    public function showAppointments ($id) {
+
+        $duty = Duty::find($id);
+
+        if(!isset($duty)){
+            $announcement = Announcement::find($id);
+
+            return view ('admin.councils.showAnnouncement', ['active' => 'allCouncils', 'announcement' => $announcement]);
+        }
+
+        return view ('admin.duties.oneduty', ['active' => 'allDuties', 'duty' => $duty]);
+    }
 }
 
