@@ -79,6 +79,8 @@
                                                             <td style='white-space: nowrap; vertical-align: middle'>
                                                                 <a href="{{url('/admin/documents/'.$document->id.'/edit')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Export')}}">
                                                                     <i class="material-icons">add_to_photos</i></a>
+                                                                <a href="{{url('/admin/documents/'.$document->id.'/delete')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši dokument')}}">
+                                                                    <i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

@@ -170,6 +170,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function (
     Route::get('/documents', 'Admin\DocumentsController@index');
     Route::get('/documents/{type}/{id}/create', 'Admin\DocumentsController@create');
     Route::post('/documents/store', 'Admin\DocumentsController@store');
+    Route::get('/documents/{id}/delete', 'Admin\DocumentsController@delete');
 
     Route::get('/duties', 'Admin\DutiesController@index');
     Route::get('/duties/{id}/show', 'Admin\DutiesController@show');

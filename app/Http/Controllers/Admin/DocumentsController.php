@@ -50,4 +50,12 @@ class DocumentsController extends Controller
 
         return redirect ('admin/documents');
     }
+
+    public function delete ($id) {
+
+        $document = Document::find($id);
+        $document->delete();
+
+        return redirect ('admin/documents');
+    }
 }
