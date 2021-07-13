@@ -266,7 +266,7 @@
                                                     <td>{{ $space->type }}</td>
                                                     <td>{{ $space->status }}</td>
                                                     <td>
-                                                        <a href="{{url('/admin/councils/'.$space->id.'/show')}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Pogledaj prostor')}}">
+                                                        <a href="{{url('/admin/councils/oneSpace/show/'.$space->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Pogledaj prostor')}}">
                                                             <i class="material-icons">search</i></a>
                                                         <a href="{{url('/admin/councils/editSpace/'.$space->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi prostor')}}">
                                                             <i class="material-icons">create</i></a>
@@ -434,6 +434,8 @@
                                                         @endif
                                                     </td>
                                                     <td>
+                                                        <a href="{{url('/admin/councils/oneBill/show/'.$bill->id)}}" class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-light-blue-cyan" data-position="top" data-tooltip="{{__('Pogledaj fakturu')}}">
+                                                            <i class="material-icons">search</i></a>
                                                         <a href="{{url('/admin/councils/editBill/'.$bill->id)}}" class="btn-floating btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal c-show-inline-button" data-position="top" data-tooltip="{{__('Uredi fakturu')}}">
                                                             <i class="material-icons">create</i></a>
                                                         <a href='{{url('/admin/councils/deleteBill/'.$bill->id)}}' class="btn-floating btn-small tooltipped waves-effect waves-light gradient-45deg-red-pink c-show-inline-button" data-position="top" data-tooltip="{{__('Obriši fakturu')}}">

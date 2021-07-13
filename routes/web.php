@@ -85,6 +85,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editBill/{id}', 'Admin\CouncilsController@editBill');
     Route::post('/councils/updateBill', 'Admin\CouncilsController@updateBill');
     Route::get('/councils/deleteBill/{id}', 'Admin\CouncilsController@deleteBill');
+    Route::get('/councils/oneBill/show/{id}', 'Admin\CouncilsController@oneBill');
     Route::get('councils/monthlyBill', 'Admin\CouncilsController@monthlyBill');
 
     Route::get('/councils/addTransaction/{id}', 'Admin\CouncilsController@addTransaction');
@@ -111,7 +112,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils/editSpace/{id}', 'Admin\CouncilsController@editSpace');
     Route::post('/councils/updateSpace', 'Admin\CouncilsController@updateSpace');
     Route::get('/councils/deleteSpace/{id}', 'Admin\CouncilsController@deleteSpace');
-    Route::get('/councils/{id}/show', 'Admin\CouncilsController@oneSpace');
+    Route::get('/councils/oneSpace/show/{id}', 'Admin\CouncilsController@oneSpace');
 
     //Route::get('/councils/delete/{id}', 'Admin\CouncilsController@delete');
 

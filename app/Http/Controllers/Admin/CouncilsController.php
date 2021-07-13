@@ -522,6 +522,13 @@ class CouncilsController extends Controller
         return redirect('admin/councils/show/'.$council_id);
     }
 
+    public function oneBill($id)
+    {
+        $bill = Bill::find($id);
+
+        return view('admin.councils.showBill', ['active' => 'allCouncils', 'bill' => $bill]);
+    }
+
     public function monthlyBill ()
     {
         $date = Carbon::now();
