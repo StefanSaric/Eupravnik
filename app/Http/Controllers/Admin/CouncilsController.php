@@ -585,9 +585,11 @@ class CouncilsController extends Controller
                 'type' => "mesečni",
                 'state' => 'unpaied',
                 'realised' => 0,
-                'rest' => $amount
+                'rest' => $amount/count($spaces),
             ]);
         }
+
+        return redirect ('admin/councils');
     }
 
     //----- TRANSACTIONS - TRANSAKCIJE ---------------------------------------//
