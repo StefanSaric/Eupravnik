@@ -302,7 +302,7 @@ class CouncilsController extends Controller
                 'name' => 'Sednica skupštine '.date('d.m.Y.', strtotime($request->date)),
                 'greeting' => 'Poštovane komšije,',
                 'content' => 'dana '.date('d.m.Y.', strtotime($request->date)).' u '.$request->time.' će biti održana sednica skupštine stanara',
-                'signature' => 'Upravnik zgrade,/n'.Auth::user()->name,
+                'signature' => "Upravnik zgrade,\n".Auth::user()->name,
                 'email_sent' => $email_sent
             ]);
         }
@@ -312,7 +312,7 @@ class CouncilsController extends Controller
                 'date' => date('Y-m-d'),
                 'greeting' => 'Poštovane komšije,',
                 'content' => 'dana '.date('d.m.Y.', strtotime($request->date)).' u '.$request->time.' će biti održana sednica skupštine stanara',
-                'signature' => 'Upravnik zgrade,/n'.Auth::user()->name,
+                'signature' => "Upravnik zgrade,\n".Auth::user()->name,
             );
 
             $space = Space::where('council_id', '=', $request->council_id)->first();
