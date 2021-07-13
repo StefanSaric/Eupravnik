@@ -78,6 +78,10 @@ class AdminController extends Controller
             $array[$num]['id'] = $announcement->id;
         }
 
+        if(!isset($num)) {
+            $num = 0;
+        }
+
         //dodavanje Obaveza
         $duties = Duty::where('user_id', '=', Auth::user()->id)->get();
         foreach ($duties as $duty){
@@ -90,7 +94,6 @@ class AdminController extends Controller
             $array[$num]['color'] = '#00bcd4';
             $array[$num]['id'] = $duty->id;
         }
-
 
         $data = json_encode($array);
 
