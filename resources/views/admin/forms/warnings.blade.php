@@ -19,7 +19,13 @@
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
         <select name="address_id" id="address_id" class="form-control" required>
-            <option value="" disabled selected>Izaberite</option>
+            @if(isset($warning))
+                @foreach($addresses as $address)
+                    <option id="address_id" value="{{ $address->id }}" @if(isset($warning))@if($warning->address_id == $address->id) selected="selected" @endif @endif>{{ $address->address}}</option>
+                @endforeach
+            @else
+                <option value="" disabled selected>Izaberite</option>
+            @endif
         </select>
         <label for="address_id" class="">Adresa</label>
     </div>
@@ -28,7 +34,13 @@
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
         <select name="space_id" id="space_id" class="form-control" required>
-            <option value="" disabled selected>{{__('Izaberite')}}</option>
+            @if(isset($warning))
+                @foreach($spaces as $space)
+                    <option id="space_id" value="{{ $space->id }}" @if(isset($warning))@if($warning->space_id == $space->id) selected="selected" @endif @endif>{{ $space->representative}} - Sprat: {{$space->floor_number}} - Stan: {{$space->apartment_number}}</option>
+                @endforeach
+            @else
+                <option value="" disabled selected>{{__('Izaberite')}}</option>
+            @endif
         </select>
         <label for="space_id" class="">{{__('Obveznik')}}</label>
     </div>

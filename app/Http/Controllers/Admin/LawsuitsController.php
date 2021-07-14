@@ -117,10 +117,12 @@ class LawsuitsController extends Controller
     {
         $lawsuit = Lawsuit::find($id);
         $councils = Council::where('user_id', '=', Auth::user()->id)->get();
+        $addresses = CouncilAddress::where('council_id', '=', $lawsuit->council_id)->get();
+        $spaces = Space::where('id', '=', $lawsuit->space_id)->get();
         $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
         $enforcers = Enforcer::where('user_id', '=', Auth::user()->id)->get();
 
-        return view ('admin.lawsuits.edit', ['active' => 'addLawsuit', 'lawsuit' => $lawsuit, 'councils' => $councils, 'partners' => $partners, 'enforcers' => $enforcers ]);
+        return view ('admin.lawsuits.edit', ['active' => 'addLawsuit', 'lawsuit' => $lawsuit, 'councils' => $councils, 'partners' => $partners, 'enforcers' => $enforcers, 'addresses' => $addresses, 'spaces' => $spaces ]);
     }
 
     public function update(Request $request)

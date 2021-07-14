@@ -107,6 +107,6 @@
 @stop
 
 @section('pageScripts')
-    <script src="{{ asset('/js/datatable.js') }}"></script>
+{{--    <script src="{{ asset('/js/datatable.js') }}"></script>--}}
     <script src="{{ asset('/js/users.js') }}"></script>
 @stop
