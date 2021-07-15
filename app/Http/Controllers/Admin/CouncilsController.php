@@ -542,8 +542,12 @@ class CouncilsController extends Controller
             $contracts = DB::table('contracts')
                 ->where('contracts.council_id', '=', $council->council_id)
                 ->join('partners', 'partners.id', '=', 'contracts.partner_id')
-                ->where('date_from', '<=', Carbon::now()->subHour())
-                ->where('date_to', '>=', Carbon::now()->subMonth())
+                ->where('date_from', '<=', Carbon::now()->subMonth())
+                ->where('date_to', '>=', Carbon::now()->subHour())
+                ->orWhere(function ($query) {
+                    $query->where('date_from', '<=', Carbon::now()->subMonth())
+                          ->whereBetween('date_to', array(Carbon::now()->subMonth(), Carbon::now()->subHour()));
+                })
                 ->select('contracts.id as id',
                     'partners.name as partner',
                     'contracts.description as description',
