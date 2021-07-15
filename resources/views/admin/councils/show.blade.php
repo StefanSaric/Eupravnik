@@ -403,7 +403,7 @@
                                         </div>
                                     </div>
                                     <div class='row'>
-                                        <table id="billstable" class="display">
+                                        <table id="billstable" class="display" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
@@ -453,6 +453,7 @@
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
+                                                    <th></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -470,7 +471,7 @@
                                         </div>
                                     </div>
                                     <div class='row' >
-                                        <table id="transactionstable" class="display table-responsive">
+                                        <table id="transactionstable" class="display table-responsive" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
@@ -482,9 +483,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($transactions as $transaction)
+                                                @foreach($transactions as $num=>$transaction)
                                                 <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;{{++$num}}</td>
                                                     <td>{{ date('d.m.Y.', strtotime($transaction->date))}}</td>
                                                     <td>{{ $transaction->amount }}</td>
                                                     <td>@if($transaction->type == 'income'){{__('Prihod')}}
@@ -524,7 +525,7 @@
                                         </div>
                                     </div>
                                     <div class='row' >
-                                        <table id="announcementstable" class="display table-responsive">
+                                        <table id="announcementstable" class="display table-responsive" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>
@@ -536,9 +537,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($announcements as $announcement)
+                                                @foreach($announcements as $num=>$announcement)
                                                 <tr class="gradeX">
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;{{++$num}}</td>
                                                     <td>{{ $announcement->name }}</td>
                                                     <td>{{ date('d.m.Y.', strtotime($announcement->date))}}</td>
                                                     <td>@if($announcement->email_sent == 1){{__('Da')}}
@@ -582,7 +583,7 @@
                                         </div>
                                     </div>
                                     <div class='row' >
-                                        <table id="meetingstable" class="display table-responsive">
+                                        <table id="meetingstable" class="display table-responsive" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th>&nbsp;&nbsp;&nbsp;#</th>

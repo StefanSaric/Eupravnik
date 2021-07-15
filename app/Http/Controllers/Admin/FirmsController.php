@@ -71,8 +71,8 @@ class FirmsController extends Controller
 
         //dd($request->all());
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'unique:firms'],
-            'email' => ['required', 'unique:firms'],
+            'name' => ['required', 'unique:firms,name,'.$request->id],
+            'email' => ['required', 'unique:firms,email,'.$request->id],
             'password' => 'required'
         ]);
         if ($validator->fails()) {

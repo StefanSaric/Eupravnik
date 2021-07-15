@@ -30,8 +30,7 @@ class StewardsController extends Controller
         //dd($request->all());
 
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'unique:firms'],
-            'email' => ['required', 'unique:firms'],
+            'email' => ['required', 'unique:stewards'],
             'password' => 'required'
         ]);
         if ($validator->fails()) {
@@ -72,8 +71,8 @@ class StewardsController extends Controller
     public function update (Request $request) {
 
         $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'email' => 'required',
+            'name' => ['required', 'unique:stewards,name,'.$request->id],
+            'email' => ['required', 'unique:stewards,email,'.$request->id],
             'password' => 'required'
         ]);
         if ($validator->fails()) {
