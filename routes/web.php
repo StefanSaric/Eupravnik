@@ -134,6 +134,8 @@ Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function (
     Route::post('/workers/store', 'Admin\WorkersController@store');
     Route::get('/workers/{id}/edit', 'Admin\WorkersController@edit');
     Route::post('/workers/update', 'Admin\WorkersController@update');
+    Route::get('/workers/{id}/delete', 'Admin\WorkersController@delete');
+
 
     Route::get('/enforcers', 'Admin\EnforcersController@index');
     Route::get('/enforcers/create', 'Admin\EnforcersController@create');

@@ -85,6 +85,8 @@
                                                             <td>
                                                                 <a href="{{url('/admin/workers/'.$worker->id.'/edit')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-green-teal" data-position="top" data-tooltip="{{__('Uredi radnika')}}">
                                                                     <i class="material-icons">create</i></a>
+                                                                <a href="{{url('/admin/workers/'.$worker->id.'/delete')}}" class="btn-small tooltipped mb-6 waves-effect waves-light gradient-45deg-red-pink" data-position="top" data-tooltip="{{__('Obriši radnika')}}">
+                                                                    <i class="material-icons">delete</i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

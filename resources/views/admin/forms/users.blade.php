@@ -5,7 +5,7 @@
 <div class="row"><!--Start 'name' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>account_circle</i>
-        <input type="text" name="name" id="name" class="validate @error('email') invalid @enderror"
+        <input type="text" name="name" id="name" class="validate @error('name') invalid @enderror"
                value="@if(isset($user)){{ $user->name }}@else{{ old('name') }}@endif" @if(isset($user) || old('name') != null) placeholder="" @endif required></input>
         <label for="name" class="">{{__('Ime')}}</label>
     </div>
@@ -21,7 +21,7 @@
 <div class="row"><!--Start 'password' form field-->
     <div class="input-field col s12">
         <i class='material-icons prefix'>vpn_key</i>
-        <input type="password" name="password" id="password" class="validate @error('email') invalid @enderror"
+        <input type="password" name="password" id="password" class="validate @error('password') invalid @enderror"
                value="@if(!isset($user)){{old('password')}}@endif" @if(isset($user) || old('password') != null) placeholder="" @endif required></input>
         <label for="password" class="">{{__('Lozinka')}}</label>
     </div>

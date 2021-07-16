@@ -72,4 +72,12 @@ class WorkersController extends Controller
         return redirect('admin/workers');
 
     }
+
+    public function delete ($id) {
+
+        $worker = Worker::find($id);
+        $worker->delete();
+
+        return redirect('admin/workers');
+    }
 }

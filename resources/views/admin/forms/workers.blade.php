@@ -15,7 +15,7 @@
         <i class='material-icons prefix'>group</i>
         <select name="type_id" id="type_id" class="form-control" required>
             @foreach($types as $type)
-                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                <option value="{{ $type->id }}" @if(isset($worker))@if($worker->type_id == $type->id) selected="selected" @endif @endif>{{ $type->name }}</option>
             @endforeach
         </select>
         <label for="type_id" class="">{{__('Tip Radnika')}}</label>

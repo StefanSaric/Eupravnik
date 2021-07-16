@@ -658,6 +658,15 @@ class CouncilsController extends Controller
 
     public function storeSpace(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'email' => ['required', 'unique:spaces'],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $space = Space::create([
             'council_address_id' => $request->council_address_id,
             'council_id' => $request->council_id,
@@ -690,6 +699,15 @@ class CouncilsController extends Controller
 
     public function updateSpace(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'email' => ['required', 'unique:spaces,email,'.$request->space_id],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $space = Space::find($request->space_id);
         $space->update($request->all());
 

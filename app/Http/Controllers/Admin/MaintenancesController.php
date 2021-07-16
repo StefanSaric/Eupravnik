@@ -291,10 +291,15 @@ class MaintenancesController extends Controller
      */
     public function delete($group_id)
     {
+        $documents = Document::where('type_id', '=', $group_id)
+                            ->where('type', '=', 'maintenance')
+                            ->get();
+        foreach ($documents as $document){
+            $document->delete();
+        }
+
         $maintenances = Maintenance::where('group_id', '=', $group_id)->get();
-
         foreach ($maintenances as $maintenance){
-
             $maintenance->delete();
         }
 

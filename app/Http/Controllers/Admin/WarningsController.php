@@ -109,7 +109,7 @@ class WarningsController extends Controller
         $warning = Warning::find($id);
         $councils = Council::where('user_id', '=', Auth::user()->id)->get();
         $addresses = CouncilAddress::where('council_id', '=', $warning->council_id)->get();
-        $spaces = Space::where('id', '=', $warning->space_id)->get();
+        $spaces = Space::where('council_address_id', '=', $warning->address_id)->get();
         $partners = Partner::where('user_id', '=', Auth::user()->id)->get();
 
         return view ('admin.warnings.edit', ['active' => 'addWarning', 'warning' => $warning, 'councils' => $councils, 'partners' => $partners, 'addresses' => $addresses, 'spaces' => $spaces ]);
