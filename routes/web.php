@@ -22,6 +22,7 @@ Auth::routes();
 Route::post('/password/sendemail', 'Admin\PasswordController@sendPasswordEmail');
 Route::get('/password/change', 'Admin\PasswordController@PasswordChange');
 Route::post('/password/save', 'Admin\PasswordController@savePassword');
+Route::get('councils/monthlyBill', 'Admin\CouncilsController@monthlyBill');
 
 
 Route::group(['prefix' => 'admin','middleware' => ['role:Super Admin']], function () {
@@ -80,6 +81,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('/councils', 'Admin\CouncilsController@index');
     Route::get('/councils/show/{id}', 'Admin\CouncilsController@show');
 
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function () {
 
     Route::get('/councils/addBill/{id}', 'Admin\CouncilsController@addBill');
     Route::post('/councils/storeBill', 'Admin\CouncilsController@storeBill');
@@ -125,9 +129,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('/councils/get-real-price/{id}/{price}', 'Admin\CouncilsController@getRealPrice');
 
-});
-
-Route::group(['prefix' => 'admin','middleware' => ['role:Upravnik']], function () {
 
     Route::get('/workers', 'Admin\WorkersController@index');
     Route::get('/workers/create', 'Admin\WorkersController@create');

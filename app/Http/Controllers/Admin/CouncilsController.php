@@ -379,7 +379,7 @@ class CouncilsController extends Controller
             'greeting' => $request->greeting,
             'content' => $request->content,
             'signature' => $request->signature,
-            'email_sent' => 0
+            'email_sent' => 1
         ]);
         $data = array(
             'name' => $request->name,
