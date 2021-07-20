@@ -107,17 +107,16 @@ class EnforcersController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:50',
             'email' => 'required|email|unique:enforcers,email,' . $request->enforcer_id,
-            'phone' => 'max:50',
-            'address' => 'max:255',
+            'phone' => 'required|max:50',
+            'address' => 'required|max:255',
             'city' => 'required|max:50',
-            'postcode' => 'max:50',
-            'account' => 'max:50',
-            'pib' => 'max:50',
-            'maticni' => 'max:50',
+            'postcode' => 'required|max:50',
+            'account' => 'required|max:50',
+            'pib' => 'required|max:50',
+            'maticni' => 'required|max:50',
             'br_resenja' => 'required|max:50',
             'status' => ''
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)

@@ -72,6 +72,3 @@
     <script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>
 @stop
 
-@section('pageScripts')
-    <script src="{{ asset('js/enforcers-form.js') }}"></script>
-@stop

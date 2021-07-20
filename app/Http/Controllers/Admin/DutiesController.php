@@ -108,9 +108,17 @@ class DutiesController extends Controller
      */
     public function update(Request $request)
     {
-        //dd($request);
+        $validator = Validator::make($request->all(),[
+            'name'       => 'required',
+            'description' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $id = $request->duty_id;
-        //dd($id);
         $duty = Duty::find($id);
 
         //dd($request->time_from);

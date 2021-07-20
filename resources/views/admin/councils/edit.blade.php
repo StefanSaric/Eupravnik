@@ -8,7 +8,7 @@
 @section('pageCss')
 <link rel="stylesheet" type="text/css" href="{{asset('css/users-form.css')}}"/>
 @stop
-    
+
 @section('content')
 <div class="row">
     <div id="breadcrumbs-wrapper" data-image="{{asset('images/breadcrumb-bg.jpg')}}">
@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Uredjivanje korisnika')}}</span></h5>
+                    <h5 class="breadcrumbs-title mt-0 mb-0"><span>{{__('Uredjivanje skupštine')}}</span></h5>
                 </div>
                 <div class="col s12 m6 l6 right-align-md">
                     <ol class="breadcrumbs mb-0">
@@ -63,15 +63,15 @@
                 </div>
             </div>
         </div>
-    </div>                      
+    </div>
 </div>
 @stop
 
 @section('vendorScripts')
-<script src="{{ asset('vendors/jquery-validation/jquery.validate.js') }}"></script>
-<script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>	
+    <script src="{{ asset('vendors/jquery-validation/jquery.validate.js') }}"></script>
+    <script src="{{ asset('vendors/select2/select2.full.min.js') }}"></script>
 @stop
 
 @section('pageScripts')
-<script src="{{ asset('js/councils-form.js') }}"></script>
+{{--    <script src="{{ asset('js/councils-form.js') }}"></script>--}}
 @stop

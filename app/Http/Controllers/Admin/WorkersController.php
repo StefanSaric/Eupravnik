@@ -37,9 +37,8 @@ class WorkersController extends Controller
     }
 
     public function store (Request $request) {
-        $worker = Worker::create(['email' => $request->email,
-            //'password' => $request->password,
-            //'password_confirm' => $request->password_confirm,
+        $worker = Worker::create([
+            'email' => $request->email,
             'user_id' => Auth::user()->id,
             'type_id' => $request->type_id,
             'first_name' => $request->first_name,
@@ -61,6 +60,19 @@ class WorkersController extends Controller
 
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'email'     => 'required',
+            'first_name'=> 'required',
+            'last_name' => 'required',
+            'address'   => 'required',
+            'telephone' => 'required',
+            'licence'   => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
         $id = $request->worker_id;
         $worker = Worker::find($id);
         $worker->update($request->except(['password']));

@@ -6,7 +6,7 @@
 <div class="row"><!--Start 'Council' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="council_id" id="council_id" class="form-control" required>
+        <select name="council_id" id="council_id" class="form-control">
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($councils as $council)
                 <option id="council_id" value="{{ $council->id }}" @if(isset($lawsuit))@if($lawsuit->council_id == $council->id) selected="selected" @endif @endif>{{ $council->name }}</option>
@@ -18,7 +18,7 @@
 <div class="row" id="address_div"><!--Start 'Address' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="address_id" id="address_id" class="form-control" required>
+        <select name="address_id" id="address_id" class="form-control">
             @if(isset($lawsuit))
                 @foreach($addresses as $address)
                     <option id="address_id" value="{{ $address->id }}" @if(isset($lawsuit))@if($lawsuit->address_id == $address->id) selected="selected" @endif @endif>{{ $address->address}}</option>
@@ -33,7 +33,7 @@
 <div class="row"><!--Start 'Obveznik' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="space_id" id="space_id" class="form-control" required>
+        <select name="space_id" id="space_id" class="form-control">
             @if(isset($lawsuit))
                 @foreach($spaces as $space)
                     <option id="space_id" value="{{ $space->id }}" @if(isset($lawsuit))@if($lawsuit->space_id == $space->id) selected="selected" @endif @endif>{{ $space->representative}} - Sprat: {{$space->floor_number}} - Stan: {{$space->apartment_number}}</option>
@@ -48,7 +48,7 @@
 <div class="row"><!--Start 'Izvršitelj' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="enforcer_id" id="enforcer_id" class="form-control" required>
+        <select name="enforcer_id" id="enforcer_id" class="form-control">
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($enforcers as $enforcer)
                 <option value="{{ $enforcer->id }}" @if(isset($lawsuit))@if($lawsuit->enforcer_id == $enforcer->id) selected="selected" @endif @endif>{{ $enforcer->name }}</option>

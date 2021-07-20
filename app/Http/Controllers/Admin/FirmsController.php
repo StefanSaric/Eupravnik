@@ -28,7 +28,7 @@ class FirmsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'unique:firms'],
-            'email' => ['required', 'unique:firms'],
+            'email' => ['required', 'unique:firms', 'unique:users'],
             'password' => 'required'
         ]);
         if ($validator->fails()) {
@@ -53,7 +53,7 @@ class FirmsController extends Controller
             'pib' => $request->pib,
             'id_number' => $request->id_number,
             'account' => $request->account,
-            'password' => $request->password,
+            'password' => bcrypt($request->input('password')),
             'percentage' => $request->percentage,
         ]);
 
@@ -73,7 +73,15 @@ class FirmsController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'unique:firms,name,'.$request->id],
             'email' => ['required', 'unique:firms,email,'.$request->id],
-            'password' => 'required'
+            'password' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'post' => 'required',
+            'phone' => 'required',
+            'pib' => 'required',
+            'id_number' => 'required',
+            'account' => 'required',
+            'percentage' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()

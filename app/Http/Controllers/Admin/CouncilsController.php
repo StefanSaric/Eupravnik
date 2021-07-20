@@ -173,6 +173,24 @@ class CouncilsController extends Controller
      */
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name'      => 'required',
+            'short_name'=> 'required',
+            'city'      => 'required',
+            'area'      => 'required',
+            'account'   => 'required',
+            'maticni'   => 'required',
+            'latitude'  => 'required',
+            'longitude' => 'required',
+            'pib'       => 'required',
+            'phone'     => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $id = $request->council_id;
         $council = Council::find($id);
         $council->update($request->all());
@@ -229,6 +247,22 @@ class CouncilsController extends Controller
 
     public function updateAddress(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'address' => 'required',
+            'protection_status' => 'required',
+            'area_size' => 'required',
+            'built_year' => 'required',
+            'short_name' => 'required',
+            'floors_number' => 'required',
+            'elevators_number' => 'required',
+            'energy_passport' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $address = CouncilAddress::find($request->council_address_id);
         $address->update($request->all());
 

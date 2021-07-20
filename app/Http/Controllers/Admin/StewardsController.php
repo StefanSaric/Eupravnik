@@ -71,9 +71,15 @@ class StewardsController extends Controller
     public function update (Request $request) {
 
         $validator = Validator::make($request->all(),[
-            'name' => ['required', 'unique:stewards,name,'.$request->id],
-            'email' => ['required', 'unique:stewards,email,'.$request->id],
-            'password' => 'required'
+            'name'      => ['required', 'unique:stewards,name,'.$request->id],
+            'last_name' => 'required',
+            'jmbg'      => 'required',
+            'email'     => ['required', 'unique:stewards,email,'.$request->id],
+            'password'  => 'required',
+            'phone'     => 'required',
+            'address'   => 'required',
+            'licence'   => 'required',
+            'account'   => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()

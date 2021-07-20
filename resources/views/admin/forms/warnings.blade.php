@@ -6,7 +6,7 @@
 <div class="row"><!--Start 'Council' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="council_id" id="council_id" class="form-control" required>
+        <select name="council_id" id="council_id" class="form-control">
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($councils as $council)
                 <option value="{{ $council->id }}" @if(isset($warning))@if($warning->council_id == $council->id) selected="selected" @endif @endif>{{ $council->name }}</option>
@@ -18,7 +18,7 @@
 <div class="row" id="address_div"><!--Start 'Address' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="address_id" id="address_id" class="form-control" required>
+        <select name="address_id" id="address_id" class="form-control">
             @if(isset($warning))
                 @foreach($addresses as $address)
                     <option id="address_id" value="{{ $address->id }}" @if(isset($warning))@if($warning->address_id == $address->id) selected="selected" @endif @endif>{{ $address->address}}</option>
@@ -33,7 +33,7 @@
 <div class="row"><!--Start 'Obveznik' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="space_id" id="space_id" class="form-control" required>
+        <select name="space_id" id="space_id" class="form-control">
             @if(isset($warning))
                 @foreach($spaces as $space)
                     <option id="space_id" value="{{ $space->id }}" @if(isset($warning))@if($warning->space_id == $space->id) selected="selected" @endif @endif>{{ $space->representative}} - Sprat: {{$space->floor_number}} - Stan: {{$space->apartment_number}}</option>

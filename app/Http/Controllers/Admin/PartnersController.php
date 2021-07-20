@@ -103,19 +103,18 @@ class PartnersController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'partner_code' => 'max:50',
+            'partner_code' => 'required|max:50',
             'name' => 'required|max:50',
             'email' => 'required|email|unique:partners,email,' . $request->partner_id,
-            'phone' => 'max:50',
-            'address' => 'max:255',
+            'phone' => 'required|max:50',
+            'address' => 'required|max:255',
             'city' => 'required|max:50',
-            'postcode' => 'max:50',
-            'account' => 'max:50',
-            'pib' => 'max:50',
-            'maticni' => 'max:50',
+            'postcode' => 'required|max:50',
+            'account' => 'required|max:50',
+            'pib' => 'required|max:50',
+            'maticni' => 'required|max:50',
             'status' => ''
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)

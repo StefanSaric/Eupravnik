@@ -12,6 +12,7 @@ use Auth;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class OffersController extends Controller
 {
@@ -70,7 +71,16 @@ class OffersController extends Controller
 
     public function update(Request $request)
     {
-        //dd($request->all());
+        $validator = Validator::make($request->all(),[
+            'price'       => 'required',
+            'description' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $id = $request->offer_id;
         $offer = Offer::find($id);
         $offer->update($request->all());

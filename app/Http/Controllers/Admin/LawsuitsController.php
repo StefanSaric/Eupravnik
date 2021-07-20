@@ -127,6 +127,19 @@ class LawsuitsController extends Controller
 
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'council_id' => 'required',
+            'address_id' => 'required',
+            'space_id' => 'required',
+            'enforcer_id' => 'required',
+            'price' => 'required',
+            'status' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
         $id = $request->lawsuit_id;
         $lawsuit = Lawsuit::find($id);
         $lawsuit->update($request->all());
