@@ -442,6 +442,18 @@ class CouncilsController extends Controller
 
     public function updateAnnouncement(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'greeting' => 'required',
+            'content' => 'required',
+            'signature' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $announcement = Announcement::find($request->announcement_id);
         $announcement->update($request->all());
 
@@ -506,6 +518,15 @@ class CouncilsController extends Controller
 
     public function storeBill(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'owner' => 'required',
+            'partner' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
         $bill = Bill::create([
             'council_id' => $request->council_id,
             'date' => $request->date,
@@ -536,6 +557,15 @@ class CouncilsController extends Controller
 
     public function updateBill(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'price' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $bill = Bill::find($request->bill_id);
         $bill->update($request->all());
 
@@ -659,6 +689,16 @@ class CouncilsController extends Controller
 
     public function updateTransaction(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'price' => 'required',
+            'note' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
+
         $transaction = Transaction::find($request->transaction_id);
         $transaction->update($request->all());
 
@@ -735,6 +775,13 @@ class CouncilsController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'email' => ['required', 'unique:spaces,email,'.$request->space_id],
+            'representative' => 'required',
+            'phone' => 'required',
+            'floor_number' => 'required',
+            'apartment_number' => 'required',
+            'household_members_number' => 'required',
+            'reported_area_size' => 'required',
+            'on_site_area_size' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -813,7 +860,17 @@ class CouncilsController extends Controller
         return view('admin.councils.editContract', ['active' => 'allCouncils', 'contract' => $contract, 'council' => $council, 'partners' => $partners]);
     }
 
-    public function updateContract (Request $request) {
+    public function updateContract (Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->input());
+        }
 
         $contract = Contract::find($request->contract_id);
         $contract->update($request->all());

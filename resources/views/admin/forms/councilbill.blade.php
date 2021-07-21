@@ -16,7 +16,7 @@
 <div class="row"><!--Start 'owner' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="owner" id="owner" class="form-control" required>
+        <select name="owner" id="owner" class="form-control">
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($spaces as $space)
                 <option value="{{ $space->representative }}" @if(isset($bill))@if($bill->owner == $space->representative) selected="selected" @endif @endif>{{ $space->representative }}</option>
@@ -28,7 +28,7 @@
 <div class="row"><!--Start 'partner' form field-->
     <div class="input-field col s12 m6 l6">
         <i class='material-icons prefix'>group</i>
-        <select name="partner" id="partner" class="form-control" required>
+        <select name="partner" id="partner" class="form-control">
             <option value="" disabled selected>{{__('Izaberite')}}</option>
             @foreach($partners as $partner)
                 <option value="{{ $partner->name }}" @if(isset($bill))@if($bill->partner == $partner->name) selected="selected" @endif @endif>{{ $partner->name }}</option>
